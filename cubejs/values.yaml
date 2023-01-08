@@ -120,14 +120,14 @@ config:
   topicName:
 
   ## The config volumes
-  ## Will be used to both master and workers
+  ## Will be used to both api and workers
   volumes: []
   # - name: schema
   #   configMap:
   #     name: schema
 
   ## The config volumeMounts
-  ## Will be used to both master and workers
+  ## Will be used to both api and workers
   volumeMounts: []
   # - name: schema
   #   readOnly: true
@@ -457,7 +457,7 @@ cubestore:
   ##
   port:
 
-master:
+api:
   ## Service account for cubejs master to use
   ##
   serviceAccount:

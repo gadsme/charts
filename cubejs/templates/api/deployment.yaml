@@ -1,7 +1,7 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: {{ printf "%s-master" (include "cubejs.fullname" .) }}
+  name: {{ printf "%s-api" (include "cubejs.fullname" .) }}
   labels:
     {{- include "cubejs.labels" . | nindent 4 }}
     {{- if .Values.commonLabels }}
@@ -14,19 +14,19 @@ metadata:
 spec:
   selector:
     matchLabels:
-      app.kubernetes.io/component: master
+      app.kubernetes.io/component: api
       {{- include "cubejs.selectorLabels" . | nindent 6 }}
   template:
     metadata:
       labels:
-        app.kubernetes.io/component: master
+        app.kubernetes.io/component: api
         {{- include "cubejs.selectorLabels" . | nindent 8 }}
       {{- if .Values.commonAnnotations }}
       annotations:
       {{- toYaml .Values.commonAnnotations | nindent 8 }}
       {{- end }}
     spec:
-      serviceAccountName: {{ template "cubejs.master.serviceAccountName" . }}
+      serviceAccountName: {{ template "cubejs.api.serviceAccountName" . }}
       {{- with .Values.image.pullSecrets }}
       imagePullSecrets:
         {{- toYaml . | nindent 8 }}
@@ -55,57 +55,57 @@ spec:
             {{- end }}
           env:
             {{- include "cubejs.common-env" . | nindent 12 }}
-          {{- if .Values.master.livenessProbe.enabled }}
+          {{- if .Values.api.livenessProbe.enabled }}
           livenessProbe:
-            initialDelaySeconds: {{ .Values.master.livenessProbe.initialDelaySeconds }}
-            periodSeconds: {{ .Values.master.livenessProbe.periodSeconds }}
-            timeoutSeconds: {{ .Values.master.livenessProbe.timeoutSeconds }}
-            successThreshold: {{ .Values.master.livenessProbe.successThreshold }}
-            failureThreshold: {{ .Values.master.livenessProbe.failureThreshold }}
+            initialDelaySeconds: {{ .Values.api.livenessProbe.initialDelaySeconds }}
+            periodSeconds: {{ .Values.api.livenessProbe.periodSeconds }}
+            timeoutSeconds: {{ .Values.api.livenessProbe.timeoutSeconds }}
+            successThreshold: {{ .Values.api.livenessProbe.successThreshold }}
+            failureThreshold: {{ .Values.api.livenessProbe.failureThreshold }}
             httpGet:
               path: /livez
               port: http
-          {{- else if .Values.master.customLivenessProbe }}
+          {{- else if .Values.api.customLivenessProbe }}
           livenessProbe:
-            {{- toYaml .Values.master.customLivenessProbe | nindent 12 }}
+            {{- toYaml .Values.api.customLivenessProbe | nindent 12 }}
           {{- end }}
-          {{- if .Values.master.readinessProbe.enabled }}
+          {{- if .Values.api.readinessProbe.enabled }}
           readinessProbe:
-            initialDelaySeconds: {{ .Values.master.readinessProbe.initialDelaySeconds }}
-            periodSeconds: {{ .Values.master.readinessProbe.periodSeconds }}
-            timeoutSeconds: {{ .Values.master.readinessProbe.timeoutSeconds }}
-            successThreshold: {{ .Values.master.readinessProbe.successThreshold }}
-            failureThreshold: {{ .Values.master.readinessProbe.failureThreshold }}
+            initialDelaySeconds: {{ .Values.api.readinessProbe.initialDelaySeconds }}
+            periodSeconds: {{ .Values.api.readinessProbe.periodSeconds }}
+            timeoutSeconds: {{ .Values.api.readinessProbe.timeoutSeconds }}
+            successThreshold: {{ .Values.api.readinessProbe.successThreshold }}
+            failureThreshold: {{ .Values.api.readinessProbe.failureThreshold }}
             httpGet:
               path: /readyz
               port: http
-          {{- else if .Values.master.customReadinessProbe }}
+          {{- else if .Values.api.customReadinessProbe }}
           readinessProbe:
-            {{- toYaml .Values.master.customReadinessProbe | nindent 12 }}
+            {{- toYaml .Values.api.customReadinessProbe | nindent 12 }}
           {{- end }}
-          {{- if .Values.master.resources }}
+          {{- if .Values.api.resources }}
           resources:
-            {{- toYaml .Values.master.resources | nindent 12 }}
+            {{- toYaml .Values.api.resources | nindent 12 }}
           {{- end }}
           {{- if .Values.config.volumeMounts }}
           volumeMounts:
             {{- toYaml .Values.config.volumeMounts | nindent 12 }}
           {{- end }}
-      {{- if .Values.master.affinity }}
+      {{- if .Values.api.affinity }}
       affinity:
-        {{- toYaml .Values.master.affinity | nindent 8 }}
+        {{- toYaml .Values.api.affinity | nindent 8 }}
       {{- end }}
-      {{- if .Values.master.tolerations }}
+      {{- if .Values.api.tolerations }}
       tolerations:
-        {{- toYaml .Values.master.tolerations | nindent 8 }}
+        {{- toYaml .Values.api.tolerations | nindent 8 }}
       {{- end }}
-      {{- if .Values.master.nodeSelector }}
+      {{- if .Values.api.nodeSelector }}
       nodeSelector:
-        {{- toYaml .Values.master.nodeSelector | nindent 8 }}
+        {{- toYaml .Values.api.nodeSelector | nindent 8 }}
       {{- end }}
-      {{- if .Values.master.spreadConstraints }}
+      {{- if .Values.api.spreadConstraints }}
       topologySpreadConstraints:
-        {{- toYaml .Values.master.spreadConstraints | nindent 8 }}
+        {{- toYaml .Values.api.spreadConstraints | nindent 8 }}
       {{- end }}
       {{- if .Values.config.volumes }}
       volumes:

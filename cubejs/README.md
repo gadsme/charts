@@ -199,14 +199,14 @@ cubestore:
 | `config.preAggregationsSchema`      | The schema name to use for storing pre-aggregations true                                                                        |         |
 | `config.cacheAndQueueDriver`        | The cache and queue driver to use for the Cube.js deployment. Defaults to redis                                                 |         |
 | `config.topicName`                  | The name of the Amazon SNS or Google Cloud Pub/Sub topicredis                                                                   |         |
-| `config.volumes`                    | The config volumes. Will be used to both master and workers                                                                     | `[]`    |
-| `config.volumeMounts`               | The config volumeMounts. Will be used to both master and workers                                                                | `[]`    |
+| `config.volumes`                    | The config volumes. Will be used to both api and workers                                                                     | `[]`    |
+| `config.volumeMounts`               | The config volumeMounts. Will be used to both api and workers                                                                | `[]`    |
 
 ### Redis parameters
 
 | Name                            | Description                                                                                                                                              | Value |
 | ------------------------------- | -------------------------------------------------------------------------------------------------------------------------------------------------------- | ----- |
-| `redis.url`                     | The host URL for a Redis server. Note that this must include the `redis://` protocol prefix.                                                              |       |
+| `redis.url`                     | The host URL for a Redis server. Note that this must include the `redis://` protocol prefix.                                                             |       |
 | `redis.password`                | The password used to connect to the Redis server                                                                                                         |       |
 | `redis.passwordFromSecret.name` | The password used to connect to the Redis server (using secret)                                                                                          |       |
 | `redis.passwordFromSecret.key`  | The password used to connect to the Redis server (using secret)                                                                                          |       |
@@ -315,31 +315,31 @@ cubestore:
 | `cubestore.host` | The hostname of the Cube Store deployment |       |
 | `cubestore.port` | The port of the Cube Store deployment     |       |
 
-### Master parameters
+### Api parameters
 
-| Name                                                 | Description                                                                                                         | Value   |
-| ---------------------------------------------------- | ------------------------------------------------------------------------------------------------------------------- | ------- |
-| `master.serviceAccount.create`                       | Specifies whether a ServiceAccount should be created                                                                | `false` |
-| `master.serviceAccount.name`                         | Name of the service account to use. If not set and create is true, a name is generated using the fullname template. | `""`    |
-| `master.serviceAccount.automountServiceAccountToken` | Automount service account token for the server service account                                                      | `true`  |
-| `master.serviceAccount.annotations`                  | Annotations for service account. Evaluated as a template. Only used if create is true.                              | `{}`    |
-| `master.affinity`                                    | Affinity for pod assignment                                                                                         | `{}`    |
-| `master.spreadConstraints`                           | Topology spread constraint for pod assignment                                                                       | `[]`    |
-| `master.resources`                                   | Define resources requests and limits for single Pods                                                                | `{}`    |
-| `master.livenessProbe.enabled`                       | Enable livenessProbe                                                                                                | `true`  |
-| `master.livenessProbe.initialDelaySeconds`           | Initial delay seconds for livenessProbe                                                                             | `10`    |
-| `master.livenessProbe.periodSeconds`                 | Period seconds for livenessProbe                                                                                    | `30`    |
-| `master.livenessProbe.timeoutSeconds`                | Timeout seconds for livenessProbe                                                                                   | `3`     |
-| `master.livenessProbe.successThreshold`              | Failure threshold for livenessProbe                                                                                 | `1`     |
-| `master.livenessProbe.failureThreshold`              | Success threshold for livenessProbe                                                                                 | `3`     |
-| `master.readinessProbe.enabled`                      | Enable readinessProbe                                                                                               | `true`  |
-| `master.readinessProbe.initialDelaySeconds`          | Initial delay seconds for readinessProbe                                                                            | `10`    |
-| `master.readinessProbe.periodSeconds`                | Period seconds for readinessProbe                                                                                   | `30`    |
-| `master.readinessProbe.timeoutSeconds`               | Timeout seconds for readinessProbe                                                                                  | `3`     |
-| `master.readinessProbe.successThreshold`             | Failure threshold for readinessProbe                                                                                | `1`     |
-| `master.readinessProbe.failureThreshold`             | Success threshold for readinessProbe                                                                                | `3`     |
-| `master.customLivenessProbe`                         | Custom livenessProbe that overrides the default one                                                                 | `{}`    |
-| `master.customReadinessProbe`                        | Custom readinessProbe that overrides the default one                                                                | `{}`    |
+| Name                                              | Description                                                                                                         | Value   |
+| ------------------------------------------------- | ------------------------------------------------------------------------------------------------------------------- | ------- |
+| `api.serviceAccount.create`                       | Specifies whether a ServiceAccount should be created                                                                | `false` |
+| `api.serviceAccount.name`                         | Name of the service account to use. If not set and create is true, a name is generated using the fullname template. | `""`    |
+| `api.serviceAccount.automountServiceAccountToken` | Automount service account token for the server service account                                                      | `true`  |
+| `api.serviceAccount.annotations`                  | Annotations for service account. Evaluated as a template. Only used if create is true.                              | `{}`    |
+| `api.affinity`                                    | Affinity for pod assignment                                                                                         | `{}`    |
+| `api.spreadConstraints`                           | Topology spread constraint for pod assignment                                                                       | `[]`    |
+| `api.resources`                                   | Define resources requests and limits for single Pods                                                                | `{}`    |
+| `api.livenessProbe.enabled`                       | Enable livenessProbe                                                                                                | `true`  |
+| `api.livenessProbe.initialDelaySeconds`           | Initial delay seconds for livenessProbe                                                                             | `10`    |
+| `api.livenessProbe.periodSeconds`                 | Period seconds for livenessProbe                                                                                    | `30`    |
+| `api.livenessProbe.timeoutSeconds`                | Timeout seconds for livenessProbe                                                                                   | `3`     |
+| `api.livenessProbe.successThreshold`              | Failure threshold for livenessProbe                                                                                 | `1`     |
+| `api.livenessProbe.failureThreshold`              | Success threshold for livenessProbe                                                                                 | `3`     |
+| `api.readinessProbe.enabled`                      | Enable readinessProbe                                                                                               | `true`  |
+| `api.readinessProbe.initialDelaySeconds`          | Initial delay seconds for readinessProbe                                                                            | `10`    |
+| `api.readinessProbe.periodSeconds`                | Period seconds for readinessProbe                                                                                   | `30`    |
+| `api.readinessProbe.timeoutSeconds`               | Timeout seconds for readinessProbe                                                                                  | `3`     |
+| `api.readinessProbe.successThreshold`             | Failure threshold for readinessProbe                                                                                | `1`     |
+| `api.readinessProbe.failureThreshold`             | Success threshold for readinessProbe                                                                                | `3`     |
+| `api.customLivenessProbe`                         | Custom livenessProbe that overrides the default one                                                                 | `{}`    |
+| `api.customReadinessProbe`                        | Custom readinessProbe that overrides the default one                                                                | `{}`    |
 
 ### Workers parameters
 
