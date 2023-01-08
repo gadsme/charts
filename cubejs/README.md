@@ -199,8 +199,8 @@ cubestore:
 | `config.preAggregationsSchema`      | The schema name to use for storing pre-aggregations true                                                                        |         |
 | `config.cacheAndQueueDriver`        | The cache and queue driver to use for the Cube.js deployment. Defaults to redis                                                 |         |
 | `config.topicName`                  | The name of the Amazon SNS or Google Cloud Pub/Sub topicredis                                                                   |         |
-| `config.volumes`                    | The config volumes. Will be used to both api and workers                                                                     | `[]`    |
-| `config.volumeMounts`               | The config volumeMounts. Will be used to both api and workers                                                                | `[]`    |
+| `config.volumes`                    | The config volumes. Will be used to both api and workers                                                                        | `[]`    |
+| `config.volumeMounts`               | The config volumeMounts. Will be used to both api and workers                                                                   | `[]`    |
 
 ### Redis parameters
 
@@ -323,6 +323,7 @@ cubestore:
 | `api.serviceAccount.name`                         | Name of the service account to use. If not set and create is true, a name is generated using the fullname template. | `""`    |
 | `api.serviceAccount.automountServiceAccountToken` | Automount service account token for the server service account                                                      | `true`  |
 | `api.serviceAccount.annotations`                  | Annotations for service account. Evaluated as a template. Only used if create is true.                              | `{}`    |
+| `api.apiCount`                                    | Number of api instances to deploy                                                                                   | `1`     |
 | `api.affinity`                                    | Affinity for pod assignment                                                                                         | `{}`    |
 | `api.spreadConstraints`                           | Topology spread constraint for pod assignment                                                                       | `[]`    |
 | `api.resources`                                   | Define resources requests and limits for single Pods                                                                | `{}`    |
