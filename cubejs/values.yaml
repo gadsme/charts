@@ -101,6 +101,10 @@ config:
   ##
   scheduledRefreshTimezones:
 
+  ## How many pre-aggregations refresh worker will build in parallel. Please note changing this param doesn't change queue concurrency and it should be adjusted accordingly
+  ##
+  scheduledRefreshConcurrency:
+
   ## The schema name to use for storing pre-aggregations.
   ## Defaults to dev_pre_aggregations/prod_pre_aggregations for development/production mode
   ##
@@ -574,7 +578,6 @@ workers:
   ## Custom readinessProbe that overrides the default one
   ##
   customReadinessProbe: {}
-
 
   ## Tolerations for pod assignment
   ##
