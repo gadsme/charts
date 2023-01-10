@@ -1,24 +1,43 @@
 # Cubejs Chart
 
-## Installing the Chart
+## Get Helm Repository Info
 
-```bash
-$ cd examples/helm-charts
-$ helm install my-release \
---set database.type=<db-type> \
---set ... \
-./cubejs
+```console
+helm repo add gadsme https://gadsme.github.io/charts
+helm repo update
 ```
 
-## Uninstalling the Chart
+_See [`helm repo`](https://helm.sh/docs/helm/helm_repo/) for command documentation._
 
-To uninstall/delete the `my-release` deployment:
+## Install Chart
 
-```bash
-$ helm delete my-release
+```console
+helm install [RELEASE_NAME] gadsme/cubejs --set [CONFIGURATION]
 ```
 
-## Setup
+The command deploys Cubejs on the Kubernetes cluster using the default configuration.
+
+_See [configuration](#configuration) below._
+
+_See [`helm install`](https://helm.sh/docs/helm/helm_install/) for command documentation._
+
+## Uninstall Chart
+
+```console
+helm uninstall [RELEASE_NAME]
+```
+
+This removes all the Kubernetes components associated with the chart and deletes the release.
+
+_See [`helm uninstall`](https://helm.sh/docs/helm/helm_uninstall/) for command documentation._
+
+## Upgrading Chart
+
+```console
+helm upgrade [RELEASE_NAME] [CHART] --install
+```
+
+## Configuration
 
 By default a router and one worker will be deployed. You can customize the deployment using helm values.
 
@@ -103,13 +122,13 @@ $ helm install my-release \
 --set redis.passwordFromSecret.key=<redis-secret-key> \
 # Cubestore configuration
 --set cubestore.host=<cubestore-host> \
-./cubejs
+gadsme/cubejs
 ```
 
 Or for more readability, using a custom `values.yaml` file:
 
 ```bash
-$ helm install my-release -f path/to/values.yaml ./cubejs
+$ helm install my-release -f path/to/values.yaml gadsme/cubejs
 ```
 
 ```yaml
