@@ -1,6 +1,6 @@
 # Gadsme Helm chart repository
 
-[![License](https://img.shields.io/badge/License-Apache%202.0-blue.svg)](https://opensource.org/licenses/Apache-2.0) ![Release Charts](https://github.com/gadsme/charts/workflows/Release%20Charts/badge.svg?branch=main) [![Releases downloads](https://img.shields.io/github/downloads/gadsme/charts/total.svg)](https://github.com/gadsme/charts/releases)
+[![License](https://img.shields.io/badge/License-Apache%202.0-blue.svg)](https://opensource.org/licenses/Apache-2.0) ![Release Charts](https://github.com/gadsme/charts/workflows/Release%20Charts/badge.svg?branch=main) [![Releases downloads](https://img.shields.io/github/downloads/gadsme/charts/total.svg)](https://github.com/gadsme/charts/releases) [![Artifact Hub](https://img.shields.io/endpoint?url=https://artifacthub.io/badge/repository/gadsme)](https://artifacthub.io/packages/search?repo=gadsme)
 
 ## Usage
 
