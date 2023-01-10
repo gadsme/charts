@@ -1,21 +1,43 @@
 # Cubestore Chart
 
-## Installing the Chart
+## Get Helm Repository Info
 
-```bash
-$ cd examples/helm-charts
-$ helm install my-release ./cubestore
+```console
+helm repo add gadsme https://gadsme.github.io/charts
+helm repo update
 ```
 
-## Uninstalling the Chart
+_See [`helm repo`](https://helm.sh/docs/helm/helm_repo/) for command documentation._
 
-To uninstall/delete the `my-release` deployment:
+## Install Chart
 
-```bash
-$ helm delete my-release
+```console
+helm install [RELEASE_NAME] gadsme/cubestore
 ```
 
-## Customize values
+The command deploys Cubejs on the Kubernetes cluster using the default configuration.
+
+_See [configuration](#configuration) below._
+
+_See [`helm install`](https://helm.sh/docs/helm/helm_install/) for command documentation._
+
+## Uninstall Chart
+
+```console
+helm uninstall [RELEASE_NAME]
+```
+
+This removes all the Kubernetes components associated with the chart and deletes the release.
+
+_See [`helm uninstall`](https://helm.sh/docs/helm/helm_uninstall/) for command documentation._
+
+## Upgrading Chart
+
+```console
+helm upgrade [RELEASE_NAME] [CHART] --install
+```
+
+## Configuration
 
 By default a router and two workers will be deployed. You can customize the deployment using helm values.
 
@@ -35,7 +57,7 @@ $ helm install my-release \
 --set cloudStorage.gcp.credentialsFromSecret.name=<service-account-secret-name> \
 --set cloudStorage.gcp.credentialsFromSecret.key=<service-account-secret-key> \
 --set cloudStorage.gcp.bucket=<my-bucket>
-./cubestore
+gadsme/cubestore
 ```
 
 ## Persistance
@@ -82,13 +104,13 @@ By default local dir are not persisted. You can enable persistance on router and
 
 ### Remote dir parameters
 
-| Name                                   | Description                                                                | Value  |
-| -------------------------------------- | -------------------------------------------------------------------------- | ------ |
-| `remoteDir.persistence.resourcePolicy` | Setting it to "keep" to avoid removing PVCs during a helm delete operation | `keep` |
-| `remoteDir.persistence.size`           | Persistent Volume size                                                     | `10Gi` |
-| `remoteDir.persistence.annotations`    | Additional custom annotations for the PVC                                  | `{}`   |
+| Name                                   | Description                                                                | Value             |
+| -------------------------------------- | -------------------------------------------------------------------------- | ----------------- |
+| `remoteDir.persistence.resourcePolicy` | Setting it to "keep" to avoid removing PVCs during a helm delete operation | `keep`            |
+| `remoteDir.persistence.size`           | Persistent Volume size                                                     | `10Gi`            |
+| `remoteDir.persistence.annotations`    | Additional custom annotations for the PVC                                  | `{}`              |
 | `remoteDir.persistence.accessModes`    | Persistent Volume access modes                                             | [`ReadWriteOnce`] |
-| `remoteDir.persistence.storageClass`   | The storage class to use for the remoteDir pvc                             | `""` |
+| `remoteDir.persistence.storageClass`   | The storage class to use for the remoteDir pvc                             | `""`              |
 
 ### Cloud Storage parameters
 
@@ -151,7 +173,7 @@ By default local dir are not persisted. You can enable persistance on router and
 ### Workers parameters
 
 | Name                                                  | Description                                                                                                         | Value             |
-| ----------------------------------------------------  | ------------------------------------------------------------------------------------------------------------------- | ----------------- |
+| ----------------------------------------------------- | ------------------------------------------------------------------------------------------------------------------- | ----------------- |
 | `workers.serviceAccount.create`                       | Specifies whether a ServiceAccount should be created                                                                | `false`           |
 | `workers.serviceAccount.name`                         | Name of the service account to use. If not set and create is true, a name is generated using the fullname template. | `""`              |
 | `workers.serviceAccount.automountServiceAccountToken` | Automount service account token for the server service account                                                      | `true`            |
