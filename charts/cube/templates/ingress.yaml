@@ -1,10 +1,10 @@
 {{- if .Values.ingress.enabled }}
-apiVersion: {{ include "cubejs.ingress.apiVersion" . }}
+apiVersion: {{ include "cube.ingress.apiVersion" . }}
 kind: Ingress
 metadata:
-  name: {{ include "cubejs.fullname" . }}
+  name: {{ include "cube.fullname" . }}
   labels: 
-    {{- include "cubejs.labels" . | nindent 4 }}
+    {{- include "cube.labels" . | nindent 4 }}
     {{- if .Values.commonLabels }}
     {{- toYaml .Values.commonLabels | nindent 4 }}
     {{- end }}
@@ -18,7 +18,7 @@ metadata:
     {{- end }}
   {{- end }}
 spec:
-  {{- if and .Values.ingress.ingressClassName (eq "true" (include "cubejs.ingress.supportsIngressClassname" .)) }}
+  {{- if and .Values.ingress.ingressClassName (eq "true" (include "cube.ingress.supportsIngressClassname" .)) }}
   ingressClassName: {{ .Values.ingress.ingressClassName | quote }}
   {{- end }}
   rules:
@@ -27,12 +27,12 @@ spec:
       http:
         paths:
           - path: {{ .Values.ingress.path }}
-            {{- if eq "true" (include "cubejs.ingress.supportsPathType" .) }}
+            {{- if eq "true" (include "cube.ingress.supportsPathType" .) }}
             pathType: {{ .Values.ingress.pathType }}
             {{- end }}
             backend:
               service:
-                name: {{ include "cubejs.fullname" . }}
+                name: {{ include "cube.fullname" . }}
                 port: 
                   name: http
     {{- end }}

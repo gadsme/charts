@@ -1,11 +1,13 @@
 apiVersion: v2
-name: cubejs
-description: A Helm chart for Cubejs
+name: cube
+description: A Helm chart for Cube
 type: application
-version: 0.2.0
-appVersion: "0.31.37"
+version: 0.3.0
+appVersion: "0.31.41"
 keywords:
   - cubejs
+  - cube
+
 maintainers:
   - email: luc.vauvillier@gmail.com
     name: Luc Vauvillier

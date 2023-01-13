@@ -1,4 +1,4 @@
-# Cubejs Chart
+# Cube Chart
 
 ## Get Helm Repository Info
 
@@ -12,10 +12,10 @@ _See [`helm repo`](https://helm.sh/docs/helm/helm_repo/) for command documentati
 ## Install Chart
 
 ```console
-helm install [RELEASE_NAME] gadsme/cubejs --set [CONFIGURATION]
+helm install [RELEASE_NAME] gadsme/cube --set [CONFIGURATION]
 ```
 
-The command deploys Cubejs on the Kubernetes cluster using the default configuration.
+The command deploys Cube on the Kubernetes cluster using the default configuration.
 
 _See [configuration](#configuration) below._
 
@@ -34,7 +34,7 @@ _See [`helm uninstall`](https://helm.sh/docs/helm/helm_uninstall/) for command d
 ## Upgrading Chart
 
 ```console
-helm upgrade [RELEASE_NAME] [CHART] --install
+helm upgrade [RELEASE_NAME] gadsme/cube --install
 ```
 
 ## Configuration
@@ -122,13 +122,13 @@ $ helm install my-release \
 --set redis.passwordFromSecret.key=<redis-secret-key> \
 # Cubestore configuration
 --set cubestore.host=<cubestore-host> \
-gadsme/cubejs
+gadsme/cube
 ```
 
 Or for more readability, using a custom `values.yaml` file:
 
 ```bash
-$ helm install my-release -f path/to/values.yaml gadsme/cubejs
+$ helm install my-release -f path/to/values.yaml gadsme/cube
 ```
 
 ```yaml
@@ -187,39 +187,39 @@ cubestore:
 | Name                | Description                                                                             | Value          |
 | ------------------- | --------------------------------------------------------------------------------------- | -------------- |
 | `image.repository`  | Cubestore image repository                                                              | `cubejs/cube`  |
-| `image.tag`         | Cubestore image tag (immutable tags are recommended)                                    | `0.28.26`      |
+| `image.tag`         | Cubestore image tag (immutable tags are recommended)                                    | `0.31.41`      |
 | `image.pullPolicy`  | Cubestore image pull policy                                                             | `IfNotPresent` |
 | `image.pullSecrets` | If defined, uses a Secret to pull an image from a private Docker registry or repository | `[]`           |
 
 ### Config parameters
 
-| Name                                | Description                                                                                                                     | Value   |
-| ----------------------------------- | ------------------------------------------------------------------------------------------------------------------------------- | ------- |
-| `config.apiPort`                    | The port for a Cube.js deployment to listen to API connections on                                                               | `4000`  |
-| `config.sqlPort`                    | The port for a Cube.js deployment to listen to SQL connections on                                                               |         |
-| `config.pgSqlPort`                  | The port for a Cube.js deployment to listen to Postgres SQL connections on                                                      |         |
-| `config.sqlUser`                    | The username to access the SQL api                                                                                              |         |
-| `config.sqlPassword`                | The password to access the SQL api                                                                                              |         |
-| `config.sqlPasswordFromSecret.name` | The password to access the SQL api (using secret)                                                                               |         |
-| `config.sqlPasswordFromSecret.key`  | The password to access the SQL api (using secret)                                                                               |         |
-| `config.devMode`                    | If true, enables development mode                                                                                               | `false` |
-| `config.debug`                      | If true, enables debug logging                                                                                                  | `false` |
-| `config.logLevel`                   | The logging level for Cube.js                                                                                                   | `warn`  |
-| `config.externalDefault`            | If true, uses Cube Store or an external database for storing Pre-aggregations                                                   | `true`  |
-| `config.telemetry`                  | If true, then send telemetry to CubeJS                                                                                          | `false` |
-| `config.apiSecret`                  | The secret key used to sign and verify JWTs. Generated on project scaffold                                                      |         |
-| `config.apiSecretFromSecret.name`   | The secret key used to sign and verify JWTs. Generated on project scaffold (using secret)                                       |         |
-| `config.apiSecretFromSecret.key`    | The secret key used to sign and verify JWTs. Generated on project scaffold (using secret)                                       |         |
-| `config.schemaPath`                 | The path where Cube.js loads schemas from. Defaults to schema                                                                   |         |
-| `config.app`                        | An application ID used to uniquely identify the Cube.js deployment. Can be different for multitenant setups. Defaults to cubejs |         |
-| `config.rollupOnly`                 | If true, this instance of Cube.js will only query rollup pre-aggregations. Defaults to false                                    |         |
-| `config.scheduledRefreshTimezones`  | A comma-separated list of timezones to schedule refreshes for                                                                   |         |
-| `config.webSockets`                 | If true, then use WebSocket for data fetching. Defaults to true                                                                 |         |
-| `config.preAggregationsSchema`      | The schema name to use for storing pre-aggregations true                                                                        |         |
-| `config.cacheAndQueueDriver`        | The cache and queue driver to use for the Cube.js deployment. Defaults to redis                                                 |         |
-| `config.topicName`                  | The name of the Amazon SNS or Google Cloud Pub/Sub topicredis                                                                   |         |
-| `config.volumes`                    | The config volumes. Will be used to both api and workers                                                                        | `[]`    |
-| `config.volumeMounts`               | The config volumeMounts. Will be used to both api and workers                                                                   | `[]`    |
+| Name                                | Description                                                                                                                  | Value   |
+| ----------------------------------- | ---------------------------------------------------------------------------------------------------------------------------- | ------- |
+| `config.apiPort`                    | The port for a Cube deployment to listen to API connections on                                                               | `4000`  |
+| `config.sqlPort`                    | The port to listen to MySQL-compatible connections on                                                                        |         |
+| `config.pgSqlPort`                  | The port to listen to Postgres-compatible connections on                                                                     |         |
+| `config.sqlUser`                    | The username to access the SQL api                                                                                           |         |
+| `config.sqlPassword`                | The password to access the SQL api                                                                                           |         |
+| `config.sqlPasswordFromSecret.name` | The password to access the SQL api (using secret)                                                                            |         |
+| `config.sqlPasswordFromSecret.key`  | The password to access the SQL api (using secret)                                                                            |         |
+| `config.devMode`                    | If true, enables development mode                                                                                            | `false` |
+| `config.debug`                      | If true, enables debug logging                                                                                               | `false` |
+| `config.logLevel`                   | The logging level for Cube                                                                                                   | `warn`  |
+| `config.externalDefault`            | If true, uses Cube Store or an external database for storing Pre-aggregations                                                | `true`  |
+| `config.telemetry`                  | If true, then send telemetry to Cube                                                                                         | `false` |
+| `config.apiSecret`                  | The secret key used to sign and verify JWTs. Generated on project scaffold                                                   |         |
+| `config.apiSecretFromSecret.name`   | The secret key used to sign and verify JWTs. Generated on project scaffold (using secret)                                    |         |
+| `config.apiSecretFromSecret.key`    | The secret key used to sign and verify JWTs. Generated on project scaffold (using secret)                                    |         |
+| `config.schemaPath`                 | The path where Cube loads schemas from. Defaults to schema                                                                   |         |
+| `config.app`                        | An application ID used to uniquely identify the Cube deployment. Can be different for multitenant setups. Defaults to cubejs |         |
+| `config.rollupOnly`                 | If true, this instance of Cube will only query rollup pre-aggregations. Defaults to false                                    |         |
+| `config.scheduledRefreshTimezones`  | A comma-separated list of timezones to schedule refreshes for                                                                |         |
+| `config.webSockets`                 | If true, then use WebSocket for data fetching. Defaults to true                                                              |         |
+| `config.preAggregationsSchema`      | The schema name to use for storing pre-aggregations true                                                                     |         |
+| `config.cacheAndQueueDriver`        | The cache and queue driver to use for the Cube deployment. Defaults to redis                                                 |         |
+| `config.topicName`                  | The name of the Amazon SNS or Google Cloud Pub/Sub topicredis                                                                |         |
+| `config.volumes`                    | The config volumes. Will be used to both api and workers                                                                     | `[]`    |
+| `config.volumeMounts`               | The config volumeMounts. Will be used to both api and workers                                                                | `[]`    |
 
 ### Redis parameters
 
@@ -393,8 +393,8 @@ cubestore:
 | Name                       | Description                                                                     | Value                    |
 | -------------------------- | ------------------------------------------------------------------------------- | ------------------------ |
 | `ingress.enabled`          | Set to true to enable ingress record generation                                 | `false`                  |
-| `ingress.hostname`         | When the ingress is enabled, a host pointing to this will be created            | `cubejs.local`           |
-| `ingress.path`             | The Path to Cubejs                                                              | `/`                      |
+| `ingress.hostname`         | When the ingress is enabled, a host pointing to this will be created            | `cube.local`             |
+| `ingress.path`             | The Path to Cube                                                                | `/`                      |
 | `ingress.pathPrefix`       | The PathPrefix                                                                  | `ImplementationSpecific` |
 | `ingress.ingressClassName` | The Ingress class name                                                          |                          |
 | `ingress.annotations`      | Ingress annotations                                                             | `{}`                     |

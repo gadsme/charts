@@ -1,4 +1,4 @@
-{{- define "cubejs.common-env" -}}
+{{- define "cube.common-env" -}}
 - name: PORT
   value: {{ .Values.config.apiPort | quote }}
 {{- if .Values.config.debug }}

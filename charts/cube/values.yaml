@@ -34,15 +34,15 @@ image:
   pullSecrets: []
 
 config:
-  ## The port for a Cube.js deployment to listen to API connections on
+  ## The port for a Cube deployment to listen to API connections on
   ##
   apiPort: 4000
 
-  ## The port for a Cube.js deployment to listen to SQL connections on
+  ## The port to listen to MySQL-compatible connections on
   ##
   sqlPort:
 
-  ## The port for a Cube.js deployment to listen to Postgres SQL connections on
+  ## The port to listen to Postgres-compatible connections on
   ##
   pgSqlPort:
 
@@ -57,15 +57,15 @@ config:
   #   name:
   #   key:
 
-  ## If true, enables development mode.
+  ## If true, enables development mode
   ##
   devMode: false
 
-  ## If true, enables debug logging.
+  ## If true, enables debug logging
   ##
   debug: false
 
-  ## The logging level for Cube.js.
+  ## The logging level for Cube
   ##
   logLevel: "warn"
 
@@ -73,7 +73,7 @@ config:
   ##
   externalDefault: true
 
-  ## If true, then send telemetry to CubeJS
+  ## If true, then send telemetry to Cube
   ##
   telemetry: false
 
@@ -84,16 +84,16 @@ config:
   #   name:
   #   key:
 
-  ## The path where Cube.js loads schemas from. Defaults to schema
+  ## The path where Cube loads schemas from. Defaults to schema
   ##
   schemaPath:
 
-  ## An application ID used to uniquely identify the Cube.js deployment. Can be different for multitenant setups.
+  ## An application ID used to uniquely identify the Cube deployment. Can be different for multitenant setups
   ## Defaults to cubejs
   ##
   app:
 
-  ## If true, this instance of Cube.js will only query rollup pre-aggregations. Defaults to false
+  ## If true, this instance of Cube will only query rollup pre-aggregations. Defaults to false
   ##
   rollupOnly:
 
@@ -114,7 +114,7 @@ config:
   ##
   webSockets:
 
-  ## The cache and queue driver to use for the Cube.js deployment. Defaults to redis
+  ## The cache and queue driver to use for the Cube deployment. Defaults to redis
   ##
   cacheAndQueueDriver:
 
@@ -202,7 +202,7 @@ jwt:
 ## Database configuration
 ##
 database:
-  ## A database type supported by Cube.js
+  ## A database type supported by Cube
   ##
   type:
 
@@ -254,7 +254,7 @@ database:
   maxPool:
 
   ssl:
-    ## If true, enables SSL encryption for database connections from Cube.js
+    ## If true, enables SSL encryption for database connections from Cube
     ##
     enabled: false
 
@@ -305,11 +305,11 @@ database:
     #   name:
     #   key:
 
-    ## The AWS region of the Cube.js deployment
+    ## The AWS region of the Cube deployment
     ##
     region:
 
-    ## The S3 path to store query results made by the Cube.js deployment
+    ## The S3 path to store query results made by the Cube deployment
     ##
     s3outputLocation:
 
@@ -462,7 +462,7 @@ cubestore:
   port:
 
 api:
-  ## Service account for cubejs master to use
+  ## Service account for cube api to use
   ##
   serviceAccount:
     create: false
@@ -526,7 +526,7 @@ api:
   nodeSelector: {}
 
 workers:
-  ## Service account for cubejs master to use
+  ## Service account for cube worker to use
   ##
   serviceAccount:
     create: false
@@ -590,7 +590,7 @@ workers:
   nodeSelector: {}
 
 ## Configure the ingress resource that allows you to access the
-## Cubejs installation. Set up the URL
+## Cube installation. Set up the URL
 ## ref: http://kubernetes.io/docs/user-guide/ingress/
 ##
 ingress:
@@ -600,9 +600,9 @@ ingress:
 
   ## When the ingress is enabled, a host pointing to this will be created
   ##
-  hostname: cubejs.local
+  hostname: cube.local
 
-  ## The Path to Cubejs. You may need to set this to '/*' in order to use this
+  ## The Path to Cube. You may need to set this to '/*' in order to use this
   ## with ALB ingress controllers.
   ##
   path: /
