@@ -15,7 +15,7 @@ _See [`helm repo`](https://helm.sh/docs/helm/helm_repo/) for command documentati
 helm install [RELEASE_NAME] gadsme/cubestore
 ```
 
-The command deploys Cubejs on the Kubernetes cluster using the default configuration.
+The command deploys Cubestore on the Kubernetes cluster using the default configuration.
 
 _See [configuration](#configuration) below._
 
@@ -34,7 +34,7 @@ _See [`helm uninstall`](https://helm.sh/docs/helm/helm_uninstall/) for command d
 ## Upgrading Chart
 
 ```console
-helm upgrade [RELEASE_NAME] [CHART] --install
+helm upgrade [RELEASE_NAME] gadsme/cubestore --install
 ```
 
 ## Configuration
@@ -87,7 +87,7 @@ By default local dir are not persisted. You can enable persistance on router and
 | Name                | Description                                                                             | Value              |
 | ------------------- | --------------------------------------------------------------------------------------- | ------------------ |
 | `image.repository`  | Cubestore image repository                                                              | `cubejs/cubestore` |
-| `image.tag`         | Cubestore image tag (immutable tags are recommended)                                    | `0.28.26`          |
+| `image.tag`         | Cubestore image tag (immutable tags are recommended)                                    | `0.31.41`          |
 | `image.pullPolicy`  | Cubestore image pull policy                                                             | `IfNotPresent`     |
 | `image.pullSecrets` | If defined, uses a Secret to pull an image from a private Docker registry or repository | `[]`               |
 
