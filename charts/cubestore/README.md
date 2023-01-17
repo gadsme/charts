@@ -98,6 +98,7 @@ By default local dir are not persisted. You can enable persistance on router and
 | `config.logLevel`          | The logging level for Cube Store                                                                                  | `error` |
 | `config.noUpload`          | If true, prevents uploading serialized pre-aggregations to cloud storage                                          |         |
 | `config.jobRunners`        | The number of parallel tasks that process non-interactive jobs like data insertion, compaction etc. Defaults to 4 |         |
+| `config.telemetry`         | If true, then send telemetry to Cube                                                                              | `false` |
 | `config.queryTimeout`      | The timeout for SQL queries in seconds. Defaults to 120                                                           |         |
 | `config.selectWorkers`     | The number of Cube Store sub-processes that handle SELECT queries. Defaults to 4                                  |         |
 | `config.walSplitThreshold` | The maximum number of rows to keep in a single chunk of data right after insertion. Defaults to 262144            |         |

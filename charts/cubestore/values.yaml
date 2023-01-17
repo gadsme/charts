@@ -47,6 +47,10 @@ config:
   ##
   jobRunners:
 
+  ## If true, then send telemetry to Cube
+  ##
+  telemetry: false
+
   ## The timeout for SQL queries in seconds. Defaults to 120
   ##
   queryTimeout:
