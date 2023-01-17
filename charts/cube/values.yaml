@@ -340,6 +340,10 @@ database:
     #   name:
     #   key:
 
+    ## The path to a JSON key file for connecting to Google BigQuery
+    ##
+    keyFile:
+
   hive:
     ## The version of the CDH instance for Apache Hive
     ##

@@ -288,6 +288,7 @@ cubestore:
 | `database.bigquery.credentials`                | A Base64 encoded JSON key file for connecting to Google BigQuery                 |         |
 | `database.bigquery.credentialsFromSecret.name` | A Base64 encoded JSON key file for connecting to Google BigQuery (using secret)  |         |
 | `database.bigquery.credentialsFromSecret.key`  | A Base64 encoded JSON key file for connecting to Google BigQuery (using secret)  |         |
+| `database.bigquery.keyFile`                    | The path to a JSON key file for connecting to Google BigQuery                    |         |
 | `database.hive.cdhVersion`                     | The version of the CDH instance for Apache Hive                                  |         |
 | `database.hive.thriftVersion`                  | The version of Thrift Server for Apache Hive                                     |         |
 | `database.hive.type`                           | The type of Apache Hive server                                                   |         |
