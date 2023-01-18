@@ -12,4 +12,5 @@ maintainers:
   - email: luc.vauvillier@gmail.com
     name: Luc Vauvillier
 sources:
+  - https://github.com/gadsme/charts
   - https://github.com/cube-js/cube.js

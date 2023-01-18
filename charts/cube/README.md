@@ -86,6 +86,40 @@ To inject a javascript config in the deployment you can use `config.volumes` and
 
 Mount path is `/cube/conf/`
 
+### Fix duplicate schemas issue
+
+When you mount a secret or configmap as volume, the path at which Kubernetes will mount it will contain the root level items symlinking the same names into a `..data` directory, which is symlink to real mountpoint.
+
+As cube will recursively browse the schema folder, it will found duplicate schemas.
+
+To fix this issue you can mount each schema files using a `subPath` or change the default behavior using your own `repositoryFactory`:
+
+```javascript
+const path = require("path");
+const fs = require("fs");
+
+module.exports = {
+  repositoryFactory: () => ({
+    dataSchemaFiles: async () => {
+      const files = await fs.promises.readdir(
+        path.join(process.cwd(), "schema")
+      );
+      return await Promise.all(
+        files
+          .filter((file) => file.endsWith(".js"))
+          .map(async (file) => ({
+            fileName: file,
+            content: await fs.promises.readFile(
+              path.join(process.cwd(), "schema", file),
+              "utf-8"
+            ),
+          }))
+      );
+    },
+  }),
+};
+```
+
 ### Production Example
 
 Deployment with:

@@ -33,7 +33,7 @@ spec:
             backend:
               service:
                 name: {{ include "cube.fullname" . }}
-                port: 
+                port:
                   name: http
     {{- end }}
   {{- if .Values.ingress.tls  }}
