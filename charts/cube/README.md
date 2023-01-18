@@ -80,6 +80,17 @@ data:
     });
 ```
 
+or using a template:
+
+```yaml
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: cube-schema
+data:
+{{ (.Files.Glob "schema/**.js").AsConfig | indent 2 }}
+```
+
 ### Injecting javascript config
 
 To inject a javascript config in the deployment you can use `config.volumes` and `config.volumeMounts` values.
@@ -106,7 +117,7 @@ module.exports = {
       );
       return await Promise.all(
         files
-          .filter((file) => file.endsWith(".js"))
+          .filter((file) => file.endsWith(".js") || file.endsWith(".yaml"))
           .map(async (file) => ({
             fileName: file,
             content: await fs.promises.readFile(
