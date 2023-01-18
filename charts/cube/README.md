@@ -250,7 +250,6 @@ cubestore:
 | `config.devMode`                    | If true, enables development mode                                                                                            | `false` |
 | `config.debug`                      | If true, enables debug logging                                                                                               | `false` |
 | `config.logLevel`                   | The logging level for Cube                                                                                                   | `warn`  |
-| `config.externalDefault`            | If true, uses Cube Store or an external database for storing Pre-aggregations                                                | `true`  |
 | `config.telemetry`                  | If true, then send telemetry to Cube                                                                                         | `false` |
 | `config.apiSecret`                  | The secret key used to sign and verify JWTs. Generated on project scaffold                                                   |         |
 | `config.apiSecretFromSecret.name`   | The secret key used to sign and verify JWTs. Generated on project scaffold (using secret)                                    |         |

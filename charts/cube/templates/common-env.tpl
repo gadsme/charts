@@ -35,10 +35,6 @@
 - name: CUBEJS_LOG_LEVEL
   value: {{ .Values.config.logLevel | quote }}
 {{- end }}
-{{- if .Values.config.externalDefault }}
-- name: CUBEJS_EXTERNAL_DEFAULT
-  value: {{ .Values.config.externalDefault | quote }}
-{{- end }}
 {{- if .Values.config.app }}
 - name: CUBEJS_APP
   value: {{ .Values.config.app | quote }}
@@ -87,41 +83,6 @@
 - name: CUBEJS_TOPIC_NAME
   value: {{ .Values.config.topicName | quote }}
 {{- end }}
-{{- /*
-If global.redis.enabled = true,
-we set the default value for CUBEJS_REDIS_URL
-and CUBEJS_REDIS_PASSWORD to the default value
-provided by bitnami/redis if these values
-are not set explicitly.
-Otherwise, when global.redis.enabled = false,
-we require you to set the CUBEJS_REDIS_URL and
-CUBEJS_REDIS_PASSWORD.
-*/ -}}
-{{- if ((.Values.global).redis).enabled }}
-{{- if .Values.redis.url }}
-- name: CUBEJS_REDIS_URL
-  value: {{ .Values.redis.url | quote }}
-{{- else }}
-- name: CUBEJS_REDIS_URL
-  value: {{ printf "redis://%s-redis-master:6379" .Release.Name | quote }}
-{{- end }}
-{{- if .Values.redis.password }}
-- name: CUBEJS_REDIS_PASSWORD
-  value: {{ .Values.redis.password | quote }}
-{{- else if .Values.redis.passwordFromSecret }}
-- name: CUBEJS_REDIS_PASSWORD
-  valueFrom:
-    secretKeyRef:
-      name: {{ .Values.redis.passwordFromSecret.name | required "redis.passwordFromSecret.name is required" }}
-      key: {{ .Values.redis.passwordFromSecret.key | required "redis.passwordFromSecret.key is required" }}
-{{- else }}
-- name: CUBEJS_REDIS_PASSWORD
-  valueFrom:
-    secretKeyRef:
-      name: {{ printf "%s-redis" .Release.Name }}
-      key: "redis-password"
-{{- end }}
-{{- else }}
 {{- if .Values.redis.url }}
 - name: CUBEJS_REDIS_URL
   value: {{ .Values.redis.url | quote }}
@@ -136,8 +97,6 @@ CUBEJS_REDIS_PASSWORD.
       name: {{ .Values.redis.passwordFromSecret.name | required "redis.passwordFromSecret.name is required" }}
       key: {{ .Values.redis.passwordFromSecret.key | required "redis.passwordFromSecret.key is required" }}
 {{- end }}
-{{- end }}
-
 {{- if .Values.redis.tls }}
 - name: CUBEJS_REDIS_TLS
   value: {{ .Values.redis.tls | quote }}
