@@ -51,6 +51,10 @@
 - name: {{ include "cube.env.decorated" (dict "key" "CUBEJS_DB_MAX_POOL" "datasource" .datasource) }}
   value: {{ .maxPool | quote }}
 {{- end }}
+{{- if .queryTimeout }}
+- name: {{ include "cube.env.decorated" (dict "key" "CUBEJS_DB_QUERY_TIMEOUT" "datasource" .datasource) }}
+  value: {{ .queryTimeout | quote }}
+{{- end }}
 {{- if (.export).name }}
 - name: {{ include "cube.env.decorated" (dict "key" "CUBEJS_DB_EXPORT_BUCKET" "datasource" .datasource) }}
   value: {{ .export.name | quote }}
@@ -58,6 +62,10 @@
 {{- if (.export).type }}
 - name: {{ include "cube.env.decorated" (dict "key" "CUBEJS_DB_EXPORT_BUCKET_TYPE" "datasource" .datasource) }}
   value: {{ .export.type | quote }}
+{{- end }}
+{{- if (.export).integration }}
+- name: {{ include "cube.env.decorated" (dict "key" "CUBEJS_DB_EXPORT_INTEGRATION" "datasource" .datasource) }}
+  value: {{ .export.integration | quote }}
 {{- end }}
 {{- if ((.export).gcs).credentials }}
 - name: {{ include "cube.env.decorated" (dict "key" "CUBEJS_DB_EXPORT_GCS_CREDENTIALS" "datasource" .datasource) }}
@@ -68,6 +76,28 @@
     secretKeyRef:
       name: {{ .export.gcs.credentialsFromSecret.name | required "export.gcs.credentialsFromSecret.name is required" }}
       key: {{ .export.gcs.credentialsFromSecret.key | required "export.gcs.credentialsFromSecret.key is required" }}
+{{- end }}
+{{- if ((.export).aws).key }}
+- name: {{ include "cube.env.decorated" (dict "key" "CUBEJS_DB_EXPORT_BUCKET_AWS_KEY" "datasource" .datasource) }}
+  value: {{ .export.aws.key | quote }}
+{{- end }}
+{{- if ((.export).aws).secret }}
+- name: {{ include "cube.env.decorated" (dict "key" "CUBEJS_DB_EXPORT_BUCKET_AWS_SECRET" "datasource" .datasource) }}
+  value: {{ .export.aws.secret | quote }}
+{{- else if ((.export).aws).secretFromSecret }}
+- name: {{ include "cube.env.decorated" (dict "key" "CUBEJS_DB_EXPORT_BUCKET_AWS_SECRET" "datasource" .datasource) }}
+  valueFrom:
+    secretKeyRef:
+      name: {{ .export.aws.secretFromSecret.name | required "export.aws.secretFromSecret.name is required" }}
+      key: {{ .export.aws.secretFromSecret.key | required "export.aws.secretFromSecret.key is required" }}
+{{- end }}
+{{- if ((.export).aws).region }}
+- name: {{ include "cube.env.decorated" (dict "key" "CUBEJS_DB_EXPORT_BUCKET_AWS_REGION" "datasource" .datasource) }}
+  value: {{ .export.aws.region | quote }}
+{{- end }}
+{{- if ((.export).redshift).arn }}
+- name: {{ include "cube.env.decorated" (dict "key" "CUBEJS_DB_EXPORT_BUCKET_REDSHIFT_ARN" "datasource" .datasource) }}
+  value: {{ .export.redshift.arn | quote }}
 {{- end }}
 {{- if (.ssl).enabled }}
 - name: {{ include "cube.env.decorated" (dict "key" "CUBEJS_DB_SSL" "datasource" .datasource) }}

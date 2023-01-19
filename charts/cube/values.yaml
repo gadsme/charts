@@ -251,6 +251,10 @@ datasources:
     ##
     maxPool:
 
+    ## A number in seconds or a duration string
+    ##
+    queryTimeout:
+
     ssl:
       ## If true, enables SSL encryption for database connections from Cube
       ##
@@ -306,6 +310,10 @@ datasources:
       ##
       type:
 
+      ## The name of the integration used in the database. Only required when using Snowflake and Google Cloud Storage
+      ##
+      integration:
+
       gcs:
         ## A Base64 encoded JSON key file for connecting to Google Cloud
         ##
@@ -322,13 +330,16 @@ datasources:
         ## The AWS Secret Access Key to use for the export bucket.
         ##
         secret:
+        # secretFromSecret:
+        #   name:
+        #   key:
 
         ## The AWS region of the export bucket.
         ##
         region:
 
       redshift:
-        ## An ARN of an AWS IAM role with permission to write to the configured bucket (see exportBucket.name).
+        ## An ARN of an AWS IAM role with permission to write to the configured bucket (see export.name).
         arn:
 
     aws:
