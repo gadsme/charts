@@ -22,7 +22,7 @@
     - [Athena parameters](#athena-datasource-parameters)
     - [Bigquery parameters](#bigquery-datasource-parameters)
     - [Databricks parameters](#databricks-datasource-parameters)
-    - [ClickHouse parameters](#clickhouse-clickhouse-parameters)
+    - [ClickHouse parameters](#clickhouse-datasource-parameters)
     - [Firebolt parameters](#firebolt-datasource-parameters)
     - [Hive parameters](#hive-datasource-parameters)
     - [Snowflake parameters](#snowflake-datasource-parameters)
@@ -347,7 +347,7 @@ cubestore:
 | ------------- | ------------------------------------------------------------------------ | -------------- |
 | `datasources` | map of named datasources. The first datasource has to be named "default" | { default: {}} |
 
-### Datasource common parameters
+### Common datasource parameters
 
 | Name                                                       | Description                                                                                   | Value   |
 | ---------------------------------------------------------- | --------------------------------------------------------------------------------------------- | ------- |
