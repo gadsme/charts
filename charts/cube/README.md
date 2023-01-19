@@ -1,6 +1,36 @@
 # Cube Chart
 
-## Get Helm Repository Info
+## Table of Contents
+
+- [Get Started](#get-started)
+  - [Install Chart](#install-chart)
+  - [Uninstall Chart](#uninstall-chart)
+  - [Upgrading Chart](#upgrading-chart)
+- [Configuration](#configuration)
+  - [Injecting schema](#injecting-schema)
+  - [Injecting javascript config](#injecting-javascript-config)
+  - [Fix duplicate schemas issue](#fix-duplicate-schemas-issue)
+  - [Examples](#examples)
+- [Reference](#reference)
+  - [Global parameters](#global-parameters)
+  - [Image parameters](#image-parameters)
+  - [Config parameters](#config-parameters)
+  - [Redis parameters](#redis-parameters)
+  - [JWT parameters](#jwt-parameters)
+  - [Datasources configuration](#datasources-configuration)
+    - [Common parameters](#common-datasource-parameters)
+    - [Athena parameters](#athena-datasource-parameters)
+    - [Bigquery parameters](#bigquery-datasource-parameters)
+    - [Databricks parameters](#databricks-datasource-parameters)
+    - [ClickHouse parameters](#clickhouse-clickhouse-parameters)
+    - [Firebolt parameters](#firebolt-datasource-parameters)
+    - [Hive parameters](#hive-datasource-parameters)
+    - [Snowflake parameters](#snowflake-datasource-parameters)
+  - [Api instance parameters](#api-instance-parameters)
+  - [Workers parameters](#workers-parameters)
+  - [Ingress parameters](#ingress-parameters)
+
+## Get Started
 
 ```console
 helm repo add gadsme https://gadsme.github.io/charts
@@ -9,7 +39,7 @@ helm repo update
 
 _See [`helm repo`](https://helm.sh/docs/helm/helm_repo/) for command documentation._
 
-## Install Chart
+### Install Chart
 
 ```console
 helm install [RELEASE_NAME] gadsme/cube --set [CONFIGURATION]
@@ -21,7 +51,7 @@ _See [configuration](#configuration) below._
 
 _See [`helm install`](https://helm.sh/docs/helm/helm_install/) for command documentation._
 
-## Uninstall Chart
+### Uninstall Chart
 
 ```console
 helm uninstall [RELEASE_NAME]
@@ -31,7 +61,7 @@ This removes all the Kubernetes components associated with the chart and deletes
 
 _See [`helm uninstall`](https://helm.sh/docs/helm/helm_uninstall/) for command documentation._
 
-## Upgrading Chart
+### Upgrading Chart
 
 ```console
 helm upgrade [RELEASE_NAME] gadsme/cube --install
@@ -39,7 +69,7 @@ helm upgrade [RELEASE_NAME] gadsme/cube --install
 
 ## Configuration
 
-By default a router and one worker will be deployed. You can customize the deployment using helm values.
+By default an api instance and one worker will be deployed. You can customize the deployment using helm values.
 
 Refer to the official documentation for more information:
 https://cube.dev/docs/reference/environment-variables
@@ -131,53 +161,22 @@ module.exports = {
 };
 ```
 
-### Production Example
+### Examples
 
 Deployment with:
 
 - 2 workers
-- BigQuery db with exportBucket on GCS
+- BigQuery db with export Bucket on GCS
 - Schema located in a `cube-schema` ConfigMap
 - Redis (using pasword in a secret)
 - Cubestore
 
 ```bash
-$ helm install my-release \
-# Set two workers (default 1)
---set workers.workerCount=2 \
-# Mount schema volume from ConfigMap
---set config.volumes[0].name=schema \
---set config.volumes[0].configMap.name=cube-schema \
---set config.volumeMounts[0].name=schema \
---set config.volumeMounts[0].readOnly=true \
---set config.volumeMounts[0].mountPath=/cube/conf/schema \
-# Database configuration using secret
---set database.type=bigquery \
---set database.bigquery.projectId=<project-id> \
---set database.bigquery.credentialsFromSecret.name=<service-account-secret-name> \
---set database.bigquery.credentialsFromSecret.key=<service-account-secret-key> \
-# External Bucket configuration
---set exportBucket.type=gcp \
---set exportBucket.name.key=<bucket-name> \
---set exportBucket.gcsCredentialsFromSecret.name=<service-account-secret-name> \
---set exportBucket.gcsCredentialsFromSecret.name=<service-account-secret-key> \
-# Redis configuration
---set redis.url=<redis-url> \
---set redis.passwordFromSecret.name=<redis-secret-name> \
---set redis.passwordFromSecret.key=<redis-secret-key> \
-# Cubestore configuration
---set cubestore.host=<cubestore-host> \
-gadsme/cube
-```
-
-Or for more readability, using a custom `values.yaml` file:
-
-```bash
-$ helm install my-release -f path/to/values.yaml gadsme/cube
+$ helm install my-release -f values.yaml gadsme/cube
 ```
 
 ```yaml
-# path/to/values.yaml
+# values.yaml
 config:
   volumes:
     - name: schema
@@ -197,28 +196,78 @@ redis:
     name: <redis-secret-name>
     key: <redis-secret-key>
 
-database:
-  type: bigquery
-  bigquery:
-    projectId: <project-id>
-    credentialsFromSecret:
-      name: <service-account-secret-name>
-      key: <service-account-secret-key>
-
-exportBucket:
-  type: gcp
-  name: <bucket-name>
-  gcsCredentialsFromSecret:
+datasources:
+  default:
+    type: bigquery
+    export:
+      type: gcp
+      name: <bucket-name>
+      gcsCredentialsFromSecret:
     name: <service-account-secret-name>
     key: <service-account-secret-key>
+    bigquery:
+      projectId: <project-id>
+      credentialsFromSecret:
+        name: <service-account-secret-name>
+        key: <service-account-secret-key>
 
 cubestore:
   host: <cubestore-host>
 ```
 
-## Parameters
+Multiple datasources sample:
 
-### Common parameters
+```yaml
+# values.yaml
+config:
+  volumes:
+    - name: schema
+      configMap:
+        name: cube-schema
+  volumeMounts:
+    - name: schema
+      readOnly: true
+      mountPath: /cube/conf/schema
+
+workers:
+  workersCount: 2
+
+redis:
+  url: <redis-url>
+  passwordFromSecret:
+    name: <redis-secret-name>
+    key: <redis-secret-key>
+
+datasources:
+  default:
+    type: bigquery
+    export:
+      type: gcp
+      name: <bucket-name>
+      gcsCredentialsFromSecret:
+    name: <service-account-secret-name>
+    key: <service-account-secret-key>
+    bigquery:
+      projectId: <project-id>
+      credentialsFromSecret:
+        name: <service-account-secret-name>
+        key: <service-account-secret-key>
+  postgres:
+    type: postgres
+    host: <postgres-host>
+    name: <postgres-database>
+    user: <postgres-user>
+    passFromSecret:
+      name: <postgres-password-secret-name>
+      key: <postgres-password-secret-key>
+
+cubestore:
+  host: <cubestore-host>
+```
+
+## Reference
+
+### Global parameters
 
 | Name                | Description                                                  | Value |
 | ------------------- | ------------------------------------------------------------ | ----- |
@@ -282,7 +331,7 @@ cubestore:
 
 | Name                      | Description                                                                               | Value |
 | ------------------------- | ----------------------------------------------------------------------------------------- | ----- |
-| `jwt.url`                 | A valid URL to a JSON Web Key Sets (JWKS)                                                 |       |
+| `jwt.jwkUrl`              | A valid URL to a JSON Web Key Sets (JWKS)                                                 |       |
 | `jwt.key`                 | The secret key used to sign and verify JWTs. Generated on project scaffold                |       |
 | `jwt.keyFromSecret.name`  | The secret key used to sign and verify JWTs. Generated on project scaffold (using secret) |       |
 | `jwt.keyFromSecret.value` | The secret key used to sign and verify JWTs. Generated on project scaffold (using secret) |       |
@@ -292,72 +341,120 @@ cubestore:
 | `jwt.algs`                | Any supported algorithm for decoding JWTs                                                 |       |
 | `jwt.claimsNamespace`     | A namespace within the decoded JWT under which any custom claims can be found             |       |
 
-### Database parameters
+### Datasources configuration
 
-| Name                                           | Description                                                                      | Value   |
-| ---------------------------------------------- | -------------------------------------------------------------------------------- | ------- |
-| `database.type`                                | A database type supported by Cube.js                                             |         |
-| `database.url`                                 | The URL for a database                                                           |         |
-| `database.host`                                | The host URL for a database                                                      |         |
-| `database.port`                                | The port for the database connection                                             |         |
-| `database.schema`                              | The schema within the database to connect to                                     |         |
-| `database.name`                                | The name of the database to connect to                                           |         |
-| `database.user`                                | The username used to connect to the database                                     |         |
-| `database.pass`                                | The password used to connect to the database                                     |         |
-| `database.passFromSecret.name`                 | The password used to connect to the database (using secret)                      |         |
-| `database.passFromSecret.key`                  | The password used to connect to the database (using secret)                      |         |
-| `database.domain`                              | A domain name within the database to connect to                                  |         |
-| `database.socketPath`                          | The path to a Unix socket for a MySQL database                                   |         |
-| `database.catalog`                             | The catalog within the database to connect to                                    |         |
-| `database.maxPool`                             | The maximum number of connections to keep active in the database connection pool |         |
-| `database.ssl.enabled`                         | If true, enables SSL encryption for database connections from Cube.js            | `false` |
-| `database.ssl.rejectUnAuthorized`              | If true, verifies the CA chain with the system's built-in CA chain               |         |
-| `database.ssl.ca`                              | The contents of a CA bundle in PEM format, or a path to one                      |         |
-| `database.ssl.cert`                            | The contents of an SSL certificate in PEM format, or a path to one               |         |
-| `database.ssl.key`                             | The contents of a private key in PEM format, or a path to one                    |         |
-| `database.ssl.ciphers`                         | The ciphers used by the SSL certificate                                          |         |
-| `database.ssl.serverName`                      | The server name for the SNI TLS extension                                        |         |
-| `database.ssl.passPhrase`                      | he passphrase used to encrypt the SSL private key                                |         |
-| `database.aws.key`                             | The AWS Access Key ID to use for database connections                            |         |
-| `database.aws.keyFromSecret.name`              | The AWS Access Key ID to use for database connections (using secret)             |         |
-| `database.aws.keyFromSecret.key`               | The AWS Access Key ID to use for database connections (using secret)             |         |
-| `database.aws.region`                          | The AWS region of the Cube.js deployment                                         |         |
-| `database.aws.s3OutputLocation`                | The S3 path to store query results made by the Cube.js deployment                |         |
-| `database.aws.secret`                          | The AWS Secret Access Key to use for database connections                        |         |
-| `database.aws.secretFromSecret.name`           | The AWS Secret Access Key to use for database connections (using secret)         |         |
-| `database.aws.secretFromSecret.key`            | The AWS Secret Access Key to use for database connections (using secret)         |         |
-| `database.aws.athenaWorkgroup`                 | The name of the workgroup in which the query is being started                    |         |
-| `database.bigquery.projectId`                  | The Google BigQuery project ID to connect to                                     |         |
-| `database.bigquery.location`                   | The Google BigQuery dataset location to connect to                               |         |
-| `database.bigquery.credentials`                | A Base64 encoded JSON key file for connecting to Google BigQuery                 |         |
-| `database.bigquery.credentialsFromSecret.name` | A Base64 encoded JSON key file for connecting to Google BigQuery (using secret)  |         |
-| `database.bigquery.credentialsFromSecret.key`  | A Base64 encoded JSON key file for connecting to Google BigQuery (using secret)  |         |
-| `database.bigquery.keyFile`                    | The path to a JSON key file for connecting to Google BigQuery                    |         |
-| `database.hive.cdhVersion`                     | The version of the CDH instance for Apache Hive                                  |         |
-| `database.hive.thriftVersion`                  | The version of Thrift Server for Apache Hive                                     |         |
-| `database.hive.type`                           | The type of Apache Hive server                                                   |         |
-| `database.hive.version`                        | The version of Apache Hive                                                       |         |
-| `database.jdbc.driver`                         | The driver of jdbc connection                                                    |         |
-| `database.jdbc.url`                            | The URL for a JDBC connection                                                    |         |
-| `database.snowFlake.account`                   | The Snowflake account ID to use when connecting to the database                  |         |
-| `database.snowFlake.region`                    | The Snowflake region to use when connecting to the database                      |         |
-| `database.snowFlake.role`                      | The Snowflake role to use when connecting to the database                        |         |
-| `database.snowFlake.warehouse`                 | The Snowflake warehouse to use when connecting to the database                   |         |
-| `database.snowFlake.clientSessionKeepAlive`    | If true, keep the Snowflake connection alive indefinitely                        |         |
-| `database.snowFlake.authenticator`             | The type of authenticator to use with Snowflake. Defaults to SNOWFLAKE           |         |
-| `database.snowFlake.privateKeyPath`            | The path to the private RSA key folder                                           |         |
-| `database.snowFlake.privateKeyPass`            | The password for the private RSA key. Only required for encrypted keys           |         |
-| `database.databricks.url`                      | The URL for a JDBC connection                                                    |         |
+| Name          | Description                                                              | Value          |
+| ------------- | ------------------------------------------------------------------------ | -------------- |
+| `datasources` | map of named datasources. The first datasource has to be named "default" | { default: {}} |
 
-### Export Bucket parameters
+### Datasource common parameters
 
-| Name                                         | Description                                                                | Value |
-| -------------------------------------------- | -------------------------------------------------------------------------- | ----- |
-| `exportBucket.name`                          | The name of a bucket in cloud storage                                      |       |
-| `exportBucket.type`                          | The cloud provider where the bucket is hosted (gcs, s3)                    |       |
-| `exportBucket.gcsCredentials`                | Base64 encoded JSON key file for connecting to Google Cloud                |       |
-| `exportBucket.gcsCredentialsFromSecret.name` | Base64 encoded JSON key file for connecting to Google Cloud (using secret) |       |
-| `exportBucket.gcsCredentialsFromSecret.key`  | Base64 encoded JSON key file for connecting to Google Cloud (using secret) |       |
+| Name                                                       | Description                                                                                   | Value   |
+| ---------------------------------------------------------- | --------------------------------------------------------------------------------------------- | ------- |
+| `datasources.<name>.type`                                  | A database type supported by Cube.js                                                          |         |
+| `datasources.<name>.url`                                   | The URL for a database                                                                        |         |
+| `datasources.<name>.host`                                  | The host URL for a database                                                                   |         |
+| `datasources.<name>.port`                                  | The port for the database connection                                                          |         |
+| `datasources.<name>.schema`                                | The schema within the database to connect to                                                  |         |
+| `datasources.<name>.name`                                  | The name of the database to connect to                                                        |         |
+| `datasources.<name>.user`                                  | The username used to connect to the database                                                  |         |
+| `datasources.<name>.pass`                                  | The password used to connect to the database                                                  |         |
+| `datasources.<name>.passFromSecret.name`                   | The password used to connect to the database (using secret)                                   |         |
+| `datasources.<name>.passFromSecret.key`                    | The password used to connect to the database (using secret)                                   |         |
+| `datasources.<name>.domain`                                | A domain name within the database to connect to                                               |         |
+| `datasources.<name>.socketPath`                            | The path to a Unix socket for a MySQL database                                                |         |
+| `datasources.<name>.catalog`                               | The catalog within the database to connect to                                                 |         |
+| `datasources.<name>.maxPool`                               | The maximum number of connections to keep active in the database connection pool              |         |
+| `datasources.<name>.queryTimeout`                          | The timeout value for any queries made to the database by Cube                                |         |
+| `datasources.<name>.export.name`                           | The name of a bucket in cloud storage                                                         |         |
+| `datasources.<name>.export.type`                           | The cloud provider where the bucket is hosted (gcs, s3)                                       |         |
+| `datasources.<name>.export.gcs.credentials`                | Base64 encoded JSON key file for connecting to Google Cloud                                   |         |
+| `datasources.<name>.export.gcs.credentialsFromSecret.name` | Base64 encoded JSON key file for connecting to Google Cloud (using secret)                    |         |
+| `datasources.<name>.export.gcs.credentialsFromSecret.key`  | Base64 encoded JSON key file for connecting to Google Cloud (using secret)                    |         |
+| `datasources.<name>.export.aws.key`                        | The AWS Access Key ID to use for the export bucket                                            |         |
+| `datasources.<name>.export.aws.secret`                     | The AWS Secret Access Key to use for the export bucket                                        |         |
+| `datasources.<name>.export.aws.secretFromSecret.name`      | The AWS Secret Access Key to use for the export bucket (using secret)                         |         |
+| `datasources.<name>.export.aws.secretFromSecret.key`       | The AWS Secret Access Key to use for the export bucket (using secret)                         |         |
+| `datasources.<name>.export.aws.region`                     | The AWS region of the export bucket                                                           |         |
+| `datasources.<name>.export.redshift.arn`                   | An ARN of an AWS IAM role with permission to write to the configured bucket (see export.name) |         |
+| `datasources.<name>.ssl.enabled`                           | If true, enables SSL encryption for database connections from Cube.js                         | `false` |
+| `datasources.<name>.ssl.rejectUnAuthorized`                | If true, verifies the CA chain with the system's built-in CA chain                            |         |
+| `datasources.<name>.ssl.ca`                                | The contents of a CA bundle in PEM format, or a path to one                                   |         |
+| `datasources.<name>.ssl.cert`                              | The contents of an SSL certificate in PEM format, or a path to one                            |         |
+| `datasources.<name>.ssl.key`                               | The contents of a private key in PEM format, or a path to one                                 |         |
+| `datasources.<name>.ssl.ciphers`                           | The ciphers used by the SSL certificate                                                       |         |
+| `datasources.<name>.ssl.serverName`                        | The server name for the SNI TLS extension                                                     |         |
+| `datasources.<name>.ssl.passPhrase`                        | he passphrase used to encrypt the SSL private key                                             |         |
+
+### Athena datasource parameters
+
+| Name                                           | Description                                                              | Value |
+| ---------------------------------------------- | ------------------------------------------------------------------------ | ----- |
+| `datasources.<name>.aws.key`                   | The AWS Access Key ID to use for database connections                    |       |
+| `datasources.<name>.aws.keyFromSecret.name`    | The AWS Access Key ID to use for database connections (using secret)     |       |
+| `datasources.<name>.aws.keyFromSecret.key`     | The AWS Access Key ID to use for database connections (using secret)     |       |
+| `datasources.<name>.aws.region`                | The AWS region of the Cube.js deployment                                 |       |
+| `datasources.<name>.aws.s3OutputLocation`      | The S3 path to store query results made by the Cube.js deployment        |       |
+| `datasources.<name>.aws.secret`                | The AWS Secret Access Key to use for database connections                |       |
+| `datasources.<name>.aws.secretFromSecret.name` | The AWS Secret Access Key to use for database connections (using secret) |       |
+| `datasources.<name>.aws.secretFromSecret.key`  | The AWS Secret Access Key to use for database connections (using secret) |       |
+| `datasources.<name>.aws.athenaWorkgroup`       | The name of the workgroup in which the query is being started            |       |
+| `datasources.<name>.aws.athenaCatalog`         | The name of the catalog to use by default                                |       |
+
+### Bigquery datasource parameters
+
+| Name                                                     | Description                                                                     | Value |
+| -------------------------------------------------------- | ------------------------------------------------------------------------------- | ----- |
+| `datasources.<name>.bigquery.projectId`                  | The Google BigQuery project ID to connect to                                    |       |
+| `datasources.<name>.bigquery.location`                   | The Google BigQuery dataset location to connect to                              |       |
+| `datasources.<name>.bigquery.credentials`                | A Base64 encoded JSON key file for connecting to Google BigQuery                |       |
+| `datasources.<name>.bigquery.credentialsFromSecret.name` | A Base64 encoded JSON key file for connecting to Google BigQuery (using secret) |       |
+| `datasources.<name>.bigquery.credentialsFromSecret.key`  | A Base64 encoded JSON key file for connecting to Google BigQuery (using secret) |       |
+| `datasources.<name>.bigquery.keyFile`                    | The path to a JSON key file for connecting to Google BigQuery                   |       |
+
+### Databricks datasource parameters
+
+| Name                                         | Description                                                               | Value |
+| -------------------------------------------- | ------------------------------------------------------------------------- | ----- |
+| `datasources.<name>.databricks.url`          | The URL for a JDBC connection                                             |       |
+| `datasources.<name>.databricks.acceptPolicy` | Whether or not to accept the license terms for the Databricks JDBC driver |       |
+| `datasources.<name>.databricks.token`        | The personal access token used to authenticate the Databricks connection  |       |
+
+### Clickhouse datasource parameters
+
+| Name                                     | Description                                             | Value |
+| ---------------------------------------- | ------------------------------------------------------- | ----- |
+| `datasources.<name>.clickhouse.readonly` | Whether the ClickHouse user has read-only access or not |       |
+
+### Firebolt datasource parameters
+
+| Name                                      | Description                                    | Value |
+| ----------------------------------------- | ---------------------------------------------- | ----- |
+| `datasources.<name>.firebolt.account`     | Account name                                   |       |
+| `datasources.<name>.firebolt.engineName`  | Engine name to connect to                      |       |
+| `datasources.<name>.firebolt.apiEndpoint` | Firebolt API endpoint. Used for authentication |       |
+
+### Hive datasource parameters
+
+| Name                                    | Description                                     | Value |
+| --------------------------------------- | ----------------------------------------------- | ----- |
+| `datasources.<name>.hive.cdhVersion`    | The version of the CDH instance for Apache Hive |       |
+| `datasources.<name>.hive.thriftVersion` | The version of Thrift Server for Apache Hive    |       |
+| `datasources.<name>.hive.type`          | The type of Apache Hive server                  |       |
+| `datasources.<name>.hive.version`       | The version of Apache Hive                      |       |
+
+### Snowflake datasource parameters
+
+| Name                                                  | Description                                                            | Value |
+| ----------------------------------------------------- | ---------------------------------------------------------------------- | ----- |
+| `datasources.<name>.snowFlake.account`                | The Snowflake account ID to use when connecting to the database        |       |
+| `datasources.<name>.snowFlake.region`                 | The Snowflake region to use when connecting to the database            |       |
+| `datasources.<name>.snowFlake.role`                   | The Snowflake role to use when connecting to the database              |       |
+| `datasources.<name>.snowFlake.warehouse`              | The Snowflake warehouse to use when connecting to the database         |       |
+| `datasources.<name>.snowFlake.clientSessionKeepAlive` | If true, keep the Snowflake connection alive indefinitely              |       |
+| `datasources.<name>.snowFlake.authenticator`          | The type of authenticator to use with Snowflake. Defaults to SNOWFLAKE |       |
+| `datasources.<name>.snowFlake.privateKeyPath`         | The path to the private RSA key folder                                 |       |
+| `datasources.<name>.snowFlake.privateKeyPass`         | The password for the private RSA key. Only required for encrypted keys |       |
 
 ### Cubestore parameters
 
@@ -366,7 +463,7 @@ cubestore:
 | `cubestore.host` | The hostname of the Cube Store deployment |       |
 | `cubestore.port` | The port of the Cube Store deployment     |       |
 
-### Api parameters
+### Api instance parameters
 
 | Name                                              | Description                                                                                                         | Value   |
 | ------------------------------------------------- | ------------------------------------------------------------------------------------------------------------------- | ------- |
