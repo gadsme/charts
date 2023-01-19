@@ -404,34 +404,6 @@ database:
     ##
     url:
 
-externalDatabase:
-  ## Alternative to Cube Store storage for pre-aggregations
-  ##
-  type:
-
-  ## The host URL for an external pre-aggregations database
-  ##
-  host:
-
-  ## The name of the external pre-aggregations database to connect to
-  ##
-  name:
-
-  ## The password used to connect to the external pre-aggregations database
-  ##
-  pass:
-  # passFromSecret:
-  #   name:
-  #   key:
-
-  ## The port for the external pre-aggregations database
-  ##
-  port:
-
-  ## The username used to connect to the external pre-aggregations database
-  ##
-  user:
-
 ## Export Bucket configuration
 ##
 exportBucket:

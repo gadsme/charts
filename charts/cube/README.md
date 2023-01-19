@@ -349,19 +349,6 @@ cubestore:
 | `database.snowFlake.privateKeyPass`            | The password for the private RSA key. Only required for encrypted keys           |         |
 | `database.databricks.url`                      | The URL for a JDBC connection                                                    |         |
 
-### External Database parameters
-
-| Name                                   | Description                                                                           | Value |
-| -------------------------------------- | ------------------------------------------------------------------------------------- | ----- |
-| `externalDatabase.type`                | Alternative to Cube Store storage for pre-aggregations                                |       |
-| `externalDatabase.host`                | The host URL for an external pre-aggregations database                                |       |
-| `externalDatabase.port`                | The port for the external pre-aggregations database                                   |       |
-| `externalDatabase.name`                | The name of the external pre-aggregations database to connect to                      |       |
-| `externalDatabase.pass`                | Base64 encoded JSON key file for connecting to Google Cloud                           |       |
-| `externalDatabase.passFromSecret.name` | The password used to connect to the external pre-aggregations database (using secret) |       |
-| `externalDatabase.passFromSecret.key`  | The password used to connect to the external pre-aggregations database (using secret) |       |
-| `externalDatabase.user`                | The username used to connect to the external pre-aggregations database                |       |
-
 ### Export Bucket parameters
 
 | Name                                         | Description                                                                | Value |

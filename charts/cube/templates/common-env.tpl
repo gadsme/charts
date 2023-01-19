@@ -363,32 +363,6 @@
   value: {{ .Values.database.ssl.passPhrase | quote }}
 {{- end }}
 {{- end }}
-{{- /*
-If global.cubestore.enabled = true,
-we set the default value for cubestore.host
-and cubestore.port to the default value
-defined in the Cube Store Chart if these values
-are not set explicitly.
-Otherwise, when global.cubestore.enabled = false,
-we require you to set the cubestore.host and
-cubestore.port.
-*/ -}}
-{{- if ((.Values.global).cubestore).enabled }}
-{{- if .Values.cubestore.host }}
-- name: CUBEJS_CUBESTORE_HOST
-  value: {{ .Values.cubestore.host | quote | required "cubestore.host is required" }}
-{{- else }}
-- name: CUBEJS_CUBESTORE_HOST
-  value: {{ printf "%s-cubestore-router" .Release.Name | quote }}
-{{- end }}
-{{- if .Values.cubestore.port }}
-- name: CUBEJS_CUBESTORE_PORT
-  value: {{ .Values.cubestore.port | quote | required "cubestore.port is required, this port is the HTTP PORT" }}
-{{- else }}
-- name: CUBEJS_CUBESTORE_PORT
-  value: {{ printf "3030" | quote }}
-{{- end }}
-{{- else }}
 {{- if .Values.cubestore.host }}
 - name: CUBEJS_CUBESTORE_HOST
   value: {{ .Values.cubestore.host | quote | required "cubestore.host is required" }}
@@ -396,37 +370,5 @@ cubestore.port.
 {{- if .Values.cubestore.port }}
 - name: CUBEJS_CUBESTORE_PORT
   value: {{ .Values.cubestore.port | quote | required "cubestore.port is required" }}
-{{- end }}
-{{- end }}
-
-{{- if .Values.externalDatabase.type }}
-- name: CUBEJS_EXT_DB_TYPE
-  value: {{ .Values.externalDatabase.type | quote }}
-{{- end }}
-{{- if .Values.externalDatabase.host }}
-- name: CUBEJS_EXT_DB_HOST
-  value: {{ .Values.externalDatabase.host | quote }}
-{{- end }}
-{{- if .Values.externalDatabase.name }}
-- name: CUBEJS_EXT_DB_NAME
-  value: {{ .Values.externalDatabase.name | quote }}
-{{- end }}
-{{- if .Values.externalDatabase.pass }}
-- name: CUBEJS_EXT_DB_PASS
-  value: {{ .Values.externalDatabase.pass | quote }}
-{{- else if .Values.externalDatabase.passFromSecret }}
-- name: CUBEJS_EXT_DB_PASS
-  valueFrom:
-    secretKeyRef:
-      name: {{ .Values.externalDatabase.passFromSecret.name | required "externalDatabase.passFromSecret.name is required" }}
-      key: {{ .Values.externalDatabase.passFromSecret.key | required "externalDatabase.passFromSecret.key is required" }}
-{{- end }}
-{{- if .Values.externalDatabase.user }}
-- name: CUBEJS_EXT_DB_USER
-  value: {{ .Values.externalDatabase.user | quote }}
-{{- end }}
-{{- if .Values.externalDatabase.port }}
-- name: CUBEJS_EXT_DB_PORT
-  value: {{ .Values.externalDatabase.port | quote }}
 {{- end }}
 {{- end }}
