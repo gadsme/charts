@@ -50,7 +50,6 @@ app.kubernetes.io/name: {{ include "cube.name" . }}
 app.kubernetes.io/instance: {{ .Release.Name }}
 {{- end }}
 
-
 {{/*
 Return the appropriate apiVersion for ingress.
 */}}
@@ -107,3 +106,16 @@ Create the name of cube workers service account to use
   {{ default "default" .Values.workers.serviceAccount.name }}
 {{- end -}}
 {{- end -}}
+
+{{/*
+Create a decorated env var using datasource name
+https://cube.dev/docs/config/multiple-data-sources#configuring-data-sources-with-environment-variables-decorated-environment-variables
+*/}}
+{{- define "cube.env.decorated" -}}
+{{- $parts := split "_DB_" .key -}}
+{{- if eq .datasource "default" -}}
+{{- printf "CUBEJS_DB_%s" $parts._1 }}
+{{- else -}}
+{{- printf "CUBEJS_DS_%s_DB_%s" (upper .datasource) $parts._1 }}
+{{- end -}}
+{{- end}}

@@ -166,7 +166,7 @@ redis:
 jwt:
   ## A valid URL to a JSON Web Key Sets (JWKS)
   ##
-  url:
+  jwkUrl:
 
   ## The secret key used to sign and verify JWTs. Generated on project scaffold
   ##
@@ -195,232 +195,296 @@ jwt:
   ##
   claimsNamespace:
 
-## Database configuration
+## Datasource configuration
 ##
-database:
-  ## A database type supported by Cube
-  ##
-  type:
-
-  ## The URL for a database
-  ##
-  url:
-
-  ## The host URL for a database
-  ##
-  host:
-
-  ## The port for the database connection
-  ##
-  port:
-
-  ## The schema within the database to connect to
-  ##
-  schema:
-
-  ## The name of the database to connect to
-  ##
-  name:
-
-  ## The username used to connect to the database
-  ##
-  user:
-
-  ## The password used to connect to the database
-  ##
-  pass:
-  # passFromSecret:
-  #   name:
-  #   key:
-
-  ## A domain name within the database to connect to
-  ##
-  domain:
-
-  ## The path to a Unix socket for a MySQL database
-  ##
-  socketPath:
-
-  ## The catalog within the database to connect to
-  ##
-  catalog:
-
-  ## The maximum number of connections to keep active in the database connection pool
-  ##
-  maxPool:
-
-  ssl:
-    ## If true, enables SSL encryption for database connections from Cube
-    ##
-    enabled: false
-
-    ## If true, verifies the CA chain with the system's built-in CA chain
-    ##
-    rejectUnAuthorized:
-    ## The contents of a CA bundle in PEM format, or a path to one.
-    ## For more information, check the options.ca property for TLS Secure Contexts in the Node.js documentation
-    ## https://nodejs.org/docs/latest/api/tls.html#tls_tls_createsecurecontext_options
-    ##
-    ca:
-
-    ## The contents of an SSL certificate in PEM format, or a path to one.
-    ## For more information, check the options.cert property for TLS Secure Contexts in the Node.js documentation
-    ## https://nodejs.org/docs/latest/api/tls.html#tls_tls_createsecurecontext_options
-    ##
-    cert:
-
-    ## The contents of a private key in PEM format, or a path to one.
-    ## For more information, check the options.key property for TLS Secure Contexts in the Node.js documentation
-    ## https://nodejs.org/docs/latest/api/tls.html#tls_tls_createsecurecontext_options
-    ##
-    key:
-
-    ## The ciphers used by the SSL certificate.
-    ## For more information, check the options.ciphers property for TLS Secure Contexts in the Node.js documentation
-    ## https://nodejs.org/docs/latest/api/tls.html#tls_tls_createsecurecontext_options
-    ##
-    ciphers:
-
-    ## The server name for the SNI TLS extension.
-    ## For more information, check the options.servername property for TLS Connections in the Node.js documentation
-    ## https://nodejs.org/docs/latest/api/tls.html#tls_tls_createsecurecontext_options
-    ##
-    serverName:
-
-    ## The passphrase used to encrypt the SSL private key.
-    ## For more information, check the options.passphrase property for TLS Secure Contexts in the Node.js documentation
-    ## https://nodejs.org/docs/latest/api/tls.html#tls_tls_createsecurecontext_options
-    ##
-    passPhrase:
-
-  aws:
-    ## The AWS Access Key ID to use for database connections
-    ##
-    key:
-    # keyFromSecret:
-    #   name:
-    #   key:
-
-    ## The AWS region of the Cube deployment
-    ##
-    region:
-
-    ## The S3 path to store query results made by the Cube deployment
-    ##
-    s3outputLocation:
-
-    ## The AWS Secret Access Key to use for database connections
-    ##
-    secret:
-    # secretFromSecret:
-    #   name:
-    #   key:
-
-    ## The name of the workgroup in which the query is being started
-    ##
-    athenaWorkgroup:
-
-  bigquery:
-    ## The Google BigQuery project ID to connect to
-    ##
-    projectId:
-
-    ## The Google BigQuery dataset location to connect to
-    ##
-    location:
-
-    ## A Base64 encoded JSON key file for connecting to Google BigQuery
-    ##
-    credentials:
-    # credentialsFromSecret:
-    #   name:
-    #   key:
-
-    ## The path to a JSON key file for connecting to Google BigQuery
-    ##
-    keyFile:
-
-  hive:
-    ## The version of the CDH instance for Apache Hive
-    ##
-    cdhVersion:
-
-    ## The version of Thrift Server for Apache Hive
-    ##
-    thriftVersion:
-
-    ## The type of Apache Hive server
+datasources:
+  ## Default datasource
+  default:
+    ## A database type supported by Cube
     ##
     type:
 
-    ## The version of Apache Hive
-    version:
-
-  jdbc:
-    ## The driver of jdbc connection
-    ##
-    driver:
-
-    ## The URL for a JDBC connection
-    url:
-
-  snowFlake:
-    ## The Snowflake account ID to use when connecting to the database
-    ##
-    account:
-
-    ## The Snowflake region to use when connecting to the database
-    ##
-    region:
-
-    ## The Snowflake role to use when connecting to the database
-    ##
-    role:
-
-    ## The Snowflake warehouse to use when connecting to the database
-    ##
-    warehouse:
-
-    ## If true, keep the Snowflake connection alive indefinitely
-    ##
-    clientSessionKeepAlive:
-
-    ## The type of authenticator to use with Snowflake.
-    ## Use SNOWFLAKE with username/password, or SNOWFLAKE_JWT with key pairs.
-    ## Defaults to SNOWFLAKE
-    ##
-    authenticator:
-
-    ## The path to the private RSA key folder
-    ##
-    privateKeyPath:
-
-    ## The password for the private RSA key. Only required for encrypted keys
-    ##
-    privateKeyPass:
-
-  databricks:
-    ## The URL for a JDBC connection
+    ## The URL for a database
     ##
     url:
 
-## Export Bucket configuration
-##
-exportBucket:
-  ## The name of a bucket in cloud storage
-  ##
-  name:
+    ## The host URL for a database
+    ##
+    host:
 
-  ## The cloud provider where the bucket is hosted (gcs, s3)
-  ##
-  type:
+    ## The port for the database connection
+    ##
+    port:
 
-  ## A Base64 encoded JSON key file for connecting to Google Cloud
-  ##
-  gcsCredentials:
-  # gcsCredentialsFromSecret:
-  #   name:
-  #   key:
+    ## The schema within the database to connect to
+    ##
+    schema:
+
+    ## The name of the database to connect to
+    ##
+    name:
+
+    ## The username used to connect to the database
+    ##
+    user:
+
+    ## The password used to connect to the database
+    ##
+    pass:
+    # passFromSecret:
+    #   name:
+    #   key:
+
+    ## A domain name within the database to connect to
+    ##
+    domain:
+
+    ## The path to a Unix socket for a MySQL database
+    ##
+    socketPath:
+
+    ## The catalog within the database to connect to
+    ##
+    catalog:
+
+    ## The maximum number of connections to keep active in the database connection pool
+    ##
+    maxPool:
+
+    ssl:
+      ## If true, enables SSL encryption for database connections from Cube
+      ##
+      enabled: false
+
+      ## If true, verifies the CA chain with the system's built-in CA chain
+      ##
+      rejectUnAuthorized:
+      ## The contents of a CA bundle in PEM format, or a path to one.
+      ## For more information, check the options.ca property for TLS Secure Contexts in the Node.js documentation
+      ## https://nodejs.org/docs/latest/api/tls.html#tls_tls_createsecurecontext_options
+      ##
+      ca:
+
+      ## The contents of an SSL certificate in PEM format, or a path to one.
+      ## For more information, check the options.cert property for TLS Secure Contexts in the Node.js documentation
+      ## https://nodejs.org/docs/latest/api/tls.html#tls_tls_createsecurecontext_options
+      ##
+      cert:
+
+      ## The contents of a private key in PEM format, or a path to one.
+      ## For more information, check the options.key property for TLS Secure Contexts in the Node.js documentation
+      ## https://nodejs.org/docs/latest/api/tls.html#tls_tls_createsecurecontext_options
+      ##
+      key:
+
+      ## The ciphers used by the SSL certificate.
+      ## For more information, check the options.ciphers property for TLS Secure Contexts in the Node.js documentation
+      ## https://nodejs.org/docs/latest/api/tls.html#tls_tls_createsecurecontext_options
+      ##
+      ciphers:
+
+      ## The server name for the SNI TLS extension.
+      ## For more information, check the options.servername property for TLS Connections in the Node.js documentation
+      ## https://nodejs.org/docs/latest/api/tls.html#tls_tls_createsecurecontext_options
+      ##
+      serverName:
+
+      ## The passphrase used to encrypt the SSL private key.
+      ## For more information, check the options.passphrase property for TLS Secure Contexts in the Node.js documentation
+      ## https://nodejs.org/docs/latest/api/tls.html#tls_tls_createsecurecontext_options
+      ##
+      passPhrase:
+
+    ## Export Bucket configuration
+    ##
+    export:
+      ## The name of a bucket in cloud storage to store the database export snapshots.
+      ##
+      name:
+
+      ## The cloud provider where the bucket is hosted (gcp, s3)
+      ##
+      type:
+
+      gcs:
+        ## A Base64 encoded JSON key file for connecting to Google Cloud
+        ##
+        credentials:
+        # credentialsFromSecret:
+        #   name:
+        #   key:
+
+      aws:
+        ## The AWS Access Key ID to use for the export bucket.
+        ##
+        key:
+
+        ## The AWS Secret Access Key to use for the export bucket.
+        ##
+        secret:
+
+        ## The AWS region of the export bucket.
+        ##
+        region:
+
+      redshift:
+        ## An ARN of an AWS IAM role with permission to write to the configured bucket (see exportBucket.name).
+        arn:
+
+    aws:
+      ## The AWS Access Key ID to use for database connections
+      ##
+      key:
+      # keyFromSecret:
+      #   name:
+      #   key:
+
+      ## The AWS region of the Cube deployment
+      ##
+      region:
+
+      ## The S3 path to store query results made by the Cube deployment
+      ##
+      s3OutputLocation:
+
+      ## The AWS Secret Access Key to use for database connections
+      ##
+      secret:
+      # secretFromSecret:
+      #   name:
+      #   key:
+
+      ## The name of the workgroup in which the query is being started
+      ##
+      athenaWorkgroup:
+
+      ## The name of the catalog to use by default
+      ##
+      athenaCatalog:
+
+    bigquery:
+      ## The Google BigQuery project ID to connect to
+      ##
+      projectId:
+
+      ## The Google BigQuery dataset location to connect to
+      ##
+      location:
+
+      ## A Base64 encoded JSON key file for connecting to Google BigQuery
+      ##
+      credentials:
+      # credentialsFromSecret:
+      #   name:
+      #   key:
+
+      ## The path to a JSON key file for connecting to Google BigQuery
+      ##
+      keyFile:
+
+    hive:
+      ## The version of the CDH instance for Apache Hive
+      ##
+      cdhVersion:
+
+      ## The version of Thrift Server for Apache Hive
+      ##
+      thriftVersion:
+
+      ## The type of Apache Hive server
+      ##
+      type:
+
+      ## The version of Apache Hive
+      version:
+
+    snowFlake:
+      ## The Snowflake account ID to use when connecting to the database
+      ##
+      account:
+
+      ## The Snowflake region to use when connecting to the database
+      ##
+      region:
+
+      ## The Snowflake role to use when connecting to the database
+      ##
+      role:
+
+      ## The Snowflake warehouse to use when connecting to the database
+      ##
+      warehouse:
+
+      ## If true, keep the Snowflake connection alive indefinitely
+      ##
+      clientSessionKeepAlive:
+
+      ## The type of authenticator to use with Snowflake.
+      ## Use SNOWFLAKE with username/password, or SNOWFLAKE_JWT with key pairs.
+      ## Defaults to SNOWFLAKE
+      ##
+      authenticator:
+
+      ## The path to the private RSA key folder
+      ##
+      privateKeyPath:
+
+      ## The password for the private RSA key. Only required for encrypted keys
+      ##
+      privateKeyPass:
+
+    databricks:
+      ## The URL for a JDBC connection
+      ##
+      url:
+
+      ## Whether or not to accept the license terms for the Databricks JDBC driver
+      ##
+      acceptPolicy:
+
+      ## The personal access token used to authenticate the Databricks connection
+      ##
+      token:
+
+    clickhouse:
+      ## Whether the ClickHouse user has read-only access or not
+      ##
+      readonly:
+
+    firebolt:
+      ## Account name
+      ##
+      account:
+
+      ## Engine name to connect to
+      ##
+      engineName:
+
+      ## Firebolt API endpoint. Used for authentication
+      ##
+      apiEndpoint:
+
+    presto:
+      ## The catalog within Presto to connect to
+      ##
+      catalog:
+
+    elasticsearch:
+      ## By default, queries return data in JDBC format, but you can also return data in standard Elasticsearch JDBC, JSON, CSV, YAML or raw formats (only JSON and JDBC are currently supported)
+      ##
+      queryFormat:
+
+      ## If true, then use the Open Distro for Elasticsearch
+      ##
+      openDistro:
+
+      ## ID of the API key from elastic.co
+      ##
+      apiKeyId:
+
+      ## Value of the API key from elastic.co
+      ##
+      apiKeyKey:
 
 ## Cubestore configuration
 ##

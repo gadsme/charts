@@ -58,7 +58,7 @@ spec:
               protocol: TCP
             {{- end }}
           env:
-            {{- include "cube.common-env" . | nindent 12 }}
+            {{- include "cube.env" . | nindent 12 }}
           {{- if .Values.api.livenessProbe.enabled }}
           livenessProbe:
             initialDelaySeconds: {{ .Values.api.livenessProbe.initialDelaySeconds }}
