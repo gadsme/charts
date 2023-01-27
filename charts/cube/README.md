@@ -2,32 +2,35 @@
 
 ## Table of Contents
 
-- [Get Started](#get-started)
-  - [Install Chart](#install-chart)
-  - [Uninstall Chart](#uninstall-chart)
-  - [Upgrading Chart](#upgrading-chart)
-- [Configuration](#configuration)
-  - [Injecting schema](#injecting-schema)
-  - [Injecting javascript config](#injecting-javascript-config)
-  - [Fix duplicate schemas issue](#fix-duplicate-schemas-issue)
-  - [Examples](#examples)
-- [Reference](#reference)
-  - [Global parameters](#global-parameters)
-  - [Image parameters](#image-parameters)
-  - [Config parameters](#config-parameters)
-  - [Redis parameters](#redis-parameters)
-  - [JWT parameters](#jwt-parameters)
-  - [Datasources configuration](#datasources-configuration)
-    - [Common parameters](#common-datasource-parameters)
-    - [Athena parameters](#athena-datasource-parameters)
-    - [Bigquery parameters](#bigquery-datasource-parameters)
-    - [Databricks parameters](#databricks-datasource-parameters)
-    - [ClickHouse parameters](#clickhouse-datasource-parameters)
-    - [Firebolt parameters](#firebolt-datasource-parameters)
-    - [Hive parameters](#hive-datasource-parameters)
-    - [Snowflake parameters](#snowflake-datasource-parameters)
-  - [Api instance parameters](#api-instance-parameters)
-  - [Workers parameters](#workers-parameters)
+- [Cube Chart](#cube-chart)
+  - [Table of Contents](#table-of-contents)
+  - [Get Started](#get-started)
+    - [Install Chart](#install-chart)
+    - [Uninstall Chart](#uninstall-chart)
+    - [Upgrading Chart](#upgrading-chart)
+  - [Configuration](#configuration)
+    - [Injecting schema](#injecting-schema)
+    - [Injecting javascript config](#injecting-javascript-config)
+    - [Fix duplicate schemas issue](#fix-duplicate-schemas-issue)
+    - [Examples](#examples)
+  - [Reference](#reference)
+    - [Global parameters](#global-parameters)
+    - [Image parameters](#image-parameters)
+    - [Config parameters](#config-parameters)
+    - [Redis parameters](#redis-parameters)
+    - [JWT parameters](#jwt-parameters)
+    - [Datasources configuration](#datasources-configuration)
+    - [Common datasource parameters](#common-datasource-parameters)
+    - [Athena datasource parameters](#athena-datasource-parameters)
+    - [Bigquery datasource parameters](#bigquery-datasource-parameters)
+    - [Databricks datasource parameters](#databricks-datasource-parameters)
+    - [Clickhouse datasource parameters](#clickhouse-datasource-parameters)
+    - [Firebolt datasource parameters](#firebolt-datasource-parameters)
+    - [Hive datasource parameters](#hive-datasource-parameters)
+    - [Snowflake datasource parameters](#snowflake-datasource-parameters)
+    - [Cubestore parameters](#cubestore-parameters)
+    - [Api instance parameters](#api-instance-parameters)
+    - [Workers parameters](#workers-parameters)
   - [Ingress parameters](#ingress-parameters)
 
 ## Get Started
@@ -280,9 +283,9 @@ cubestore:
 
 | Name                | Description                                                                             | Value          |
 | ------------------- | --------------------------------------------------------------------------------------- | -------------- |
-| `image.repository`  | Cubestore image repository                                                              | `cubejs/cube`  |
-| `image.tag`         | Cubestore image tag (immutable tags are recommended)                                    | `0.31.41`      |
-| `image.pullPolicy`  | Cubestore image pull policy                                                             | `IfNotPresent` |
+| `image.repository`  | Cube image repository                                                              | `cubejs/cube`  |
+| `image.tag`         | Cube image tag (immutable tags are recommended)                                    | `0.31.41`      |
+| `image.pullPolicy`  | Cube image pull policy                                                             | `IfNotPresent` |
 | `image.pullSecrets` | If defined, uses a Secret to pull an image from a private Docker registry or repository | `[]`           |
 
 ### Config parameters

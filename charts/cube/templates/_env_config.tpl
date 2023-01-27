@@ -83,4 +83,12 @@
 - name: CUBEJS_TOPIC_NAME
   value: {{ .Values.config.topicName | quote }}
 {{- end }}
+{{- if .Values.cubestore.host }}
+- name: CUBEJS_EXT_DB_HOST
+  value: {{ .Values.cubestore.host | quote }}
+{{- end }}
+{{- if .Values.cubestore.port }}
+- name: CUBEJS_EXT_DB_PORT
+  value: {{ .Values.cubestore.port | quote }}
+{{- end }}
 {{- end }}
