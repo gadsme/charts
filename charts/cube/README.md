@@ -422,6 +422,7 @@ cubestore:
 | `datasources.<name>.databricks.url`          | The URL for a JDBC connection                                             |       |
 | `datasources.<name>.databricks.acceptPolicy` | Whether or not to accept the license terms for the Databricks JDBC driver |       |
 | `datasources.<name>.databricks.token`        | The personal access token used to authenticate the Databricks connection  |       |
+| `datasources.<name>.databricks.catalog`      | Databricks catalog name                                                   |       |
 
 ### Clickhouse datasource parameters
 

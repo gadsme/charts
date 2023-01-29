@@ -464,6 +464,10 @@ datasources:
       ##
       token:
 
+      ## Databricks catalog name
+      ##
+      catalog:
+
     clickhouse:
       ## Whether the ClickHouse user has read-only access or not
       ##
