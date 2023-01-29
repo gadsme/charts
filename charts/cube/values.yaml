@@ -349,7 +349,7 @@ datasources:
         ## An ARN of an AWS IAM role with permission to write to the configured bucket (see export.name).
         arn:
 
-    aws:
+    athena:
       ## The AWS Access Key ID to use for database connections
       ##
       key:
@@ -374,11 +374,11 @@ datasources:
 
       ## The name of the workgroup in which the query is being started
       ##
-      athenaWorkgroup:
+      workgroup:
 
       ## The name of the catalog to use by default
       ##
-      athenaCatalog:
+      catalog:
 
     bigquery:
       ## The Google BigQuery project ID to connect to

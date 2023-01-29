@@ -391,18 +391,18 @@ cubestore:
 
 ### Athena datasource parameters
 
-| Name                                           | Description                                                              | Value |
-| ---------------------------------------------- | ------------------------------------------------------------------------ | ----- |
-| `datasources.<name>.aws.key`                   | The AWS Access Key ID to use for database connections                    |       |
-| `datasources.<name>.aws.keyFromSecret.name`    | The AWS Access Key ID to use for database connections (using secret)     |       |
-| `datasources.<name>.aws.keyFromSecret.key`     | The AWS Access Key ID to use for database connections (using secret)     |       |
-| `datasources.<name>.aws.region`                | The AWS region of the Cube.js deployment                                 |       |
-| `datasources.<name>.aws.s3OutputLocation`      | The S3 path to store query results made by the Cube.js deployment        |       |
-| `datasources.<name>.aws.secret`                | The AWS Secret Access Key to use for database connections                |       |
-| `datasources.<name>.aws.secretFromSecret.name` | The AWS Secret Access Key to use for database connections (using secret) |       |
-| `datasources.<name>.aws.secretFromSecret.key`  | The AWS Secret Access Key to use for database connections (using secret) |       |
-| `datasources.<name>.aws.athenaWorkgroup`       | The name of the workgroup in which the query is being started            |       |
-| `datasources.<name>.aws.athenaCatalog`         | The name of the catalog to use by default                                |       |
+| Name                                              | Description                                                              | Value |
+| ------------------------------------------------- | ------------------------------------------------------------------------ | ----- |
+| `datasources.<name>.athena.key`                   | The AWS Access Key ID to use for database connections                    |       |
+| `datasources.<name>.athena.keyFromSecret.name`    | The AWS Access Key ID to use for database connections (using secret)     |       |
+| `datasources.<name>.athena.keyFromSecret.key`     | The AWS Access Key ID to use for database connections (using secret)     |       |
+| `datasources.<name>.athena.region`                | The AWS region of the Cube.js deployment                                 |       |
+| `datasources.<name>.athena.s3OutputLocation`      | The S3 path to store query results made by the Cube.js deployment        |       |
+| `datasources.<name>.athena.secret`                | The AWS Secret Access Key to use for database connections                |       |
+| `datasources.<name>.athena.secretFromSecret.name` | The AWS Secret Access Key to use for database connections (using secret) |       |
+| `datasources.<name>.athena.secretFromSecret.key`  | The AWS Secret Access Key to use for database connections (using secret) |       |
+| `datasources.<name>.athena.workgroup`             | The name of the workgroup in which the query is being started            |       |
+| `datasources.<name>.athena.catalog`               | The name of the catalog to use by default                                |       |
 
 ### Bigquery datasource parameters
 
