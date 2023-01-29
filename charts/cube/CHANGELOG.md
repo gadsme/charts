@@ -2,6 +2,11 @@
 
 The release numbering uses [semantic versioning](http://semver.org).
 
+## 1.1.0
+
+- Upgrade to cube 0.31.55
+- Rename `aws` database config to `athena`
+
 ## 1.0.0
 
 - Add multiple datasources support.
