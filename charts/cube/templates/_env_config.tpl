@@ -75,6 +75,16 @@
       name: {{ .Values.config.apiSecretFromSecret.name | required "config.apiSecretFromSecret.name is required" }}
       key: {{ .Values.config.apiSecretFromSecret.key | required "config.apiSecretFromSecret.key is required" }}
 {{- end }}
+{{- if .Values.config.playgroundAuthSecret }}
+- name: CUBEJS_PLAYGROUND_AUTH_SECRET
+  value: {{ .Values.config.playgroundAuthSecret | quote }}
+{{- else if .Values.config.playgroundAuthSecretFromSecret }}
+- name: CUBEJS_PLAYGROUND_AUTH_SECRET
+  valueFrom:
+    secretKeyRef:
+      name: {{ .Values.config.playgroundAuthSecretFromSecret.name | required "config.playgroundAuthSecretFromSecret.name is required" }}
+      key: {{ .Values.config.playgroundAuthSecretFromSecret.key | required "config.playgroundAuthSecretFromSecret.key is required" }}
+{{- end }}
 {{- if .Values.config.schemaPath }}
 - name: CUBEJS_SCHEMA_PATH
   value: {{ .Values.config.schemaPath | quote }}

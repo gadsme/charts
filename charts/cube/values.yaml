@@ -80,6 +80,13 @@ config:
   #   name:
   #   key:
 
+  ## The secret key used to enable playground and system apis
+  ##
+  playgroundAuthSecret:
+  # apiSecretFromSecret:
+  #   name:
+  #   key:
+
   ## The path where Cube loads schemas from. Defaults to schema
   ##
   schemaPath:

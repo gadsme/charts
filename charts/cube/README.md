@@ -287,32 +287,35 @@ cubestore:
 
 ### Config parameters
 
-| Name                                | Description                                                                                                                  | Value   |
-| ----------------------------------- | ---------------------------------------------------------------------------------------------------------------------------- | ------- |
-| `config.apiPort`                    | The port for a Cube deployment to listen to API connections on                                                               | `4000`  |
-| `config.sqlPort`                    | The port to listen to MySQL-compatible connections on                                                                        |         |
-| `config.pgSqlPort`                  | The port to listen to Postgres-compatible connections on                                                                     |         |
-| `config.sqlUser`                    | The username to access the SQL api                                                                                           |         |
-| `config.sqlPassword`                | The password to access the SQL api                                                                                           |         |
-| `config.sqlPasswordFromSecret.name` | The password to access the SQL api (using secret)                                                                            |         |
-| `config.sqlPasswordFromSecret.key`  | The password to access the SQL api (using secret)                                                                            |         |
-| `config.devMode`                    | If true, enables development mode                                                                                            | `false` |
-| `config.debug`                      | If true, enables debug logging                                                                                               | `false` |
-| `config.logLevel`                   | The logging level for Cube                                                                                                   | `warn`  |
-| `config.telemetry`                  | If true, then send telemetry to Cube                                                                                         | `false` |
-| `config.apiSecret`                  | The secret key used to sign and verify JWTs. Generated on project scaffold                                                   |         |
-| `config.apiSecretFromSecret.name`   | The secret key used to sign and verify JWTs. Generated on project scaffold (using secret)                                    |         |
-| `config.apiSecretFromSecret.key`    | The secret key used to sign and verify JWTs. Generated on project scaffold (using secret)                                    |         |
-| `config.schemaPath`                 | The path where Cube loads schemas from. Defaults to schema                                                                   |         |
-| `config.app`                        | An application ID used to uniquely identify the Cube deployment. Can be different for multitenant setups. Defaults to cubejs |         |
-| `config.rollupOnly`                 | If true, this instance of Cube will only query rollup pre-aggregations. Defaults to false                                    |         |
-| `config.scheduledRefreshTimezones`  | A comma-separated list of timezones to schedule refreshes for                                                                |         |
-| `config.webSockets`                 | If true, then use WebSocket for data fetching. Defaults to true                                                              |         |
-| `config.preAggregationsSchema`      | The schema name to use for storing pre-aggregations true                                                                     |         |
-| `config.cacheAndQueueDriver`        | The cache and queue driver to use for the Cube deployment. Defaults to redis                                                 |         |
-| `config.topicName`                  | The name of the Amazon SNS or Google Cloud Pub/Sub topicredis                                                                |         |
-| `config.volumes`                    | The config volumes. Will be used to both api and workers                                                                     | `[]`    |
-| `config.volumeMounts`               | The config volumeMounts. Will be used to both api and workers                                                                | `[]`    |
+| Name                                                       | Description                                                                                                                  | Value   |
+| ---------------------------------------------------------- | ---------------------------------------------------------------------------------------------------------------------------- | ------- |
+| `config.apiPort`                                           | The port for a Cube deployment to listen to API connections on                                                               | `4000`  |
+| `config.sqlPort`                                           | The port to listen to MySQL-compatible connections on                                                                        |         |
+| `config.pgSqlPort`                                         | The port to listen to Postgres-compatible connections on                                                                     |         |
+| `config.sqlUser`                                           | The username to access the SQL api                                                                                           |         |
+| `config.sqlPassword`                                       | The password to access the SQL api                                                                                           |         |
+| `config.sqlPasswordFromSecret.name`                        | The password to access the SQL api (using secret)                                                                            |         |
+| `config.sqlPasswordFromSecret.key`                         | The password to access the SQL api (using secret)                                                                            |         |
+| `config.devMode`                                           | If true, enables development mode                                                                                            | `false` |
+| `config.debug`                                             | If true, enables debug logging                                                                                               | `false` |
+| `config.logLevel`                                          | The logging level for Cube                                                                                                   | `warn`  |
+| `config.telemetry`                                         | If true, then send telemetry to Cube                                                                                         | `false` |
+| `config.apiSecret`                                         | The secret key used to sign and verify JWTs. Generated on project scaffold                                                   |         |
+| `config.apiSecretFromSecret.name`                          | The secret key used to sign and verify JWTs. Generated on project scaffold (using secret)                                    |         |
+| `config.apiSecretFromSecret.key`                           | The secret key used to sign and verify JWTs. Generated on project scaffold (using secret)                                    |         |
+| `config.Values.config.playgroundAuthSecret`                | The secret key used to enable system APIs                                                                                    |         |
+| `config.Values.config.playgroundAuthSecretFromSecret.name` | The secret key used to enable system APIs (using secret)                                                                     |         |
+| `config.Values.config.playgroundAuthSecretFromSecret.key`  | The secret key used to enable system APIs (using secret)                                                                     |         |
+| `config.schemaPath`                                        | The path where Cube loads schemas from. Defaults to schema                                                                   |         |
+| `config.app`                                               | An application ID used to uniquely identify the Cube deployment. Can be different for multitenant setups. Defaults to cubejs |         |
+| `config.rollupOnly`                                        | If true, this instance of Cube will only query rollup pre-aggregations. Defaults to false                                    |         |
+| `config.scheduledRefreshTimezones`                         | A comma-separated list of timezones to schedule refreshes for                                                                |         |
+| `config.webSockets`                                        | If true, then use WebSocket for data fetching. Defaults to true                                                              |         |
+| `config.preAggregationsSchema`                             | The schema name to use for storing pre-aggregations true                                                                     |         |
+| `config.cacheAndQueueDriver`                               | The cache and queue driver to use for the Cube deployment. Defaults to redis                                                 |         |
+| `config.topicName`                                         | The name of the Amazon SNS or Google Cloud Pub/Sub topicredis                                                                |         |
+| `config.volumes`                                           | The config volumes. Will be used to both api and workers                                                                     | `[]`    |
+| `config.volumeMounts`                                      | The config volumeMounts. Will be used to both api and workers                                                                | `[]`    |
 
 ### Redis parameters
 
