@@ -280,9 +280,9 @@ cubestore:
 
 | Name                | Description                                                                             | Value          |
 | ------------------- | --------------------------------------------------------------------------------------- | -------------- |
-| `image.repository`  | Cubestore image repository                                                              | `cubejs/cube`  |
-| `image.tag`         | Cubestore image tag (immutable tags are recommended)                                    | `0.31.41`      |
-| `image.pullPolicy`  | Cubestore image pull policy                                                             | `IfNotPresent` |
+| `image.repository`  | Cube image repository                                                                   | `cubejs/cube`  |
+| `image.tag`         | Cube image tag (immutable tags are recommended)                                         | `0.31.55`      |
+| `image.pullPolicy`  | Cube image pull policy                                                                  | `IfNotPresent` |
 | `image.pullSecrets` | If defined, uses a Secret to pull an image from a private Docker registry or repository | `[]`           |
 
 ### Config parameters
