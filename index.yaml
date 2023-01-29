@@ -6,6 +6,29 @@ entries:
         - name: Chart Source
           url: https://github.com/gadsme/charts
     apiVersion: v2
+    appVersion: 0.31.55
+    created: "2023-01-29T21:03:40.12190552Z"
+    description: A Helm chart for Cube
+    digest: 30bba7da98a289ae710749c348317d279ff488343dad3f0137911658b6459887
+    home: https://cube.dev
+    keywords:
+    - cubejs
+    - cube
+    maintainers:
+    - email: luc.vauvillier@gmail.com
+      name: Luc Vauvillier
+    name: cube
+    sources:
+    - https://github.com/cube-js/cube.js
+    type: application
+    urls:
+    - https://github.com/gadsme/charts/releases/download/cube-1.1.0/cube-1.1.0.tgz
+    version: 1.1.0
+  - annotations:
+      artifacthub.io/links: |
+        - name: Chart Source
+          url: https://github.com/gadsme/charts
+    apiVersion: v2
     appVersion: 0.31.47
     created: "2023-01-19T23:24:54.364048854Z"
     description: A Helm chart for Cube
@@ -43,6 +66,29 @@ entries:
     - https://github.com/gadsme/charts/releases/download/cube-0.3.0/cube-0.3.0.tgz
     version: 0.3.0
   cubestore:
+  - annotations:
+      artifacthub.io/links: |
+        - name: Chart Source
+          url: https://github.com/gadsme/charts
+    apiVersion: v2
+    appVersion: 0.31.55
+    created: "2023-01-29T21:03:40.292304928Z"
+    description: A Helm chart for Cubestore
+    digest: 99b409bebb6f4f1eba46c0d1ddfdd9b2eb8e9a22286a41f449b3c80e6efb9899
+    keywords:
+    - cube
+    - cubejs
+    - cubestore
+    maintainers:
+    - email: luc.vauvillier@gmail.com
+      name: Luc Vauvillier
+    name: cubestore
+    sources:
+    - https://github.com/cube-js/cube.js
+    type: application
+    urls:
+    - https://github.com/gadsme/charts/releases/download/cubestore-0.5.0/cubestore-0.5.0.tgz
+    version: 0.5.0
   - apiVersion: v2
     appVersion: 0.31.47
     created: "2023-01-19T21:20:31.805322812Z"
@@ -118,4 +164,4 @@ entries:
     urls:
     - https://github.com/gadsme/charts/releases/download/cubestore-0.1.0/cubestore-0.1.0.tgz
     version: 0.1.0
-generated: "2023-01-19T23:24:54.364067354Z"
+generated: "2023-01-29T21:03:40.292327728Z"
