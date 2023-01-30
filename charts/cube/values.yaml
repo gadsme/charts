@@ -508,6 +508,10 @@ datasources:
       ##
       apiKeyKey:
 
+    trino:
+      ## The catalog within Trino to connect to
+      ##
+      catalog:
 ## Cubestore configuration
 ##
 cubestore:

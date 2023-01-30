@@ -25,7 +25,9 @@
     - [ClickHouse parameters](#clickhouse-datasource-parameters)
     - [Firebolt parameters](#firebolt-datasource-parameters)
     - [Hive parameters](#hive-datasource-parameters)
+    - [Presto parameters](#presto-datasource-parameters)
     - [Snowflake parameters](#snowflake-datasource-parameters)
+    - [Trino parameters](#trino-datasource-parameters)
   - [Api instance parameters](#api-instance-parameters)
   - [Workers parameters](#workers-parameters)
   - [Ingress parameters](#ingress-parameters)
@@ -447,6 +449,12 @@ cubestore:
 | `datasources.<name>.hive.type`          | The type of Apache Hive server                  |       |
 | `datasources.<name>.hive.version`       | The version of Apache Hive                      |       |
 
+### Presto datasource parameters
+
+| Name                                | Description                             | Value |
+| ----------------------------------- | --------------------------------------- | ----- |
+| `datasources.<name>.presto.catalog` | The catalog within Presto to connect to |       |
+
 ### Snowflake datasource parameters
 
 | Name                                                  | Description                                                            | Value |
@@ -459,6 +467,12 @@ cubestore:
 | `datasources.<name>.snowFlake.authenticator`          | The type of authenticator to use with Snowflake. Defaults to SNOWFLAKE |       |
 | `datasources.<name>.snowFlake.privateKeyPath`         | The path to the private RSA key folder                                 |       |
 | `datasources.<name>.snowFlake.privateKeyPass`         | The password for the private RSA key. Only required for encrypted keys |       |
+
+### Trino datasource parameters
+
+| Name                               | Description                            | Value |
+| ---------------------------------- | -------------------------------------- | ----- |
+| `datasources.<name>.trino.catalog` | The catalog within Trino to connect to |       |
 
 ### Cubestore parameters
 
