@@ -2,6 +2,10 @@
 
 The release numbering uses [semantic versioning](http://semver.org).
 
+## 1.1.2
+
+- Fix add missing `cubestore` env vars
+
 ## 1.1.1
 
 - Fix `athena` env var generation when used in multiple datasource context
