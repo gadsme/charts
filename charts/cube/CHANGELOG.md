@@ -2,6 +2,11 @@
 
 The release numbering uses [semantic versioning](http://semver.org).
 
+## 1.1.1
+
+- Fix `athena` env var generation when used in multiple datasource context
+- Add safe checks to only generate current database related env var
+
 ## 1.1.0
 
 - Upgrade to cube 0.31.55
