@@ -6,6 +6,9 @@
 {{- $datasources := list }}
 {{- range $e, $i := $.Values.datasources }}
 {{- $datasources = append $datasources $e }}
+{{- if not $i.type }}
+{{- fail (printf "database.%s.type is required" $e) }}
+{{- end }}
 {{- include "cube.env.database.common" (set $i "datasource" $e) }}
 {{- if eq $i.type "athena" }}
 {{- include "cube.env.database.athena" (set $i "datasource" $e) }}
