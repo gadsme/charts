@@ -7,6 +7,7 @@
 {{- range $e, $i := $.Values.datasources }}
 {{- $datasources = append $datasources $e }}
 {{- include "cube.env.database.common" (set $i "datasource" $e) }}
+{{- include "cube.env.database.athena" (set $i "datasource" $e) }}
 {{- include "cube.env.database.bigquery" (set $i "datasource" $e) }}
 {{- include "cube.env.database.clickhouse" (set $i "datasource" $e) }}
 {{- include "cube.env.database.databricks" (set $i "datasource" $e) }}

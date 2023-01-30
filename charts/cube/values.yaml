@@ -80,6 +80,13 @@ config:
   #   name:
   #   key:
 
+  ## The secret key used to enable playground and system apis
+  ##
+  playgroundAuthSecret:
+  # apiSecretFromSecret:
+  #   name:
+  #   key:
+
   ## The path where Cube loads schemas from. Defaults to schema
   ##
   schemaPath:
@@ -342,7 +349,7 @@ datasources:
         ## An ARN of an AWS IAM role with permission to write to the configured bucket (see export.name).
         arn:
 
-    aws:
+    athena:
       ## The AWS Access Key ID to use for database connections
       ##
       key:
@@ -367,11 +374,11 @@ datasources:
 
       ## The name of the workgroup in which the query is being started
       ##
-      athenaWorkgroup:
+      workgroup:
 
       ## The name of the catalog to use by default
       ##
-      athenaCatalog:
+      catalog:
 
     bigquery:
       ## The Google BigQuery project ID to connect to
@@ -456,6 +463,10 @@ datasources:
       ## The personal access token used to authenticate the Databricks connection
       ##
       token:
+
+      ## Databricks catalog name
+      ##
+      catalog:
 
     clickhouse:
       ## Whether the ClickHouse user has read-only access or not

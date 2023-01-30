@@ -1,26 +1,26 @@
 {{- define "cube.env.database.athena" }}
-{{- if (.aws).key }}
+{{- if (.athena).key }}
 - name: {{ include "cube.env.decorated" (dict "key" "CUBEJS_AWS_KEY" "datasource" .datasource) }}
-  value: {{ .aws.key | quote }}
+  value: {{ .athena.key | quote }}
 {{- end }}
-{{- if (.aws).secret }}
+{{- if (.athena).secret }}
 - name: {{ include "cube.env.decorated" (dict "key" "CUBEJS_AWS_SECRET" "datasource" .datasource) }}
-  value: {{ .aws.secret | quote }}
+  value: {{ .athena.secret | quote }}
 {{- end }}
-{{- if (.aws).region }}
+{{- if (.athena).region }}
 - name: {{ include "cube.env.decorated" (dict "key" "CUBEJS_AWS_REGION" "datasource" .datasource) }}
-  value: {{ .aws.region | quote }}
+  value: {{ .athena.region | quote }}
 {{- end }}
-{{- if (.aws).s3OutputLocation }}
+{{- if (.athena).s3OutputLocation }}
 - name: {{ include "cube.env.decorated" (dict "key" "CUBEJS_AWS_S3_OUTPUT_LOCATION" "datasource" .datasource) }}
-  value: {{ .aws.s3OutputLocation | quote }}
+  value: {{ .athena.s3OutputLocation | quote }}
 {{- end }}
-{{- if (.aws).athenaWorkgroup }}
+{{- if (.athena).workgroup }}
 - name: {{ include "cube.env.decorated" (dict "key" "CUBEJS_AWS_ATHENA_WORKGROUP" "datasource" .datasource) }}
-  value: {{ .aws.athenaWorkgroup | quote }}
+  value: {{ .athena.workgroup | quote }}
 {{- end }}
-{{- if (.aws).athenaCatalog }}
+{{- if (.athena).catalog }}
 - name: {{ include "cube.env.decorated" (dict "key" "CUBEJS_AWS_ATHENA_CATALOG" "datasource" .datasource) }}
-  value: {{ .aws.athenaCatalog | quote }}
+  value: {{ .athena.catalog | quote }}
 {{- end }}
 {{- end }}

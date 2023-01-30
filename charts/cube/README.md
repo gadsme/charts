@@ -283,39 +283,42 @@ cubestore:
 
 | Name                | Description                                                                             | Value          |
 | ------------------- | --------------------------------------------------------------------------------------- | -------------- |
-| `image.repository`  | Cube image repository                                                              | `cubejs/cube`  |
-| `image.tag`         | Cube image tag (immutable tags are recommended)                                    | `0.31.41`      |
-| `image.pullPolicy`  | Cube image pull policy                                                             | `IfNotPresent` |
+| `image.repository`  | Cube image repository                                                                   | `cubejs/cube`  |
+| `image.tag`         | Cube image tag (immutable tags are recommended)                                         | `0.31.55`      |
+| `image.pullPolicy`  | Cube image pull policy                                                                  | `IfNotPresent` |
 | `image.pullSecrets` | If defined, uses a Secret to pull an image from a private Docker registry or repository | `[]`           |
 
 ### Config parameters
 
-| Name                                | Description                                                                                                                  | Value   |
-| ----------------------------------- | ---------------------------------------------------------------------------------------------------------------------------- | ------- |
-| `config.apiPort`                    | The port for a Cube deployment to listen to API connections on                                                               | `4000`  |
-| `config.sqlPort`                    | The port to listen to MySQL-compatible connections on                                                                        |         |
-| `config.pgSqlPort`                  | The port to listen to Postgres-compatible connections on                                                                     |         |
-| `config.sqlUser`                    | The username to access the SQL api                                                                                           |         |
-| `config.sqlPassword`                | The password to access the SQL api                                                                                           |         |
-| `config.sqlPasswordFromSecret.name` | The password to access the SQL api (using secret)                                                                            |         |
-| `config.sqlPasswordFromSecret.key`  | The password to access the SQL api (using secret)                                                                            |         |
-| `config.devMode`                    | If true, enables development mode                                                                                            | `false` |
-| `config.debug`                      | If true, enables debug logging                                                                                               | `false` |
-| `config.logLevel`                   | The logging level for Cube                                                                                                   | `warn`  |
-| `config.telemetry`                  | If true, then send telemetry to Cube                                                                                         | `false` |
-| `config.apiSecret`                  | The secret key used to sign and verify JWTs. Generated on project scaffold                                                   |         |
-| `config.apiSecretFromSecret.name`   | The secret key used to sign and verify JWTs. Generated on project scaffold (using secret)                                    |         |
-| `config.apiSecretFromSecret.key`    | The secret key used to sign and verify JWTs. Generated on project scaffold (using secret)                                    |         |
-| `config.schemaPath`                 | The path where Cube loads schemas from. Defaults to schema                                                                   |         |
-| `config.app`                        | An application ID used to uniquely identify the Cube deployment. Can be different for multitenant setups. Defaults to cubejs |         |
-| `config.rollupOnly`                 | If true, this instance of Cube will only query rollup pre-aggregations. Defaults to false                                    |         |
-| `config.scheduledRefreshTimezones`  | A comma-separated list of timezones to schedule refreshes for                                                                |         |
-| `config.webSockets`                 | If true, then use WebSocket for data fetching. Defaults to true                                                              |         |
-| `config.preAggregationsSchema`      | The schema name to use for storing pre-aggregations true                                                                     |         |
-| `config.cacheAndQueueDriver`        | The cache and queue driver to use for the Cube deployment. Defaults to redis                                                 |         |
-| `config.topicName`                  | The name of the Amazon SNS or Google Cloud Pub/Sub topicredis                                                                |         |
-| `config.volumes`                    | The config volumes. Will be used to both api and workers                                                                     | `[]`    |
-| `config.volumeMounts`               | The config volumeMounts. Will be used to both api and workers                                                                | `[]`    |
+| Name                                                       | Description                                                                                                                  | Value   |
+| ---------------------------------------------------------- | ---------------------------------------------------------------------------------------------------------------------------- | ------- |
+| `config.apiPort`                                           | The port for a Cube deployment to listen to API connections on                                                               | `4000`  |
+| `config.sqlPort`                                           | The port to listen to MySQL-compatible connections on                                                                        |         |
+| `config.pgSqlPort`                                         | The port to listen to Postgres-compatible connections on                                                                     |         |
+| `config.sqlUser`                                           | The username to access the SQL api                                                                                           |         |
+| `config.sqlPassword`                                       | The password to access the SQL api                                                                                           |         |
+| `config.sqlPasswordFromSecret.name`                        | The password to access the SQL api (using secret)                                                                            |         |
+| `config.sqlPasswordFromSecret.key`                         | The password to access the SQL api (using secret)                                                                            |         |
+| `config.devMode`                                           | If true, enables development mode                                                                                            | `false` |
+| `config.debug`                                             | If true, enables debug logging                                                                                               | `false` |
+| `config.logLevel`                                          | The logging level for Cube                                                                                                   | `warn`  |
+| `config.telemetry`                                         | If true, then send telemetry to Cube                                                                                         | `false` |
+| `config.apiSecret`                                         | The secret key used to sign and verify JWTs. Generated on project scaffold                                                   |         |
+| `config.apiSecretFromSecret.name`                          | The secret key used to sign and verify JWTs. Generated on project scaffold (using secret)                                    |         |
+| `config.apiSecretFromSecret.key`                           | The secret key used to sign and verify JWTs. Generated on project scaffold (using secret)                                    |         |
+| `config.Values.config.playgroundAuthSecret`                | The secret key used to enable system APIs                                                                                    |         |
+| `config.Values.config.playgroundAuthSecretFromSecret.name` | The secret key used to enable system APIs (using secret)                                                                     |         |
+| `config.Values.config.playgroundAuthSecretFromSecret.key`  | The secret key used to enable system APIs (using secret)                                                                     |         |
+| `config.schemaPath`                                        | The path where Cube loads schemas from. Defaults to schema                                                                   |         |
+| `config.app`                                               | An application ID used to uniquely identify the Cube deployment. Can be different for multitenant setups. Defaults to cubejs |         |
+| `config.rollupOnly`                                        | If true, this instance of Cube will only query rollup pre-aggregations. Defaults to false                                    |         |
+| `config.scheduledRefreshTimezones`                         | A comma-separated list of timezones to schedule refreshes for                                                                |         |
+| `config.webSockets`                                        | If true, then use WebSocket for data fetching. Defaults to true                                                              |         |
+| `config.preAggregationsSchema`                             | The schema name to use for storing pre-aggregations true                                                                     |         |
+| `config.cacheAndQueueDriver`                               | The cache and queue driver to use for the Cube deployment. Defaults to redis                                                 |         |
+| `config.topicName`                                         | The name of the Amazon SNS or Google Cloud Pub/Sub topicredis                                                                |         |
+| `config.volumes`                                           | The config volumes. Will be used to both api and workers                                                                     | `[]`    |
+| `config.volumeMounts`                                      | The config volumeMounts. Will be used to both api and workers                                                                | `[]`    |
 
 ### Redis parameters
 
@@ -391,18 +394,18 @@ cubestore:
 
 ### Athena datasource parameters
 
-| Name                                           | Description                                                              | Value |
-| ---------------------------------------------- | ------------------------------------------------------------------------ | ----- |
-| `datasources.<name>.aws.key`                   | The AWS Access Key ID to use for database connections                    |       |
-| `datasources.<name>.aws.keyFromSecret.name`    | The AWS Access Key ID to use for database connections (using secret)     |       |
-| `datasources.<name>.aws.keyFromSecret.key`     | The AWS Access Key ID to use for database connections (using secret)     |       |
-| `datasources.<name>.aws.region`                | The AWS region of the Cube.js deployment                                 |       |
-| `datasources.<name>.aws.s3OutputLocation`      | The S3 path to store query results made by the Cube.js deployment        |       |
-| `datasources.<name>.aws.secret`                | The AWS Secret Access Key to use for database connections                |       |
-| `datasources.<name>.aws.secretFromSecret.name` | The AWS Secret Access Key to use for database connections (using secret) |       |
-| `datasources.<name>.aws.secretFromSecret.key`  | The AWS Secret Access Key to use for database connections (using secret) |       |
-| `datasources.<name>.aws.athenaWorkgroup`       | The name of the workgroup in which the query is being started            |       |
-| `datasources.<name>.aws.athenaCatalog`         | The name of the catalog to use by default                                |       |
+| Name                                              | Description                                                              | Value |
+| ------------------------------------------------- | ------------------------------------------------------------------------ | ----- |
+| `datasources.<name>.athena.key`                   | The AWS Access Key ID to use for database connections                    |       |
+| `datasources.<name>.athena.keyFromSecret.name`    | The AWS Access Key ID to use for database connections (using secret)     |       |
+| `datasources.<name>.athena.keyFromSecret.key`     | The AWS Access Key ID to use for database connections (using secret)     |       |
+| `datasources.<name>.athena.region`                | The AWS region of the Cube.js deployment                                 |       |
+| `datasources.<name>.athena.s3OutputLocation`      | The S3 path to store query results made by the Cube.js deployment        |       |
+| `datasources.<name>.athena.secret`                | The AWS Secret Access Key to use for database connections                |       |
+| `datasources.<name>.athena.secretFromSecret.name` | The AWS Secret Access Key to use for database connections (using secret) |       |
+| `datasources.<name>.athena.secretFromSecret.key`  | The AWS Secret Access Key to use for database connections (using secret) |       |
+| `datasources.<name>.athena.workgroup`             | The name of the workgroup in which the query is being started            |       |
+| `datasources.<name>.athena.catalog`               | The name of the catalog to use by default                                |       |
 
 ### Bigquery datasource parameters
 
@@ -422,6 +425,7 @@ cubestore:
 | `datasources.<name>.databricks.url`          | The URL for a JDBC connection                                             |       |
 | `datasources.<name>.databricks.acceptPolicy` | Whether or not to accept the license terms for the Databricks JDBC driver |       |
 | `datasources.<name>.databricks.token`        | The personal access token used to authenticate the Databricks connection  |       |
+| `datasources.<name>.databricks.catalog`      | Databricks catalog name                                                   |       |
 
 ### Clickhouse datasource parameters
 

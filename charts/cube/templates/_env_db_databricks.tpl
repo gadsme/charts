@@ -11,4 +11,8 @@
 - name: {{ include "cube.env.decorated" (dict "key" "CUBEJS_DB_DATABRICKS_TOKEN" "datasource" .datasource) }}
   value: {{ .databricks.token | quote }}
 {{- end }}
+{{- if (.databricks).catalog }}
+- name: {{ include "cube.env.decorated" (dict "key" "CUBEJS_DB_DATABRICKS_CATALOG" "datasource" .datasource) }}
+  value: {{ .databricks.catalog | quote }}
+{{- end }}
 {{- end }}
