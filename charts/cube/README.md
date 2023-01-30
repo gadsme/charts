@@ -479,7 +479,7 @@ cubestore:
 | Name             | Description                               | Value |
 | ---------------- | ----------------------------------------- | ----- |
 | `cubestore.host` | The hostname of the Cube Store deployment |       |
-| `cubestore.port` | The port of the Cube Store deployment     |       |
+| `cubestore.port` | The port of the Cube Store deployment     | 3030  |
 
 ### Api instance parameters
 

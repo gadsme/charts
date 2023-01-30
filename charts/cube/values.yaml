@@ -521,7 +521,7 @@ cubestore:
 
   ## The port of the Cube Store deployment
   ##
-  port:
+  port: 3030
 
 api:
   ## Service account for cube api to use

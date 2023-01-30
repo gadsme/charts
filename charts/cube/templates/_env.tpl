@@ -2,6 +2,7 @@
 {{- include "cube.env.config" . }}
 {{- include "cube.env.jwt" . }}
 {{- include "cube.env.redis" . }}
+{{- include "cube.env.cubestore" . }}
 
 {{- $datasources := list }}
 {{- range $e, $i := $.Values.datasources }}
