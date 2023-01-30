@@ -87,8 +87,16 @@
 - name: CUBESTORE_MINIO_REGION
   value: {{ .Values.cloudStorage.minio.region | quote }}
 {{- end }}
+{{- if .Values.cloudStorage.minio.subPath }}
+- name: CUBESTORE_MINIO_SUB_PATH
+  value: {{ .Values.cloudStorage.minio.subPath | quote }}
+{{- end }}
 {{- if .Values.cloudStorage.minio.endpoint }}
 - name: CUBESTORE_MINIO_SERVER_ENDPOINT
   value: {{ .Values.cloudStorage.minio.endpoint | quote }}
+{{- end }}
+{{- if .Values.cloudStorage.minio.credentialsRefreshEveryMinutes }}
+- name: CUBESTORE_MINIO_CREDS_REFRESH_EVERY_MINS
+  value: {{ .Values.cloudStorage.minio.credentialsRefreshEveryMinutes | quote }}
 {{- end }}
 {{- end }}

@@ -115,27 +115,29 @@ By default local dir are not persisted. You can enable persistance on router and
 
 ### Cloud Storage parameters
 
-| Name                                          | Description                                                                                                            | Value |
-| --------------------------------------------- | ---------------------------------------------------------------------------------------------------------------------- | ----- |
-| `cloudStorage.gcp.credentials`                | A Base64 encoded JSON key file for connecting to Google Cloud. Required when using Google Cloud Storage                |
-| `cloudStorage.gcp.credentialsFromSecret.name` | A Base64 encoded JSON key file for connecting to Google Cloud. Required when using Google Cloud Storage (using secret) |       |
-| `cloudStorage.gcp.credentialsFromSecret.key`  | A Base64 encoded JSON key file for connecting to Google Cloud. Required when using Google Cloud Storage (using secret) |       |
-| `cloudStorage.gcp.bucket`                     | The name of a bucket in GCS. Required when using GCS                                                                   |       |
-| `cloudStorage.gcp.subPath`                    | The path in a GCS bucket to store pre-aggregations. Optional                                                           |       |
-| `cloudStorage.aws.accessKeyID`                | The Access Key ID for AWS. Required when using AWS S3                                                                  |       |
-| `cloudStorage.aws.secretKey`                  | A Base64 encoded JSON key file for connecting to Google Cloud. Required when using Google Cloud Storage                |       |
-| `cloudStorage.aws.secretKeyFromSecret.name`   | The Secret Access Key for AWS. Required when using AWS S3 (using secret)                                               |       |
-| `cloudStorage.aws.secretKeyFromSecret.key`    | The Secret Access Key for AWS. Required when using AWS S3 (using secret)                                               |       |
-| `cloudStorage.aws.bucket`                     | The name of a bucket in AWS S3. Required when using AWS S3                                                             |       |
-| `cloudStorage.aws.region`                     | The region of a bucket in AWS S3. Required when using AWS S3                                                           |       |
-| `cloudStorage.aws.subPath`                    | The path in a AWS S3 bucket to store pre-aggregations. Optional                                                        |       |
-| `cloudStorage.minio.accessKeyID`              | The The Access Key ID for minIO. Required when using minIO                                                             |       |
-| `cloudStorage.minio.secretKey`                | The Secret Access Key for minIO. Required when using minIO                                                             |       |
-| `cloudStorage.minio.secretKeyFromSecret.name` | The Secret Access Key for minIO. Required when using minIO (using secret)                                              |       |
-| `cloudStorage.minio.secretKeyFromSecret.key`  | The Secret Access Key for minIO. Required when using minIO (using secret)                                              |       |
-| `cloudStorage.minio.bucket`                   | The name of the bucket that you want to use minIO. Required when using minIO                                           |       |
-| `cloudStorage.minio.region`                   | The region of a bucket in S3 that you want to use minIO. Optional when using minIO                                     |       |
-| `cloudStorage.minio.endpoint`                 | The minIO server endpoint. Required when using minIO                                                                   |       |
+| Name                                                | Description                                                                                                            | Value |
+| --------------------------------------------------- | ---------------------------------------------------------------------------------------------------------------------- | ----- |
+| `cloudStorage.gcp.credentials`                      | A Base64 encoded JSON key file for connecting to Google Cloud. Required when using Google Cloud Storage                |       |
+| `cloudStorage.gcp.credentialsFromSecret.name`       | A Base64 encoded JSON key file for connecting to Google Cloud. Required when using Google Cloud Storage (using secret) |       |
+| `cloudStorage.gcp.credentialsFromSecret.key`        | A Base64 encoded JSON key file for connecting to Google Cloud. Required when using Google Cloud Storage (using secret) |       |
+| `cloudStorage.gcp.bucket`                           | The name of a bucket in GCS. Required when using GCS                                                                   |       |
+| `cloudStorage.gcp.subPath`                          | The path in a GCS bucket to store pre-aggregations. Optional                                                           |       |
+| `cloudStorage.aws.accessKeyID`                      | The Access Key ID for AWS. Required when using AWS S3                                                                  |       |
+| `cloudStorage.aws.secretKey`                        | A Base64 encoded JSON key file for connecting to Google Cloud. Required when using Google Cloud Storage                |       |
+| `cloudStorage.aws.secretKeyFromSecret.name`         | The Secret Access Key for AWS. Required when using AWS S3 (using secret)                                               |       |
+| `cloudStorage.aws.secretKeyFromSecret.key`          | The Secret Access Key for AWS. Required when using AWS S3 (using secret)                                               |       |
+| `cloudStorage.aws.bucket`                           | The name of a bucket in AWS S3. Required when using AWS S3                                                             |       |
+| `cloudStorage.aws.region`                           | The region of a bucket in AWS S3. Required when using AWS S3                                                           |       |
+| `cloudStorage.aws.subPath`                          | The path in a AWS S3 bucket to store pre-aggregations. Optional                                                        |       |
+| `cloudStorage.minio.accessKeyID`                    | The The Access Key ID for minIO. Required when using minIO                                                             |       |
+| `cloudStorage.minio.secretKey`                      | The Secret Access Key for minIO. Required when using minIO                                                             |       |
+| `cloudStorage.minio.secretKeyFromSecret.name`       | The Secret Access Key for minIO. Required when using minIO (using secret)                                              |       |
+| `cloudStorage.minio.secretKeyFromSecret.key`        | The Secret Access Key for minIO. Required when using minIO (using secret)                                              |       |
+| `cloudStorage.minio.bucket`                         | The name of the bucket that you want to use minIO. Required when using minIO                                           |       |
+| `cloudStorage.minio.region`                         | The region of a bucket in S3 that you want to use minIO. Optional when using minIO                                     |       |
+| `cloudStorage.minio.subPath`                        | The path in a minIO bucket to store pre-aggregations. Optional                                                         |       |
+| `cloudStorage.minio.endpoint`                       | The minIO server endpoint. Required when using minIO                                                                   |       |
+| `cloudStorage.minio.credentialsRefreshEveryMinutes` | The number of minutes after which Cube Store should refresh minIO credentials                                          |       |
 
 ### Router parameters
 

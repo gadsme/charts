@@ -156,9 +156,17 @@ cloudStorage:
     ##
     region:
 
+    ## The path in a minIO bucket to store pre-aggregations. Optional
+    ##
+    subPath:
+
     ## The minIO server endpoint. Required when using minIO
     ##
     endpoint:
+
+    ## The number of minutes after which Cube Store should refresh minIO credentials.
+    ##
+    credentialsRefreshEveryMinutes:
 
 router:
   ## Service account for cubestore router to use
