@@ -112,10 +112,10 @@ Create a decorated env var using datasource name
 https://cube.dev/docs/config/multiple-data-sources#configuring-data-sources-with-environment-variables-decorated-environment-variables
 */}}
 {{- define "cube.env.decorated" -}}
-{{- $parts := split "_DB_" .key -}}
+{{- $parts := split "CUBEJS_" .key -}}
 {{- if eq .datasource "default" -}}
-{{- printf "CUBEJS_DB_%s" $parts._1 }}
+{{- .key }}
 {{- else -}}
-{{- printf "CUBEJS_DS_%s_DB_%s" (upper .datasource) $parts._1 }}
+{{- printf "CUBEJS_DS_%s_%s" (upper .datasource) $parts._1 }}
 {{- end -}}
 {{- end}}
