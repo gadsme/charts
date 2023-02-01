@@ -85,7 +85,7 @@ remoteDir:
     ## Persistent Volume access modes
     ##
     accessModes:
-      - ReadWriteOnce
+      - ReadWriteMany
 
     ## @param remoteDir.persistence.storageClass The storage class to use for the remoteDir pvc
     ## If defined, storageClassName: <storageClass>
