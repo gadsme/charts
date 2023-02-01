@@ -119,8 +119,7 @@ apiVersion: v1
 kind: ConfigMap
 metadata:
   name: cube-schema
-data:
-{{ (.Files.Glob "schema/**.js").AsConfig | indent 2 }}
+data: {{ (.Files.Glob "schema/**.js").AsConfig | nindent 2 }}
 ```
 
 ### Injecting javascript config
@@ -281,56 +280,57 @@ cubestore:
 ### Image parameters
 
 | Name                | Description                                                                             | Value          |
-| ------------------- | --------------------------------------------------------------------------------------- | -------------- |
+| ------------------- | --------------------------------------------------------------------------------------- |----------------|
 | `image.repository`  | Cube image repository                                                                   | `cubejs/cube`  |
-| `image.tag`         | Cube image tag (immutable tags are recommended)                                         | `0.31.55`      |
+| `image.tag`         | Cube image tag (immutable tags are recommended)                                         | `0.31.56`      |
 | `image.pullPolicy`  | Cube image pull policy                                                                  | `IfNotPresent` |
 | `image.pullSecrets` | If defined, uses a Secret to pull an image from a private Docker registry or repository | `[]`           |
 
 ### Config parameters
 
-| Name                                                       | Description                                                                                                                  | Value   |
-| ---------------------------------------------------------- | ---------------------------------------------------------------------------------------------------------------------------- | ------- |
-| `config.apiPort`                                           | The port for a Cube deployment to listen to API connections on                                                               | `4000`  |
-| `config.sqlPort`                                           | The port to listen to MySQL-compatible connections on                                                                        |         |
-| `config.pgSqlPort`                                         | The port to listen to Postgres-compatible connections on                                                                     |         |
-| `config.sqlUser`                                           | The username to access the SQL api                                                                                           |         |
-| `config.sqlPassword`                                       | The password to access the SQL api                                                                                           |         |
-| `config.sqlPasswordFromSecret.name`                        | The password to access the SQL api (using secret)                                                                            |         |
-| `config.sqlPasswordFromSecret.key`                         | The password to access the SQL api (using secret)                                                                            |         |
-| `config.devMode`                                           | If true, enables development mode                                                                                            | `false` |
-| `config.debug`                                             | If true, enables debug logging                                                                                               | `false` |
-| `config.logLevel`                                          | The logging level for Cube                                                                                                   | `warn`  |
-| `config.telemetry`                                         | If true, then send telemetry to Cube                                                                                         | `false` |
-| `config.apiSecret`                                         | The secret key used to sign and verify JWTs. Generated on project scaffold                                                   |         |
-| `config.apiSecretFromSecret.name`                          | The secret key used to sign and verify JWTs. Generated on project scaffold (using secret)                                    |         |
-| `config.apiSecretFromSecret.key`                           | The secret key used to sign and verify JWTs. Generated on project scaffold (using secret)                                    |         |
-| `config.Values.config.playgroundAuthSecret`                | The secret key used to enable system APIs                                                                                    |         |
-| `config.Values.config.playgroundAuthSecretFromSecret.name` | The secret key used to enable system APIs (using secret)                                                                     |         |
-| `config.Values.config.playgroundAuthSecretFromSecret.key`  | The secret key used to enable system APIs (using secret)                                                                     |         |
-| `config.schemaPath`                                        | The path where Cube loads schemas from. Defaults to schema                                                                   |         |
-| `config.app`                                               | An application ID used to uniquely identify the Cube deployment. Can be different for multitenant setups. Defaults to cubejs |         |
-| `config.rollupOnly`                                        | If true, this instance of Cube will only query rollup pre-aggregations. Defaults to false                                    |         |
-| `config.scheduledRefreshTimezones`                         | A comma-separated list of timezones to schedule refreshes for                                                                |         |
-| `config.webSockets`                                        | If true, then use WebSocket for data fetching. Defaults to true                                                              |         |
-| `config.preAggregationsSchema`                             | The schema name to use for storing pre-aggregations true                                                                     |         |
-| `config.cacheAndQueueDriver`                               | The cache and queue driver to use for the Cube deployment. Defaults to redis                                                 |         |
-| `config.topicName`                                         | The name of the Amazon SNS or Google Cloud Pub/Sub topicredis                                                                |         |
-| `config.volumes`                                           | The config volumes. Will be used to both api and workers                                                                     | `[]`    |
-| `config.volumeMounts`                                      | The config volumeMounts. Will be used to both api and workers                                                                | `[]`    |
+| Name                                                        | Description                                                                                                                                                             | Value   |
+|-------------------------------------------------------------|-------------------------------------------------------------------------------------------------------------------------------------------------------------------------|---------|
+| `config.apiPort`                                            | The port for a Cube deployment to listen to API connections on                                                                                                          | `4000`  |
+| `config.sqlPort`                                            | The port to listen to MySQL-compatible connections on                                                                                                                   |         |
+| `config.pgSqlPort`                                          | The port to listen to Postgres-compatible connections on                                                                                                                |         |
+| `config.sqlUser`                                            | The username to access the SQL api                                                                                                                                      |         |
+| `config.sqlPassword`                                        | The password to access the SQL api                                                                                                                                      |         |
+| `config.sqlPasswordFromSecret.name`                         | The password to access the SQL api (using secret)                                                                                                                       |         |
+| `config.sqlPasswordFromSecret.key`                          | The password to access the SQL api (using secret)                                                                                                                       |         |
+| `config.devMode`                                            | If true, enables development mode                                                                                                                                       | `false` |
+| `config.debug`                                              | If true, enables debug logging                                                                                                                                          | `false` |
+| `config.logLevel`                                           | The logging level for Cube                                                                                                                                              | `warn`  |
+| `config.telemetry`                                          | If true, then send telemetry to Cube                                                                                                                                    | `false` |
+| `config.apiSecret`                                          | The secret key used to sign and verify JWTs. Generated on project scaffold                                                                                              |         |
+| `config.apiSecretFromSecret.name`                           | The secret key used to sign and verify JWTs. Generated on project scaffold (using secret)                                                                               |         |
+| `config.apiSecretFromSecret.key`                            | The secret key used to sign and verify JWTs. Generated on project scaffold (using secret)                                                                               |         |
+| `config.Values.config.playgroundAuthSecret`                 | The secret key used to enable system APIs                                                                                                                               |         |
+| `config.Values.config.playgroundAuthSecretFromSecret.name`  | The secret key used to enable system APIs (using secret)                                                                                                                |         |
+| `config.Values.config.playgroundAuthSecretFromSecret.key`   | The secret key used to enable system APIs (using secret)                                                                                                                |         |
+| `config.schemaPath`                                         | The path where Cube loads schemas from.                                                                                                                                 | schema  |
+| `config.app`                                                | An application ID used to uniquely identify the Cube deployment. Can be different for multitenant setups.                                                               | cubejs  |
+| `config.rollupOnly`                                         | If true, this instance of Cube will only query rollup pre-aggregations.                                                                                                 | false   |
+| `config.scheduledRefreshTimezones`                          | A comma-separated list of timezones to schedule refreshes for                                                                                                           |         |
+ | `config.scheduledRefreshConcurrency`                        | How many pre-aggregations refresh worker will build in parallel. Please note changing this param doesn't change queue concurrency and it should be adjusted accordingly |         |
+| `config.preAggregationsSchema`                              | The schema name to use for storing pre-aggregations true                                                                                                                |         |
+| `config.webSockets`                                         | If true, then use WebSocket for data fetching.                                                                                                                          | true    |
+| `config.cacheAndQueueDriver`                                | The cache and queue driver to use for the Cube deployment.                                                                                                              | redis   |
+| `config.topicName`                                          | The name of the Amazon SNS or Google Cloud Pub/Sub topicredis                                                                                                           |         |
+| `config.volumes`                                            | The config volumes. Will be used to both api and workers                                                                                                                | `[]`    |
+| `config.volumeMounts`                                       | The config volumeMounts. Will be used to both api and workers                                                                                                           | `[]`    |
 
 ### Redis parameters
 
-| Name                            | Description                                                                                                                                              | Value |
-| ------------------------------- | -------------------------------------------------------------------------------------------------------------------------------------------------------- | ----- |
-| `redis.url`                     | The host URL for a Redis server. Note that this must include the `redis://` protocol prefix.                                                             |       |
-| `redis.password`                | The password used to connect to the Redis server                                                                                                         |       |
-| `redis.passwordFromSecret.name` | The password used to connect to the Redis server (using secret)                                                                                          |       |
-| `redis.passwordFromSecret.key`  | The password used to connect to the Redis server (using secret)                                                                                          |       |
-| `redis.tls`                     | If true, then the connection to the Redis server is protected by TLS authentication. Defaults to false                                                   |       |
-| `redis.poolMin`                 | The minimum number of connections to keep active in the Redis connection pool for a single appId (tenant). Must be lower than poolMax. Defaults to 2     |       |
-| `redis.poolMax`                 | The maximum number of connections to keep active in the Redis connection pool for a single appId (tenant). Must be higher than poolMin. Defaults to 1000 |       |
-| `redis.useIoRedis`              | Use ioredis instead of redis. Defaults to false                                                                                                          |       |
+| Name                            | Description                                                                                                                             | Value |
+| ------------------------------- |-----------------------------------------------------------------------------------------------------------------------------------------|-------|
+| `redis.url`                     | The host URL for a Redis server. Note that this must include the `redis://` protocol prefix.                                            |       |
+| `redis.password`                | The password used to connect to the Redis server                                                                                        |       |
+| `redis.passwordFromSecret.name` | The password used to connect to the Redis server (using secret)                                                                         |       |
+| `redis.passwordFromSecret.key`  | The password used to connect to the Redis server (using secret)                                                                         |       |
+| `redis.tls`                     | If true, then the connection to the Redis server is protected by TLS authentication.                                                    | false |
+| `redis.poolMin`                 | The minimum number of connections to keep active in the Redis connection pool for a single appId (tenant). Must be lower than poolMax.  | 2     |
+| `redis.poolMax`                 | The maximum number of connections to keep active in the Redis connection pool for a single appId (tenant). Must be higher than poolMin. | 1000  |
+| `redis.useIoRedis`              | Use ioredis instead of redis.                                                                                                           | false |
 
 ### JWT parameters
 
@@ -457,16 +457,16 @@ cubestore:
 
 ### Snowflake datasource parameters
 
-| Name                                                  | Description                                                            | Value |
-| ----------------------------------------------------- | ---------------------------------------------------------------------- | ----- |
-| `datasources.<name>.snowFlake.account`                | The Snowflake account ID to use when connecting to the database        |       |
-| `datasources.<name>.snowFlake.region`                 | The Snowflake region to use when connecting to the database            |       |
-| `datasources.<name>.snowFlake.role`                   | The Snowflake role to use when connecting to the database              |       |
-| `datasources.<name>.snowFlake.warehouse`              | The Snowflake warehouse to use when connecting to the database         |       |
-| `datasources.<name>.snowFlake.clientSessionKeepAlive` | If true, keep the Snowflake connection alive indefinitely              |       |
-| `datasources.<name>.snowFlake.authenticator`          | The type of authenticator to use with Snowflake. Defaults to SNOWFLAKE |       |
-| `datasources.<name>.snowFlake.privateKeyPath`         | The path to the private RSA key folder                                 |       |
-| `datasources.<name>.snowFlake.privateKeyPass`         | The password for the private RSA key. Only required for encrypted keys |       |
+| Name                                                  | Description                                                            | Value     |
+| ----------------------------------------------------- | ---------------------------------------------------------------------- |-----------|
+| `datasources.<name>.snowFlake.account`                | The Snowflake account ID to use when connecting to the database        |           |
+| `datasources.<name>.snowFlake.region`                 | The Snowflake region to use when connecting to the database            |           |
+| `datasources.<name>.snowFlake.role`                   | The Snowflake role to use when connecting to the database              |           |
+| `datasources.<name>.snowFlake.warehouse`              | The Snowflake warehouse to use when connecting to the database         |           |
+| `datasources.<name>.snowFlake.clientSessionKeepAlive` | If true, keep the Snowflake connection alive indefinitely              |           |
+| `datasources.<name>.snowFlake.authenticator`          | The type of authenticator to use with Snowflake.                       | SNOWFLAKE |
+| `datasources.<name>.snowFlake.privateKeyPath`         | The path to the private RSA key folder                                 |           |
+| `datasources.<name>.snowFlake.privateKeyPass`         | The password for the private RSA key. Only required for encrypted keys |           |
 
 ### Trino datasource parameters
 
