@@ -52,6 +52,15 @@ spec:
             {{- include "cube.env" . | nindent 12 }}
             - name: CUBEJS_REFRESH_WORKER
               value: "true"
+          envFrom:
+            {{- if  .Values.envFromSecret }}
+            - secretRef:
+                name: {{ tpl .Values.envFromSecret . | quote }}
+            {{- end }}
+            {{- range .Values.envFromSecrets }}
+            - secretRef:
+                name: {{ tpl . $ | quote }}
+            {{- end }}
           {{- if .Values.workers.livenessProbe.enabled }}
           livenessProbe:
             initialDelaySeconds: {{ .Values.workers.livenessProbe.initialDelaySeconds }}

@@ -2,34 +2,37 @@
 
 ## Table of Contents
 
-- [Get Started](#get-started)
-  - [Install Chart](#install-chart)
-  - [Uninstall Chart](#uninstall-chart)
-  - [Upgrading Chart](#upgrading-chart)
-- [Configuration](#configuration)
-  - [Injecting schema](#injecting-schema)
-  - [Injecting javascript config](#injecting-javascript-config)
-  - [Fix duplicate schemas issue](#fix-duplicate-schemas-issue)
-  - [Examples](#examples)
-- [Reference](#reference)
-  - [Global parameters](#global-parameters)
-  - [Image parameters](#image-parameters)
-  - [Config parameters](#config-parameters)
-  - [Redis parameters](#redis-parameters)
-  - [JWT parameters](#jwt-parameters)
-  - [Datasources configuration](#datasources-configuration)
-    - [Common parameters](#common-datasource-parameters)
-    - [Athena parameters](#athena-datasource-parameters)
-    - [Bigquery parameters](#bigquery-datasource-parameters)
-    - [Databricks parameters](#databricks-datasource-parameters)
-    - [ClickHouse parameters](#clickhouse-datasource-parameters)
-    - [Firebolt parameters](#firebolt-datasource-parameters)
-    - [Hive parameters](#hive-datasource-parameters)
-    - [Presto parameters](#presto-datasource-parameters)
-    - [Snowflake parameters](#snowflake-datasource-parameters)
-    - [Trino parameters](#trino-datasource-parameters)
-  - [Api instance parameters](#api-instance-parameters)
-  - [Workers parameters](#workers-parameters)
+- [Cube Chart](#cube-chart)
+  - [Table of Contents](#table-of-contents)
+  - [Get Started](#get-started)
+    - [Install Chart](#install-chart)
+    - [Uninstall Chart](#uninstall-chart)
+    - [Upgrading Chart](#upgrading-chart)
+  - [Configuration](#configuration)
+    - [Injecting schema](#injecting-schema)
+    - [Injecting javascript config](#injecting-javascript-config)
+    - [Fix duplicate schemas issue](#fix-duplicate-schemas-issue)
+    - [Examples](#examples)
+  - [Reference](#reference)
+    - [Global parameters](#global-parameters)
+    - [Image parameters](#image-parameters)
+    - [Config parameters](#config-parameters)
+    - [Redis parameters](#redis-parameters)
+    - [JWT parameters](#jwt-parameters)
+    - [Datasources configuration](#datasources-configuration)
+    - [Common datasource parameters](#common-datasource-parameters)
+    - [Athena datasource parameters](#athena-datasource-parameters)
+    - [Bigquery datasource parameters](#bigquery-datasource-parameters)
+    - [Databricks datasource parameters](#databricks-datasource-parameters)
+    - [Clickhouse datasource parameters](#clickhouse-datasource-parameters)
+    - [Firebolt datasource parameters](#firebolt-datasource-parameters)
+    - [Hive datasource parameters](#hive-datasource-parameters)
+    - [Presto datasource parameters](#presto-datasource-parameters)
+    - [Snowflake datasource parameters](#snowflake-datasource-parameters)
+    - [Trino datasource parameters](#trino-datasource-parameters)
+    - [Cubestore parameters](#cubestore-parameters)
+    - [Api instance parameters](#api-instance-parameters)
+    - [Workers parameters](#workers-parameters)
   - [Ingress parameters](#ingress-parameters)
 
 ## Get Started
@@ -277,6 +280,8 @@ cubestore:
 | `fullnameOverride`  | Provide a name to substitute for the full names of resources | `""`  |
 | `commonLabels`      | Labels to add to all deployed objects                        | `{}`  |
 | `commonAnnotations` | Annotations to add to all deployed objects                   | `{}`  |
+| `envFromSecret` | The name of the secret which we will use to populate env vars in deployed pods This can be useful for secret keys, etc.| `""`  |
+| `envFromSecrets` | This can be a list of templated strings| `{}`  |
 
 ### Image parameters
 

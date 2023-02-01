@@ -59,6 +59,15 @@ spec:
             {{- end }}
           env:
             {{- include "cube.env" . | nindent 12 }}
+          envFrom:
+          {{- if  .Values.envFromSecret }}
+            - secretRef:
+                name: {{ tpl .Values.envFromSecret . | quote }}
+          {{- end }}
+            {{- range .Values.envFromSecrets }}
+            - secretRef:
+                name: {{ tpl . $ | quote }}
+            {{- end }}
           {{- if .Values.api.livenessProbe.enabled }}
           livenessProbe:
             initialDelaySeconds: {{ .Values.api.livenessProbe.initialDelaySeconds }}
