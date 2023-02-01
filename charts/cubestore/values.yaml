@@ -185,9 +185,9 @@ router:
   ##
   metaPort: 9999
 
-  ## The port for Cube Store to listen to connections on
+  ## The port for Cube Store to listen to connections on, for example: 3306
   ##
-  mysqlPort: 3306
+  mysqlPort:
 
   ## The port for Cube Store to expose status probes
   ##

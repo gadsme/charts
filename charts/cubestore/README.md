@@ -149,7 +149,7 @@ By default local dir are not persisted. You can enable persistance on router and
 | `router.serviceAccount.annotations`                  | Annotations for service account. Evaluated as a template. Only used if create is true.                              | `{}`              |
 | `router.httpPort`                                    | The port for Cube Store to listen to HTTP connections on                                                            | `3030`            |
 | `router.metaPort`                                    | The port for the router node to listen for connections on                                                           | `9999`            |
-| `router.mysqlPort`                                   | The port for Cube Store to listen to connections on                                                                 | `3306`            |
+| `router.mysqlPort`                                   | The port for Cube Store to listen to connections on                                                                 |                   |
 | `router.statusPort`                                  | The port for Cube Store to expose status probes                                                                     | `3331`            |
 | `router.persistence.enabled`                         | Enable persistence for local data using Persistent Volume Claims                                                    | `false`           |
 | `router.persistance.size`                            | Persistent Volume size                                                                                              | `10Gi`            |
