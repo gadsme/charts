@@ -20,9 +20,11 @@ spec:
     - name: meta
       port: {{ .Values.router.metaPort }}
       targetPort: meta
+    {{- if .Values.router.mysqlPort }}
     - name: mysql
       port: {{ .Values.router.mysqlPort }}
       targetPort: mysql
+    {{- end }}
   selector:
     app.kubernetes.io/component: router
     {{- include "cubestore.selectorLabels" . | nindent 4 }}
