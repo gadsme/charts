@@ -2,6 +2,11 @@
 
 The release numbering uses [semantic versioning](http://semver.org).
 
+## 1.2.0
+
+- Upgrade to cube 0.31.58
+- add ability to extend envVars
+
 ## 1.1.2
 
 - Fix add missing `cubestore` env vars
