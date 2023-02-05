@@ -59,6 +59,20 @@ spec:
             {{- end }}
           env:
             {{- include "cube.env" . | nindent 12 }}
+            {{- if .Values.extraEnvVars }}
+            {{- include "cube.tplvalues.render" (dict "value" .Values.extraEnvVars "context" $) | nindent 12 }}
+            {{- end }}
+          {{- if or .Values.extraEnvVarsFromConfigMap .Values.extraEnvVarsFromSecret }}
+          envFrom:
+            {{- if .Values.extraEnvVarsFromConfigMap }}
+            - configMapRef:
+                name: {{ include "cube.tplvalues.render" (dict "value" .Values.extraEnvVarsFromConfigMap "context" $) }}
+            {{- end }}
+            {{- if .Values.extraEnvVarsFromSecret }}
+            - secretRef:
+                name: {{ include "cube.tplvalues.render" (dict "value" .Values.extraEnvVarsFromSecret "context" $) }}
+            {{- end }}
+          {{- end }}
           {{- if .Values.api.livenessProbe.enabled }}
           livenessProbe:
             initialDelaySeconds: {{ .Values.api.livenessProbe.initialDelaySeconds }}

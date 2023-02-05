@@ -119,3 +119,16 @@ https://cube.dev/docs/config/multiple-data-sources#configuring-data-sources-with
 {{- printf "CUBEJS_DS_%s_%s" (upper .datasource) $parts._1 }}
 {{- end -}}
 {{- end}}
+
+{{/*
+Renders a value that contains template.
+Usage:
+{{ include "cube.tplvalues.render" ( dict "value" .Values.path.to.the.Value "context" $) }}
+*/}}
+{{- define "cube.tplvalues.render" -}}
+    {{- if typeIs "string" .value }}
+        {{- tpl .value .context }}
+    {{- else }}
+        {{- tpl (.value | toYaml) .context }}
+    {{- end }}
+{{- end -}}

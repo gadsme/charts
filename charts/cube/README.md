@@ -271,12 +271,15 @@ cubestore:
 
 ### Global parameters
 
-| Name                | Description                                                  | Value |
-| ------------------- | ------------------------------------------------------------ | ----- |
-| `nameOverride`      | Override the name                                            | `""`  |
-| `fullnameOverride`  | Provide a name to substitute for the full names of resources | `""`  |
-| `commonLabels`      | Labels to add to all deployed objects                        | `{}`  |
-| `commonAnnotations` | Annotations to add to all deployed objects                   | `{}`  |
+| Name                        | Description                                                                             | Value |
+| --------------------------- | --------------------------------------------------------------------------------------- | ----- |
+| `nameOverride`              | Override the name                                                                       | `""`  |
+| `fullnameOverride`          | Provide a name to substitute for the full names of resources                            | `""`  |
+| `commonLabels`              | Labels to add to all deployed objects                                                   | `{}`  |
+| `commonAnnotations`         | Annotations to add to all deployed objects                                              | `{}`  |
+| `extraEnvVars`              | Extra environment variables to pass on to the pod. The value is evaluated as a template | `[]`  |
+| `extraEnvVarsFromConfigMap` | Name of a Config Map containing extra environment variables to pass on to the pod       |       |
+| `extraEnvVarsFromSecret`    | Name of a Secret containing extra environment variables to pass on to the pod           |       |
 
 ### Image parameters
 
