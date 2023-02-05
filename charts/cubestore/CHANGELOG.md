@@ -2,6 +2,12 @@
 
 The release numbering uses [semantic versioning](http://semver.org).
 
+## 0.6.0
+
+- Update to cubestore 0.31.58
+- disable router mysql port by default
+- set default PVC to `ReadWriteMany` storage class
+
 ## 0.5.1
 
 - add missing `cloudStorage.minio.subPath` and `cloudStorage.minio.credentialsRefreshEveryMinutes` config
