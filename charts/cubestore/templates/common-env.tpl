@@ -65,6 +65,10 @@
 - name: CUBESTORE_S3_SUB_PATH
   value: {{ .Values.cloudStorage.aws.subPath | quote }}
 {{- end }}
+{{- if .Values.cloudStorage.aws.refreshCredsEveryMinutes }}
+- name: CUBESTORE_AWS_CREDS_REFRESH_EVERY_MINS
+  value: {{ .Values.cloudStorage.aws.refreshCredsEveryMinutes | quote }}
+{{- end }}
 {{- if .Values.cloudStorage.minio.accessKeyID }}
 - name: CUBESTORE_MINIO_ACCESS_KEY_ID
   value: {{ .Values.cloudStorage.minio.accessKeyID | quote }}

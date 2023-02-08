@@ -136,6 +136,10 @@ cloudStorage:
     ##
     subPath:
 
+    ##The number of minutes after which Cube Store should refresh AWS credentials.
+    ##
+    refreshCredsEveryMinutes:
+
   minio:
     ## The Access Key ID for minIO. Required when using minIO
     ##

@@ -76,7 +76,7 @@ By default local dir are not persisted. You can enable persistance on router and
 ### Common parameters
 
 | Name                | Description                                                  | Value |
-| ------------------- | ------------------------------------------------------------ | ----- |
+|---------------------|--------------------------------------------------------------|-------|
 | `nameOverride`      | Override the name                                            | `""`  |
 | `fullnameOverride`  | Provide a name to substitute for the full names of resources | `""`  |
 | `commonLabels`      | Labels to add to all deployed objects                        | `{}`  |
@@ -85,7 +85,7 @@ By default local dir are not persisted. You can enable persistance on router and
 ### Image parameters
 
 | Name                | Description                                                                             | Value              |
-| ------------------- | --------------------------------------------------------------------------------------- | ------------------ |
+|---------------------|-----------------------------------------------------------------------------------------|--------------------|
 | `image.repository`  | Cubestore image repository                                                              | `cubejs/cubestore` |
 | `image.tag`         | Cubestore image tag (immutable tags are recommended)                                    | `0.31.58`          |
 | `image.pullPolicy`  | Cubestore image pull policy                                                             | `IfNotPresent`     |
@@ -94,7 +94,7 @@ By default local dir are not persisted. You can enable persistance on router and
 ### Global parameters
 
 | Name                       | Description                                                                                                       | Value   |
-| -------------------------- | ----------------------------------------------------------------------------------------------------------------- | ------- |
+|----------------------------|-------------------------------------------------------------------------------------------------------------------|---------|
 | `config.logLevel`          | The logging level for Cube Store                                                                                  | `error` |
 | `config.noUpload`          | If true, prevents uploading serialized pre-aggregations to cloud storage                                          |         |
 | `config.jobRunners`        | The number of parallel tasks that process non-interactive jobs like data insertion, compaction etc. Defaults to 4 |         |
@@ -106,7 +106,7 @@ By default local dir are not persisted. You can enable persistance on router and
 ### Remote dir parameters
 
 | Name                                   | Description                                                                | Value             |
-| -------------------------------------- | -------------------------------------------------------------------------- | ----------------- |
+|----------------------------------------|----------------------------------------------------------------------------|-------------------|
 | `remoteDir.persistence.resourcePolicy` | Setting it to "keep" to avoid removing PVCs during a helm delete operation | `keep`            |
 | `remoteDir.persistence.size`           | Persistent Volume size                                                     | `10Gi`            |
 | `remoteDir.persistence.annotations`    | Additional custom annotations for the PVC                                  | `{}`              |
@@ -116,7 +116,7 @@ By default local dir are not persisted. You can enable persistance on router and
 ### Cloud Storage parameters
 
 | Name                                                | Description                                                                                                            | Value |
-| --------------------------------------------------- | ---------------------------------------------------------------------------------------------------------------------- | ----- |
+|-----------------------------------------------------|------------------------------------------------------------------------------------------------------------------------|-------|
 | `cloudStorage.gcp.credentials`                      | A Base64 encoded JSON key file for connecting to Google Cloud. Required when using Google Cloud Storage                |       |
 | `cloudStorage.gcp.credentialsFromSecret.name`       | A Base64 encoded JSON key file for connecting to Google Cloud. Required when using Google Cloud Storage (using secret) |       |
 | `cloudStorage.gcp.credentialsFromSecret.key`        | A Base64 encoded JSON key file for connecting to Google Cloud. Required when using Google Cloud Storage (using secret) |       |
@@ -129,6 +129,7 @@ By default local dir are not persisted. You can enable persistance on router and
 | `cloudStorage.aws.bucket`                           | The name of a bucket in AWS S3. Required when using AWS S3                                                             |       |
 | `cloudStorage.aws.region`                           | The region of a bucket in AWS S3. Required when using AWS S3                                                           |       |
 | `cloudStorage.aws.subPath`                          | The path in a AWS S3 bucket to store pre-aggregations. Optional                                                        |       |
+| `cloudStorage.aws.refreshCredsEveryMinutes`         | The number of minutes after which Cube Store should refresh AWS credentials                                            |       |
 | `cloudStorage.minio.accessKeyID`                    | The The Access Key ID for minIO. Required when using minIO                                                             |       |
 | `cloudStorage.minio.secretKey`                      | The Secret Access Key for minIO. Required when using minIO                                                             |       |
 | `cloudStorage.minio.secretKeyFromSecret.name`       | The Secret Access Key for minIO. Required when using minIO (using secret)                                              |       |
@@ -142,7 +143,7 @@ By default local dir are not persisted. You can enable persistance on router and
 ### Router parameters
 
 | Name                                                 | Description                                                                                                         | Value             |
-| ---------------------------------------------------- | ------------------------------------------------------------------------------------------------------------------- | ----------------- |
+|------------------------------------------------------|---------------------------------------------------------------------------------------------------------------------|-------------------|
 | `router.serviceAccount.create`                       | Specifies whether a ServiceAccount should be created                                                                | `false`           |
 | `router.serviceAccount.name`                         | Name of the service account to use. If not set and create is true, a name is generated using the fullname template. | `""`              |
 | `router.serviceAccount.automountServiceAccountToken` | Automount service account token for the server service account                                                      | `true`            |
@@ -156,6 +157,8 @@ By default local dir are not persisted. You can enable persistance on router and
 | `router.persistance.accessModes`                     | Persistent Volume access modes                                                                                      | [`ReadWriteOnce`] |
 | `router.persistance.annotations`                     | Additional custom annotations for the PVC                                                                           | `{}`              |
 | `router.affinity`                                    | Affinity for pod assignment                                                                                         | `{}`              |
+| `router.tolerations`                                 | Tolerations for pod assignment                                                                                      | `{}`              |
+| `router.nodeSelector`                                | Node selector for pod assignment                                                                                    | `{}`              |
 | `router.spreadConstraints`                           | Topology spread constraint for pod assignment                                                                       | `[]`              |
 | `router.resources`                                   | Define resources requests and limits for single Pods                                                                | `{}`              |
 | `router.livenessProbe.enabled`                       | Enable livenessProbe                                                                                                | `true`            |
@@ -176,7 +179,7 @@ By default local dir are not persisted. You can enable persistance on router and
 ### Workers parameters
 
 | Name                                                  | Description                                                                                                         | Value             |
-| ----------------------------------------------------- | ------------------------------------------------------------------------------------------------------------------- | ----------------- |
+|-------------------------------------------------------|---------------------------------------------------------------------------------------------------------------------|-------------------|
 | `workers.serviceAccount.create`                       | Specifies whether a ServiceAccount should be created                                                                | `false`           |
 | `workers.serviceAccount.name`                         | Name of the service account to use. If not set and create is true, a name is generated using the fullname template. | `""`              |
 | `workers.serviceAccount.automountServiceAccountToken` | Automount service account token for the server service account                                                      | `true`            |
@@ -188,5 +191,7 @@ By default local dir are not persisted. You can enable persistance on router and
 | `workers.persistance.accessModes`                     | Persistent Volume access modes                                                                                      | [`ReadWriteOnce`] |
 | `workers.persistance.annotations`                     | Additional custom annotations for the PVC                                                                           | `{}`              |
 | `workers.affinity`                                    | Affinity for pod assignment                                                                                         | `{}`              |
+| `workers.tolerations`                                 | Tolerations for pod assignment                                                                                      | `{}`              |
+| `workers.nodeSelector`                                | Node selector for pod assignment                                                                                    | `{}`              |
 | `workers.spreadConstraints`                           | Topology spread constraint for pod assignment                                                                       | `[]`              |
 | `workers.resources`                                   | Define resources requests and limits for single Pods                                                                | `{}`              |
