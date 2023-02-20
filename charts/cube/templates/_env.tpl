@@ -3,7 +3,7 @@
 {{- include "cube.env.jwt" . }}
 {{- include "cube.env.redis" . }}
 {{- include "cube.env.cubestore" . }}
-
+{{- include "cube.env.oauth0" . }}
 {{- $datasources := list }}
 {{- range $e, $i := $.Values.datasources }}
 {{- $datasources = append $datasources $e }}

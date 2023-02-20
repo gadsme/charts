@@ -156,6 +156,12 @@ config:
   #   readOnly: true
   #   mountPath: /cube/conf/schema
 
+  oAuth0: {}
+    #jwkUrl:
+    #jwtAudience:
+    #jwtIssuer:
+    #jwtAlgs:
+    #jwtClaimsNamespace:
 redis:
   ## The host URL for a Redis server
   ##

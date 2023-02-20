@@ -2,34 +2,37 @@
 
 ## Table of Contents
 
-- [Get Started](#get-started)
-  - [Install Chart](#install-chart)
-  - [Uninstall Chart](#uninstall-chart)
-  - [Upgrading Chart](#upgrading-chart)
-- [Configuration](#configuration)
-  - [Injecting schema](#injecting-schema)
-  - [Injecting javascript config](#injecting-javascript-config)
-  - [Fix duplicate schemas issue](#fix-duplicate-schemas-issue)
-  - [Examples](#examples)
-- [Reference](#reference)
-  - [Global parameters](#global-parameters)
-  - [Image parameters](#image-parameters)
-  - [Config parameters](#config-parameters)
-  - [Redis parameters](#redis-parameters)
-  - [JWT parameters](#jwt-parameters)
-  - [Datasources configuration](#datasources-configuration)
-    - [Common parameters](#common-datasource-parameters)
-    - [Athena parameters](#athena-datasource-parameters)
-    - [Bigquery parameters](#bigquery-datasource-parameters)
-    - [Databricks parameters](#databricks-datasource-parameters)
-    - [ClickHouse parameters](#clickhouse-datasource-parameters)
-    - [Firebolt parameters](#firebolt-datasource-parameters)
-    - [Hive parameters](#hive-datasource-parameters)
-    - [Presto parameters](#presto-datasource-parameters)
-    - [Snowflake parameters](#snowflake-datasource-parameters)
-    - [Trino parameters](#trino-datasource-parameters)
-  - [Api instance parameters](#api-instance-parameters)
-  - [Workers parameters](#workers-parameters)
+- [Cube Chart](#cube-chart)
+  - [Table of Contents](#table-of-contents)
+  - [Get Started](#get-started)
+    - [Install Chart](#install-chart)
+    - [Uninstall Chart](#uninstall-chart)
+    - [Upgrading Chart](#upgrading-chart)
+  - [Configuration](#configuration)
+    - [Injecting schema](#injecting-schema)
+    - [Injecting javascript config](#injecting-javascript-config)
+    - [Fix duplicate schemas issue](#fix-duplicate-schemas-issue)
+    - [Examples](#examples)
+  - [Reference](#reference)
+    - [Global parameters](#global-parameters)
+    - [Image parameters](#image-parameters)
+    - [Config parameters](#config-parameters)
+    - [Redis parameters](#redis-parameters)
+    - [JWT parameters](#jwt-parameters)
+    - [Datasources configuration](#datasources-configuration)
+    - [Common datasource parameters](#common-datasource-parameters)
+    - [Athena datasource parameters](#athena-datasource-parameters)
+    - [Bigquery datasource parameters](#bigquery-datasource-parameters)
+    - [Databricks datasource parameters](#databricks-datasource-parameters)
+    - [Clickhouse datasource parameters](#clickhouse-datasource-parameters)
+    - [Firebolt datasource parameters](#firebolt-datasource-parameters)
+    - [Hive datasource parameters](#hive-datasource-parameters)
+    - [Presto datasource parameters](#presto-datasource-parameters)
+    - [Snowflake datasource parameters](#snowflake-datasource-parameters)
+    - [Trino datasource parameters](#trino-datasource-parameters)
+    - [Cubestore parameters](#cubestore-parameters)
+    - [Api instance parameters](#api-instance-parameters)
+    - [Workers parameters](#workers-parameters)
   - [Ingress parameters](#ingress-parameters)
 
 ## Get Started
@@ -321,6 +324,13 @@ cubestore:
 | `config.topicName`                                         | The name of the Amazon SNS or Google Cloud Pub/Sub topicredis                                                                |         |
 | `config.volumes`                                           | The config volumes. Will be used to both api and workers                                                                     | `[]`    |
 | `config.volumeMounts`                                      | The config volumeMounts. Will be used to both api and workers                                                                | `[]`    |
+| `config.oAuth0.jwkUrl`                                      | Enables JSON Web Key (JWK)-based authentication in Cube.                                                                | ``    |
+| `config.oAuth0.jwtAudience`                                      | An audience value which will be used to enforce the aud claim from inbound JWTs.                                                                | ``    |
+| `config.oAuth0.jwtAudience`                                      | An audience value which will be used to enforce the aud claim from inbound JWTs.                                                                | ``    |
+| `config.oAuth0.jwtIssuer`                                      | An issuer value which will be used to enforce the iss claim from inbound JWTs.                                                                | ``    |
+| `config.oAuth0.jwtAlgs`                                      | Any supported algorithm for decoding JWTs.                                                                | ``    |
+| `config.oAuth0.jwtClaimsNamespace`                                      | A namespace within the decoded JWT under which any custom claims can be found.                                                                | ``    |
+
 
 ### Redis parameters
 
