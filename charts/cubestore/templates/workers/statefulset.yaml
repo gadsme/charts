@@ -133,6 +133,9 @@ spec:
         {{- range .Values.workers.persistence.accessModes }}
           - {{ . | quote }}
         {{- end }}
+        {{- if .Values.workers.persistence.storageClass }}
+        storageClassName: {{ .Values.workers.persistence.storageClass }}
+        {{- end }}
         resources:
           requests:
             storage: {{ .Values.workers.persistence.size | quote }}

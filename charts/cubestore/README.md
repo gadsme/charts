@@ -188,6 +188,7 @@ By default local dir are not persisted. You can enable persistance on router and
 | `workers.port`                                        | The port for the router node to listen for connections on                                                           | `9001`            |
 | `workers.persistence.enabled`                         | Enable persistence for local data using Persistent Volume Claims                                                    | `false`           |
 | `workers.persistance.size`                            | Persistent Volume size                                                                                              | `10Gi`            |
+| `workers.persistence.storageClass`                    | The storage class to use for the workers pvc                                                                        | `""`              |
 | `workers.persistance.accessModes`                     | Persistent Volume access modes                                                                                      | [`ReadWriteOnce`] |
 | `workers.persistance.annotations`                     | Additional custom annotations for the PVC                                                                           | `{}`              |
 | `workers.affinity`                                    | Affinity for pod assignment                                                                                         | `{}`              |
