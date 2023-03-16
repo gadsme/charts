@@ -170,6 +170,9 @@ spec:
         {{- range .Values.router.persistence.accessModes }}
           - {{ . | quote }}
         {{- end }}
+        {{- if .Values.router.persistence.storageClass }}
+        storageClassName: {{ .Values.router.persistence.storageClass }}
+        {{- end }}
         resources:
           requests:
             storage: {{ .Values.router.persistence.size | quote }}
