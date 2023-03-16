@@ -6,6 +6,29 @@ entries:
         - name: Chart Source
           url: https://github.com/gadsme/charts
     apiVersion: v2
+    appVersion: ' 0.32.7'
+    created: "2023-03-16T17:16:13.367250328Z"
+    description: A Helm chart for Cube
+    digest: 3e6ff6c759f8feb69d0911feb594d473d9b1807002639171a7e2842b71496da7
+    home: https://cube.dev
+    keywords:
+    - cubejs
+    - cube
+    maintainers:
+    - email: luc.vauvillier@gmail.com
+      name: Luc Vauvillier
+    name: cube
+    sources:
+    - https://github.com/cube-js/cube.js
+    type: application
+    urls:
+    - https://github.com/gadsme/charts/releases/download/cube-1.3.0/cube-1.3.0.tgz
+    version: 1.3.0
+  - annotations:
+      artifacthub.io/links: |
+        - name: Chart Source
+          url: https://github.com/gadsme/charts
+    apiVersion: v2
     appVersion: 0.31.58
     created: "2023-02-05T18:27:36.890753341Z"
     description: A Helm chart for Cube
@@ -135,6 +158,29 @@ entries:
     - https://github.com/gadsme/charts/releases/download/cube-0.3.0/cube-0.3.0.tgz
     version: 0.3.0
   cubestore:
+  - annotations:
+      artifacthub.io/links: |
+        - name: Chart Source
+          url: https://github.com/gadsme/charts
+    apiVersion: v2
+    appVersion: 0.32.7
+    created: "2023-03-16T17:16:13.605374915Z"
+    description: A Helm chart for Cubestore
+    digest: 8a3c44dd128d94b638dc9f5f358998adfe00b4e7bc82e6cb57cd311fd724612d
+    keywords:
+    - cube
+    - cubejs
+    - cubestore
+    maintainers:
+    - email: luc.vauvillier@gmail.com
+      name: Luc Vauvillier
+    name: cubestore
+    sources:
+    - https://github.com/cube-js/cube.js
+    type: application
+    urls:
+    - https://github.com/gadsme/charts/releases/download/cubestore-0.7.0/cubestore-0.7.0.tgz
+    version: 0.7.0
   - annotations:
       artifacthub.io/links: |
         - name: Chart Source
@@ -302,4 +348,4 @@ entries:
     urls:
     - https://github.com/gadsme/charts/releases/download/cubestore-0.1.0/cubestore-0.1.0.tgz
     version: 0.1.0
-generated: "2023-02-08T15:49:53.997927026Z"
+generated: "2023-03-16T17:16:13.605442615Z"
