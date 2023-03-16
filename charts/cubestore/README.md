@@ -76,7 +76,7 @@ By default local dir are not persisted. You can enable persistance on router and
 ### Common parameters
 
 | Name                | Description                                                  | Value |
-|---------------------|--------------------------------------------------------------|-------|
+| ------------------- | ------------------------------------------------------------ | ----- |
 | `nameOverride`      | Override the name                                            | `""`  |
 | `fullnameOverride`  | Provide a name to substitute for the full names of resources | `""`  |
 | `commonLabels`      | Labels to add to all deployed objects                        | `{}`  |
@@ -85,16 +85,16 @@ By default local dir are not persisted. You can enable persistance on router and
 ### Image parameters
 
 | Name                | Description                                                                             | Value              |
-|---------------------|-----------------------------------------------------------------------------------------|--------------------|
+| ------------------- | --------------------------------------------------------------------------------------- | ------------------ |
 | `image.repository`  | Cubestore image repository                                                              | `cubejs/cubestore` |
-| `image.tag`         | Cubestore image tag (immutable tags are recommended)                                    | `0.31.58`          |
+| `image.tag`         | Cubestore image tag (immutable tags are recommended)                                    | `0.32.7`           |
 | `image.pullPolicy`  | Cubestore image pull policy                                                             | `IfNotPresent`     |
 | `image.pullSecrets` | If defined, uses a Secret to pull an image from a private Docker registry or repository | `[]`               |
 
 ### Global parameters
 
 | Name                       | Description                                                                                                       | Value   |
-|----------------------------|-------------------------------------------------------------------------------------------------------------------|---------|
+| -------------------------- | ----------------------------------------------------------------------------------------------------------------- | ------- |
 | `config.logLevel`          | The logging level for Cube Store                                                                                  | `error` |
 | `config.noUpload`          | If true, prevents uploading serialized pre-aggregations to cloud storage                                          |         |
 | `config.jobRunners`        | The number of parallel tasks that process non-interactive jobs like data insertion, compaction etc. Defaults to 4 |         |
@@ -106,7 +106,7 @@ By default local dir are not persisted. You can enable persistance on router and
 ### Remote dir parameters
 
 | Name                                   | Description                                                                | Value             |
-|----------------------------------------|----------------------------------------------------------------------------|-------------------|
+| -------------------------------------- | -------------------------------------------------------------------------- | ----------------- |
 | `remoteDir.persistence.resourcePolicy` | Setting it to "keep" to avoid removing PVCs during a helm delete operation | `keep`            |
 | `remoteDir.persistence.size`           | Persistent Volume size                                                     | `10Gi`            |
 | `remoteDir.persistence.annotations`    | Additional custom annotations for the PVC                                  | `{}`              |
@@ -116,7 +116,7 @@ By default local dir are not persisted. You can enable persistance on router and
 ### Cloud Storage parameters
 
 | Name                                                | Description                                                                                                            | Value |
-|-----------------------------------------------------|------------------------------------------------------------------------------------------------------------------------|-------|
+| --------------------------------------------------- | ---------------------------------------------------------------------------------------------------------------------- | ----- |
 | `cloudStorage.gcp.credentials`                      | A Base64 encoded JSON key file for connecting to Google Cloud. Required when using Google Cloud Storage                |       |
 | `cloudStorage.gcp.credentialsFromSecret.name`       | A Base64 encoded JSON key file for connecting to Google Cloud. Required when using Google Cloud Storage (using secret) |       |
 | `cloudStorage.gcp.credentialsFromSecret.key`        | A Base64 encoded JSON key file for connecting to Google Cloud. Required when using Google Cloud Storage (using secret) |       |
@@ -143,7 +143,7 @@ By default local dir are not persisted. You can enable persistance on router and
 ### Router parameters
 
 | Name                                                 | Description                                                                                                         | Value             |
-|------------------------------------------------------|---------------------------------------------------------------------------------------------------------------------|-------------------|
+| ---------------------------------------------------- | ------------------------------------------------------------------------------------------------------------------- | ----------------- |
 | `router.serviceAccount.create`                       | Specifies whether a ServiceAccount should be created                                                                | `false`           |
 | `router.serviceAccount.name`                         | Name of the service account to use. If not set and create is true, a name is generated using the fullname template. | `""`              |
 | `router.serviceAccount.automountServiceAccountToken` | Automount service account token for the server service account                                                      | `true`            |
@@ -154,7 +154,7 @@ By default local dir are not persisted. You can enable persistance on router and
 | `router.statusPort`                                  | The port for Cube Store to expose status probes                                                                     | `3331`            |
 | `router.persistence.enabled`                         | Enable persistence for local data using Persistent Volume Claims                                                    | `false`           |
 | `router.persistance.size`                            | Persistent Volume size                                                                                              | `10Gi`            |
-| `router.persistence.storageClass`                    | The storage class to use for the workers pvc                                                                        | `""`              |
+| `router.persistence.storageClass`                    | The storage class to use for the router pvc                                                                         | `""`              |
 | `router.persistance.accessModes`                     | Persistent Volume access modes                                                                                      | [`ReadWriteOnce`] |
 | `router.persistance.annotations`                     | Additional custom annotations for the PVC                                                                           | `{}`              |
 | `router.affinity`                                    | Affinity for pod assignment                                                                                         | `{}`              |
@@ -180,7 +180,7 @@ By default local dir are not persisted. You can enable persistance on router and
 ### Workers parameters
 
 | Name                                                  | Description                                                                                                         | Value             |
-|-------------------------------------------------------|---------------------------------------------------------------------------------------------------------------------|-------------------|
+| ----------------------------------------------------- | ------------------------------------------------------------------------------------------------------------------- | ----------------- |
 | `workers.serviceAccount.create`                       | Specifies whether a ServiceAccount should be created                                                                | `false`           |
 | `workers.serviceAccount.name`                         | Name of the service account to use. If not set and create is true, a name is generated using the fullname template. | `""`              |
 | `workers.serviceAccount.automountServiceAccountToken` | Automount service account token for the server service account                                                      | `true`            |

@@ -2,6 +2,11 @@
 
 The release numbering uses [semantic versioning](http://semver.org).
 
+## 0.7.0
+
+- Update to cubestore 0.32.7
+- add persistance storageClass config
+
 ## 0.6.0
 
 - Update to cubestore 0.31.58
