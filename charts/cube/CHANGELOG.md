@@ -2,6 +2,10 @@
 
 The release numbering uses [semantic versioning](http://semver.org).
 
+## 1.3.0
+
+- Update to cube 0.32.7
+
 ## 1.2.0
 
 - Upgrade to cube 0.31.58
