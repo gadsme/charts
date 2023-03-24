@@ -2,6 +2,11 @@
 
 The release numbering uses [semantic versioning](http://semver.org).
 
+## 1.4.0
+
+- Update to cube 0.32.14
+- add `config.concurrency`
+
 ## 1.3.1
 
 - Fix chart version
