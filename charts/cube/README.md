@@ -318,6 +318,7 @@ cubestore:
 | `config.webSockets`                                        | If true, then use WebSocket for data fetching. Defaults to true                                                              |         |
 | `config.preAggregationsSchema`                             | The schema name to use for storing pre-aggregations true                                                                     |         |
 | `config.cacheAndQueueDriver`                               | The cache and queue driver to use for the Cube deployment. Defaults to redis                                                 |         |
+| `config.concurrency`                                       | The number of concurrent connections each query queue has to the database                                                    |         |
 | `config.topicName`                                         | The name of the Amazon SNS or Google Cloud Pub/Sub topicredis                                                                |         |
 | `config.volumes`                                           | The config volumes. Will be used to both api and workers                                                                     | `[]`    |
 | `config.volumeMounts`                                      | The config volumeMounts. Will be used to both api and workers                                                                | `[]`    |

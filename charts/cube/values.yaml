@@ -137,6 +137,10 @@ config:
   ##
   cacheAndQueueDriver:
 
+  ## The number of concurrent connections each query queue has to the database
+  ##
+  concurrency:
+
   ## The name of the Amazon SNS or Google Cloud Pub/Sub topic
   ## Defaults to <process.env.CUBEJS_APP>-process if undefined, and finally cubejs-process
   ##

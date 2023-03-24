@@ -43,6 +43,10 @@
 - name: CUBEJS_CACHE_AND_QUEUE_DRIVER
   value: {{ .Values.config.cacheAndQueueDriver | quote }}
 {{- end }}
+{{- if .Values.config.concurrency }}
+- name: CUBEJS_CONCURRENCY
+  value: {{ .Values.config.concurrency | quote }}
+{{- end }}
 {{- if .Values.config.rollupOnly }}
 - name: CUBEJS_ROLLUP_ONLY
   value: {{ .Values.config.rollupOnly | quote }}
