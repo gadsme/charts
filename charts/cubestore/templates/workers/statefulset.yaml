@@ -76,6 +76,9 @@ spec:
             - name: CUBESTORE_REMOTE_DIR
               value: /cube/data
             {{- end }}
+            {{- if .Values.workers.extraEnvVars }}
+            {{- include "cubestore.tplvalues.render" (dict "value" .Values.workers.extraEnvVars "context" $) | nindent 12 }}
+            {{- end }}
           {{- if .Values.workers.resources }}
           resources:
             {{- toYaml .Values.workers.resources | nindent 12 }}

@@ -89,6 +89,9 @@ spec:
             - name: CUBESTORE_REMOTE_DIR
               value: /cube/data
             {{- end }}
+            {{- if .Values.router.extraEnvVars }}
+            {{- include "cubestore.tplvalues.render" (dict "value" .Values.router.extraEnvVars "context" $) | nindent 12 }}
+            {{- end }}
           {{- if .Values.router.livenessProbe.enabled }}
           livenessProbe:
             initialDelaySeconds: {{ .Values.router.livenessProbe.initialDelaySeconds }}

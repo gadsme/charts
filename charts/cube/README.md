@@ -320,6 +320,8 @@ cubestore:
 | `config.cacheAndQueueDriver`                               | The cache and queue driver to use for the Cube deployment. Defaults to redis                                                 |         |
 | `config.concurrency`                                       | The number of concurrent connections each query queue has to the database                                                    |         |
 | `config.topicName`                                         | The name of the Amazon SNS or Google Cloud Pub/Sub topicredis                                                                |         |
+| `config.touchPreAggTimeout`                                | The number of seconds without a touch before pre-aggregation is considered orphaned and marked for removal                   |         |
+| `config.dropPreAggWithoutTouch`                            | If true, it enables dropping pre-aggregations that Refresh Worker doesn't touch within touchPreAggTimeout                    |         |
 | `config.volumes`                                           | The config volumes. Will be used to both api and workers                                                                     | `[]`    |
 | `config.volumeMounts`                                      | The config volumeMounts. Will be used to both api and workers                                                                | `[]`    |
 

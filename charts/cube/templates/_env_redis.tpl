@@ -1,7 +1,8 @@
 {{- define "cube.env.redis" -}}
-{{- if or (eq .Values.config.cacheAndQueueDriver "redis") (and (not .Values.config.cacheAndQueueDriver) (not .Values.config.devMode)) }}
+{{- if .Values.redis.url }}
 - name: CUBEJS_REDIS_URL
   value: {{ .Values.redis.url | quote | required "redis.url is required" }}
+{{- end }}
 {{- if .Values.redis.password }}
 - name: CUBEJS_REDIS_PASSWORD
   value: {{ .Values.redis.password | quote }}
@@ -27,6 +28,5 @@
 {{- if .Values.redis.useIoRedis }}
 - name: CUBEJS_REDIS_USE_IOREDIS
   value: {{ .Values.redis.useIoRedis | quote }}
-{{- end }}
 {{- end }}
 {{- end }}

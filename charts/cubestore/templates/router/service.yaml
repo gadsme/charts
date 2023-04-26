@@ -8,11 +8,19 @@ metadata:
     {{- if .Values.commonLabels }}
     {{- toYaml .Values.commonLabels | nindent 4 }}
     {{- end }}
-  {{- if .Values.commonAnnotations }}
+  {{- if (or .Values.commonAnnotations .Values.router.service.annotations) }} 
   annotations:
+    {{- if .Values.commonAnnotations }} 
     {{- toYaml .Values.commonAnnotations | nindent 4 }}
+    {{- end }}
+    {{- if .Values.router.service.annotations }}
+    {{- toYaml .Values.router.service.annotations | nindent 4 }}
+    {{- end }}
   {{- end }}
 spec:
+  {{- range $key, $val := .Values.router.service.spec }}
+  {{ $key }}: {{ $val | quote }}
+  {{- end }}
   ports:
     - name: http
       port: {{ .Values.router.httpPort }}
