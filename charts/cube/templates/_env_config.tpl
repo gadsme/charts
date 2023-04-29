@@ -97,4 +97,12 @@
 - name: CUBEJS_TOPIC_NAME
   value: {{ .Values.config.topicName | quote }}
 {{- end }}
+{{- if .Values.config.dropPreAggWithoutTouch }}
+- name: CUBEJS_DROP_PRE_AGG_WITHOUT_TOUCH
+  value: {{ .Values.config.dropPreAggWithoutTouch | quote }}
+{{- end }}
+{{- if .Values.config.touchPreAggTimeout }}
+- name: CUBEJS_TOUCH_PRE_AGG_TIMEOUT
+  value: {{ .Values.config.touchPreAggTimeout | quote }}
+{{- end }}
 {{- end }}
