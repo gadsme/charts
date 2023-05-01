@@ -150,10 +150,11 @@ config:
   ##
   touchPreAggTimeout:
 
-  ## If true, it enables dropping pre-aggregations that Refresh Worker doesn't touch within CUBEJS_TOUCH_PRE_AGG_TIMEOUT.
+  ## If true, it enables dropping pre-aggregations that Refresh Worker doesn't touch within touchPreAggTimeout.
   ## Pre-aggregations are touched whenever they are rebuilt or a Refresh Worker checks its freshness.
   ## The first drop will be initiated when the Refresh Worker is able to check freshness for every scheduledRefresh: true pre-aggregation.
-  ## If you have multiple Refresh Workers with different data model versions sharing the same Cube Store cluster, then touches from both refresh workers are respected.
+  ## If you have multiple Refresh Workers with different data model versions sharing the same Cube Store cluster,
+  ## then touches from both refresh workers are respected.
   ##
   dropPreAggWithoutTouch:
 
