@@ -97,13 +97,13 @@ Create the name of cube api service account to use
 {{- end -}}
 
 {{/*
-Create the name of cube workers service account to use
+Create the name of cube worker service account to use
 */}}
-{{- define "cube.workers.serviceAccountName" -}}
-{{- if .Values.workers.serviceAccount.create -}}
-  {{ default (printf "%s-workers" (include "cube.fullname" .)) .Values.workers.serviceAccount.name }}
+{{- define "cube.worker.serviceAccountName" -}}
+{{- if .Values.worker.serviceAccount.create -}}
+  {{ default (printf "%s-worker" (include "cube.fullname" .)) .Values.worker.serviceAccount.name }}
 {{- else -}}
-  {{ default "default" .Values.workers.serviceAccount.name }}
+  {{ default "default" .Values.worker.serviceAccount.name }}
 {{- end -}}
 {{- end -}}
 
