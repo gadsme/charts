@@ -9,9 +9,14 @@ metadata:
     {{- if .Values.commonLabels }}
     {{- toYaml .Values.commonLabels | nindent 4 }}
     {{- end }}
-  {{- if .Values.commonAnnotations }}
+  {{- if (or .Values.commonAnnotations .Values.workers.service.annotations) }}
   annotations:
+    {{- if .Values.commonAnnotations }} 
     {{- toYaml .Values.commonAnnotations | nindent 4 }}
+    {{- end }}
+    {{- if .Values.workers.service.annotations }}
+    {{- toYaml .Values.workers.service.annotations | nindent 4 }}
+    {{- end }}
   {{- end }}
 spec:
   type: ClusterIP

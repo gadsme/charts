@@ -8,7 +8,7 @@ metadata:
     {{- if .Values.commonLabels }}
     {{- toYaml .Values.commonLabels | nindent 4 }}
     {{- end }}
-  {{- if (or .Values.commonAnnotations .Values.router.service.annotations) }} 
+  {{- if (or .Values.commonAnnotations .Values.router.service.annotations) }}
   annotations:
     {{- if .Values.commonAnnotations }} 
     {{- toYaml .Values.commonAnnotations | nindent 4 }}
@@ -18,9 +18,6 @@ metadata:
     {{- end }}
   {{- end }}
 spec:
-  {{- range $key, $val := .Values.router.service.spec }}
-  {{ $key }}: {{ $val | quote }}
-  {{- end }}
   ports:
     - name: http
       port: {{ .Values.router.httpPort }}
