@@ -288,6 +288,19 @@ router:
   ##
   nodeSelector: {}
 
+  service:
+    ## Additional custom annotations for router service
+    ##
+    annotations: {}
+
+  ## Extra environment variables to pass on to the pod. The value is evaluated as a template
+  ## e.g:
+  ## extraEnvVars:
+  ##   - name: FOO
+  ##     value: "bar"
+  ##
+  extraEnvVars: []
+
 workers:
   ## Service account for cubestore workers to use
   ##
@@ -353,3 +366,16 @@ workers:
   ## Node selector for pod assignment
   ##
   nodeSelector: {}
+
+  service:
+    ## Additional custom annotations for workers service
+    ##
+    annotations: {}
+
+  ## Extra environment variables to pass on to the pod. The value is evaluated as a template
+  ## e.g:
+  ## extraEnvVars:
+  ##   - name: FOO
+  ##     value: "bar"
+  ##
+  extraEnvVars: []

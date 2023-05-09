@@ -160,6 +160,7 @@ By default local dir are not persisted. You can enable persistance on router and
 | `router.metaPort`                                    | The port for the router node to listen for connections on                                                           | `9999`            |
 | `router.mysqlPort`                                   | The port for Cube Store to listen to connections on                                                                 |                   |
 | `router.statusPort`                                  | The port for Cube Store to expose status probes                                                                     | `3331`            |
+| `router.extraEnvVars`                                | Extra environment variables to pass on to the pod. The value is evaluated as a template                             | `[]`              |
 | `router.persistence.enabled`                         | Enable persistence for local data using Persistent Volume Claims                                                    | `false`           |
 | `router.persistance.size`                            | Persistent Volume size                                                                                              | `10Gi`            |
 | `router.persistence.storageClass`                    | The storage class to use for the router pvc                                                                         | `""`              |
@@ -184,6 +185,7 @@ By default local dir are not persisted. You can enable persistance on router and
 | `router.readinessProbe.failureThreshold`             | Success threshold for readinessProbe                                                                                | `3`               |
 | `router.customLivenessProbe`                         | Custom livenessProbe that overrides the default one                                                                 | `{}`              |
 | `router.customReadinessProbe`                        | Custom readinessProbe that overrides the default one                                                                | `{}`              |
+| `router.service.annotations`                         | Additional custom annotations for router service                                                                    | `{}`              |
 
 ### Workers parameters
 
@@ -195,6 +197,7 @@ By default local dir are not persisted. You can enable persistance on router and
 | `workers.serviceAccount.annotations`                  | Annotations for service account. Evaluated as a template. Only used if create is true.                              | `{}`              |
 | `workers.workersCount`                                | Number of workers to deploy                                                                                         | `1`               |
 | `workers.port`                                        | The port for the router node to listen for connections on                                                           | `9001`            |
+| `workers.extraEnvVars`                                | Extra environment variables to pass on to the pod. The value is evaluated as a template                             | `[]`              |
 | `workers.persistence.enabled`                         | Enable persistence for local data using Persistent Volume Claims                                                    | `false`           |
 | `workers.persistance.size`                            | Persistent Volume size                                                                                              | `10Gi`            |
 | `workers.persistence.storageClass`                    | The storage class to use for the workers pvc                                                                        | `""`              |
@@ -205,3 +208,4 @@ By default local dir are not persisted. You can enable persistance on router and
 | `workers.nodeSelector`                                | Node selector for pod assignment                                                                                    | `{}`              |
 | `workers.spreadConstraints`                           | Topology spread constraint for pod assignment                                                                       | `[]`              |
 | `workers.resources`                                   | Define resources requests and limits for single Pods                                                                | `{}`              |
+| `workers.service.annotations`                         | Additional custom annotations for workers service                                                                   | `{}`              |
