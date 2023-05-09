@@ -2,6 +2,17 @@
 
 The release numbering uses [semantic versioning](http://semver.org).
 
+## 2.0.0
+
+- remove logic to detect redis as default cacheAndQueueDriver
+- add metrics environment variables
+- add `config.touchPreAggTimeout`and `config.dropPreAggWithoutTouch`
+- fix spreadConstraints condition on router
+
+Breaking changes:
+
+- rename `workers.*` config to `worker.*`
+
 ## 1.4.0
 
 - Update to cube 0.32.14
