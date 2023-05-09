@@ -140,6 +140,14 @@ By default local dir are not persisted. You can enable persistance on router and
 | `cloudStorage.minio.endpoint`                       | The minIO server endpoint. Required when using minIO                                                                   |       |
 | `cloudStorage.minio.credentialsRefreshEveryMinutes` | The number of minutes after which Cube Store should refresh minIO credentials                                          |       |
 
+### Metrics
+
+| Name              | Description                                                         | Value |
+| ----------------- | ------------------------------------------------------------------- | ----- |
+| `metrics.format`  | Define which metrics collector format                               |       |
+| `metrics.address` | Required IP address to send metrics                                 |       |
+| `metrics.port`    | Required port to send where collector server accept UDP connections |       |
+
 ### Router parameters
 
 | Name                                                 | Description                                                                                                         | Value             |

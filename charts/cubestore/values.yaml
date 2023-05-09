@@ -172,6 +172,18 @@ cloudStorage:
     ##
     credentialsRefreshEveryMinutes:
 
+metrics:
+  # Define which metrics collector format
+  format:
+
+  ## Required IP address to send metrics
+  ##
+  address:
+
+  ## Required port to send where collector server accept UDP connections
+  ##
+  port:
+
 router:
   ## Service account for cubestore router to use
   ##

@@ -103,4 +103,16 @@
 - name: CUBESTORE_MINIO_CREDS_REFRESH_EVERY_MINS
   value: {{ .Values.cloudStorage.minio.credentialsRefreshEveryMinutes | quote }}
 {{- end }}
+{{- if .Values.metrics.format }}
+- name: CUBESTORE_METRICS_FORMAT
+  value: {{ .Values.metrics.format | quote }}
+{{- end }}
+{{- if .Values.metrics.address }}
+- name: CUBESTORE_METRICS_ADDRESS
+  value: {{ .Values.metrics.address | quote }}
+{{- end }}
+{{- if .Values.metrics.port }}
+- name: CUBESTORE_METRICS_PORT
+  value: {{ .Values.metrics.port | quote }}
+{{- end }}
 {{- end }}
