@@ -1,8 +1,8 @@
-{{- if gt (.Values.workers.workersCount | int) 0 }}
+{{- if .Values.worker.enabled }}
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: {{ printf "%s-workers" (include "cube.fullname" .) }}
+  name: {{ printf "%s-worker" (include "cube.fullname" .) }}
   labels:
     {{- include "cube.labels" . | nindent 4 }}
     {{- if .Values.commonLabels }}
@@ -13,15 +13,15 @@ metadata:
     {{- toYaml .Values.commonAnnotations | nindent 4 }}
   {{- end }}
 spec:
-  replicas: {{ .Values.workers.workersCount }}
+  replicas: 1
   selector:
     matchLabels:
-      app.kubernetes.io/component: workers
+      app.kubernetes.io/component: worker
       {{- include "cube.selectorLabels" . | nindent 6 }}
   template:
     metadata:
       labels:
-        app.kubernetes.io/component: workers
+        app.kubernetes.io/component: worker
         {{- include "cube.selectorLabels" . | nindent 8 }}
         {{- if .Values.commonLabels }}
         {{- toYaml .Values.commonLabels | nindent 8 }}
@@ -31,7 +31,7 @@ spec:
       {{- toYaml .Values.commonAnnotations | nindent 8 }}
       {{- end }}
     spec:
-      serviceAccountName: {{ template "cube.workers.serviceAccountName" . }}
+      serviceAccountName: {{ template "cube.worker.serviceAccountName" . }}
       {{- with .Values.image.pullSecrets }}
       imagePullSecrets:
         {{- toYaml . | nindent 8 }}
@@ -66,57 +66,57 @@ spec:
                 name: {{ include "cube.tplvalues.render" (dict "value" .Values.extraEnvVarsFromSecret "context" $) }}
             {{- end }}
           {{- end }}
-          {{- if .Values.workers.livenessProbe.enabled }}
+          {{- if .Values.worker.livenessProbe.enabled }}
           livenessProbe:
-            initialDelaySeconds: {{ .Values.workers.livenessProbe.initialDelaySeconds }}
-            periodSeconds: {{ .Values.workers.livenessProbe.periodSeconds }}
-            timeoutSeconds: {{ .Values.workers.livenessProbe.timeoutSeconds }}
-            successThreshold: {{ .Values.workers.livenessProbe.successThreshold }}
-            failureThreshold: {{ .Values.workers.livenessProbe.failureThreshold }}
+            initialDelaySeconds: {{ .Values.worker.livenessProbe.initialDelaySeconds }}
+            periodSeconds: {{ .Values.worker.livenessProbe.periodSeconds }}
+            timeoutSeconds: {{ .Values.worker.livenessProbe.timeoutSeconds }}
+            successThreshold: {{ .Values.worker.livenessProbe.successThreshold }}
+            failureThreshold: {{ .Values.worker.livenessProbe.failureThreshold }}
             httpGet:
               path: /livez
               port: http
-          {{- else if .Values.workers.customLivenessProbe }}
+          {{- else if .Values.worker.customLivenessProbe }}
           livenessProbe:
-            {{- toYaml .Values.workers.customLivenessProbe | nindent 12 }}
+            {{- toYaml .Values.worker.customLivenessProbe | nindent 12 }}
           {{- end }}
-          {{- if .Values.workers.readinessProbe.enabled }}
+          {{- if .Values.worker.readinessProbe.enabled }}
           readinessProbe:
-            initialDelaySeconds: {{ .Values.workers.readinessProbe.initialDelaySeconds }}
-            periodSeconds: {{ .Values.workers.readinessProbe.periodSeconds }}
-            timeoutSeconds: {{ .Values.workers.readinessProbe.timeoutSeconds }}
-            successThreshold: {{ .Values.workers.readinessProbe.successThreshold }}
-            failureThreshold: {{ .Values.workers.readinessProbe.failureThreshold }}
+            initialDelaySeconds: {{ .Values.worker.readinessProbe.initialDelaySeconds }}
+            periodSeconds: {{ .Values.worker.readinessProbe.periodSeconds }}
+            timeoutSeconds: {{ .Values.worker.readinessProbe.timeoutSeconds }}
+            successThreshold: {{ .Values.worker.readinessProbe.successThreshold }}
+            failureThreshold: {{ .Values.worker.readinessProbe.failureThreshold }}
             httpGet:
               path: /readyz
               port: http
-          {{- else if .Values.workers.customReadinessProbe }}
+          {{- else if .Values.worker.customReadinessProbe }}
           readinessProbe:
-            {{- toYaml .Values.workers.customReadinessProbe | nindent 12 }}
+            {{- toYaml .Values.worker.customReadinessProbe | nindent 12 }}
           {{- end }}
-          {{- if .Values.workers.resources }}
+          {{- if .Values.worker.resources }}
           resources:
-            {{- toYaml .Values.workers.resources | nindent 12 }}
+            {{- toYaml .Values.worker.resources | nindent 12 }}
           {{- end }}
           {{- if .Values.config.volumeMounts }}
           volumeMounts:
             {{- toYaml .Values.config.volumeMounts | nindent 12 }}
           {{- end }}
-      {{- if .Values.workers.affinity }}
+      {{- if .Values.worker.affinity }}
       affinity:
-        {{- toYaml .Values.workers.affinity | nindent 8 }}
+        {{- toYaml .Values.worker.affinity | nindent 8 }}
       {{- end }}
-      {{- if .Values.workers.tolerations }}
+      {{- if .Values.worker.tolerations }}
       tolerations:
-        {{- toYaml .Values.workers.tolerations | nindent 8 }}
+        {{- toYaml .Values.worker.tolerations | nindent 8 }}
       {{- end }}
-      {{- if .Values.workers.nodeSelector }}
+      {{- if .Values.worker.nodeSelector }}
       nodeSelector:
-        {{- toYaml .Values.workers.nodeSelector | nindent 8 }}
+        {{- toYaml .Values.worker.nodeSelector | nindent 8 }}
       {{- end }}
-      {{- if .Values.workers.spreadConstraints }}
+      {{- if .Values.worker.spreadConstraints }}
       topologySpreadConstraints:
-        {{- toYaml .Values.workers.spreadConstraints | nindent 8 }}
+        {{- toYaml .Values.worker.spreadConstraints | nindent 8 }}
       {{- end }}
       {{- if .Values.config.volumes }}
       volumes:

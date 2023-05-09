@@ -29,7 +29,7 @@
     - [Snowflake parameters](#snowflake-datasource-parameters)
     - [Trino parameters](#trino-datasource-parameters)
   - [Api instance parameters](#api-instance-parameters)
-  - [Workers parameters](#workers-parameters)
+  - [Refresh worker parameters](#worker-parameters)
   - [Ingress parameters](#ingress-parameters)
 
 ## Get Started
@@ -167,10 +167,8 @@ module.exports = {
 
 Deployment with:
 
-- 2 workers
 - BigQuery db with export Bucket on GCS
 - Schema located in a `cube-schema` ConfigMap
-- Redis (using pasword in a secret)
 - Cubestore
 
 ```bash
@@ -188,15 +186,6 @@ config:
     - name: schema
       readOnly: true
       mountPath: /cube/conf/schema
-
-workers:
-  workersCount: 2
-
-redis:
-  url: <redis-url>
-  passwordFromSecret:
-    name: <redis-secret-name>
-    key: <redis-secret-key>
 
 datasources:
   default:
@@ -230,15 +219,6 @@ config:
     - name: schema
       readOnly: true
       mountPath: /cube/conf/schema
-
-workers:
-  workersCount: 2
-
-redis:
-  url: <redis-url>
-  passwordFromSecret:
-    name: <redis-secret-name>
-    key: <redis-secret-key>
 
 datasources:
   default:
@@ -317,13 +297,13 @@ cubestore:
 | `config.scheduledRefreshTimezones`                         | A comma-separated list of timezones to schedule refreshes for                                                                |         |
 | `config.webSockets`                                        | If true, then use WebSocket for data fetching. Defaults to true                                                              |         |
 | `config.preAggregationsSchema`                             | The schema name to use for storing pre-aggregations true                                                                     |         |
-| `config.cacheAndQueueDriver`                               | The cache and queue driver to use for the Cube deployment. Defaults to redis                                                 |         |
+| `config.cacheAndQueueDriver`                               | The cache and queue driver to use for the Cube deployment. Defaults to cubestore                                             |         |
 | `config.concurrency`                                       | The number of concurrent connections each query queue has to the database                                                    |         |
 | `config.topicName`                                         | The name of the Amazon SNS or Google Cloud Pub/Sub topicredis                                                                |         |
 | `config.touchPreAggTimeout`                                | The number of seconds without a touch before pre-aggregation is considered orphaned and marked for removal                   |         |
 | `config.dropPreAggWithoutTouch`                            | If true, it enables dropping pre-aggregations that Refresh Worker doesn't touch within touchPreAggTimeout                    |         |
-| `config.volumes`                                           | The config volumes. Will be used to both api and workers                                                                     | `[]`    |
-| `config.volumeMounts`                                      | The config volumeMounts. Will be used to both api and workers                                                                | `[]`    |
+| `config.volumes`                                           | The config volumes. Will be used to both api and worker                                                                      | `[]`    |
+| `config.volumeMounts`                                      | The config volumeMounts. Will be used to both api and worker                                                                 | `[]`    |
 
 ### Redis parameters
 
@@ -514,32 +494,32 @@ cubestore:
 | `api.customLivenessProbe`                         | Custom livenessProbe that overrides the default one                                                                 | `{}`    |
 | `api.customReadinessProbe`                        | Custom readinessProbe that overrides the default one                                                                | `{}`    |
 
-### Workers parameters
+### Worker parameters
 
-| Name                                                  | Description                                                                                                         | Value   |
-| ----------------------------------------------------- | ------------------------------------------------------------------------------------------------------------------- | ------- |
-| `workers.serviceAccount.create`                       | Specifies whether a ServiceAccount should be created                                                                | `false` |
-| `workers.serviceAccount.name`                         | Name of the service account to use. If not set and create is true, a name is generated using the fullname template. | `""`    |
-| `workers.serviceAccount.automountServiceAccountToken` | Automount service account token for the server service account                                                      | `true`  |
-| `workers.serviceAccount.annotations`                  | Annotations for service account. Evaluated as a template. Only used if create is true.                              | `{}`    |
-| `workers.workersCount`                                | Number of workers to deploy                                                                                         | `1`     |
-| `workers.affinity`                                    | Affinity for pod assignment                                                                                         | `{}`    |
-| `workers.spreadConstraints`                           | Topology spread constraint for pod assignment                                                                       | `[]`    |
-| `workers.resources`                                   | Define resources requests and limits for single Pods                                                                | `{}`    |
-| `workers.livenessProbe.enabled`                       | Enable livenessProbe                                                                                                | `true`  |
-| `workers.livenessProbe.initialDelaySeconds`           | Initial delay seconds for livenessProbe                                                                             | `10`    |
-| `workers.livenessProbe.periodSeconds`                 | Period seconds for livenessProbe                                                                                    | `30`    |
-| `workers.livenessProbe.timeoutSeconds`                | Timeout seconds for livenessProbe                                                                                   | `3`     |
-| `workers.livenessProbe.successThreshold`              | Failure threshold for livenessProbe                                                                                 | `1`     |
-| `workers.livenessProbe.failureThreshold`              | Success threshold for livenessProbe                                                                                 | `3`     |
-| `workers.readinessProbe.enabled`                      | Enable readinessProbe                                                                                               | `true`  |
-| `workers.readinessProbe.initialDelaySeconds`          | Initial delay seconds for readinessProbe                                                                            | `10`    |
-| `workers.readinessProbe.periodSeconds`                | Period seconds for readinessProbe                                                                                   | `30`    |
-| `workers.readinessProbe.timeoutSeconds`               | Timeout seconds for readinessProbe                                                                                  | `3`     |
-| `workers.readinessProbe.successThreshold`             | Failure threshold for readinessProbe                                                                                | `1`     |
-| `workers.readinessProbe.failureThreshold`             | Success threshold for readinessProbe                                                                                | `3`     |
-| `workers.customLivenessProbe`                         | Custom livenessProbe that overrides the default one                                                                 | `{}`    |
-| `workers.customReadinessProbe`                        | Custom readinessProbe that overrides the default one                                                                | `{}`    |
+| Name                                                 | Description                                                                                                         | Value   |
+| ---------------------------------------------------- | ------------------------------------------------------------------------------------------------------------------- | ------- |
+| `worker.enabled`                                     | Set to true to enable refresh worker                                                                                | `true`  |
+| `worker.serviceAccount.create`                       | Specifies whether a ServiceAccount should be created                                                                | `false` |
+| `worker.serviceAccount.name`                         | Name of the service account to use. If not set and create is true, a name is generated using the fullname template. | `""`    |
+| `worker.serviceAccount.automountServiceAccountToken` | Automount service account token for the server service account                                                      | `true`  |
+| `worker.serviceAccount.annotations`                  | Annotations for service account. Evaluated as a template. Only used if create is true.                              | `{}`    |
+| `worker.affinity`                                    | Affinity for pod assignment                                                                                         | `{}`    |
+| `worker.spreadConstraints`                           | Topology spread constraint for pod assignment                                                                       | `[]`    |
+| `worker.resources`                                   | Define resources requests and limits for single Pods                                                                | `{}`    |
+| `worker.livenessProbe.enabled`                       | Enable livenessProbe                                                                                                | `true`  |
+| `worker.livenessProbe.initialDelaySeconds`           | Initial delay seconds for livenessProbe                                                                             | `10`    |
+| `worker.livenessProbe.periodSeconds`                 | Period seconds for livenessProbe                                                                                    | `30`    |
+| `worker.livenessProbe.timeoutSeconds`                | Timeout seconds for livenessProbe                                                                                   | `3`     |
+| `worker.livenessProbe.successThreshold`              | Failure threshold for livenessProbe                                                                                 | `1`     |
+| `worker.livenessProbe.failureThreshold`              | Success threshold for livenessProbe                                                                                 | `3`     |
+| `worker.readinessProbe.enabled`                      | Enable readinessProbe                                                                                               | `true`  |
+| `worker.readinessProbe.initialDelaySeconds`          | Initial delay seconds for readinessProbe                                                                            | `10`    |
+| `worker.readinessProbe.periodSeconds`                | Period seconds for readinessProbe                                                                                   | `30`    |
+| `worker.readinessProbe.timeoutSeconds`               | Timeout seconds for readinessProbe                                                                                  | `3`     |
+| `worker.readinessProbe.successThreshold`             | Failure threshold for readinessProbe                                                                                | `1`     |
+| `worker.readinessProbe.failureThreshold`             | Success threshold for readinessProbe                                                                                | `3`     |
+| `worker.customLivenessProbe`                         | Custom livenessProbe that overrides the default one                                                                 | `{}`    |
+| `worker.customReadinessProbe`                        | Custom readinessProbe that overrides the default one                                                                | `{}`    |
 
 ## Ingress parameters
 

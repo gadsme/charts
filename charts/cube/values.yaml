@@ -133,7 +133,7 @@ config:
   ##
   webSockets:
 
-  ## The cache and queue driver to use for the Cube deployment. Defaults to redis
+  ## The cache and queue driver to use for the Cube deployment. Defaults to cubestore
   ##
   cacheAndQueueDriver:
 
@@ -159,14 +159,14 @@ config:
   dropPreAggWithoutTouch:
 
   ## The config volumes
-  ## Will be used to both api and workers
+  ## Will be used to both api and worker
   volumes: []
   # - name: schema
   #   configMap:
   #     name: schema
 
   ## The config volumeMounts
-  ## Will be used to both api and workers
+  ## Will be used to both api and worker
   volumeMounts: []
   # - name: schema
   #   readOnly: true
@@ -619,7 +619,11 @@ api:
   ##
   nodeSelector: {}
 
-workers:
+worker:
+  ## Set to true to enable a separate refresh worker
+  ##
+  enabled: true
+
   ## Service account for cube worker to use
   ##
   serviceAccount:
@@ -627,8 +631,6 @@ workers:
     name: ""
     automountServiceAccountToken: true
     annotations: {}
-
-  workersCount: 1
 
   ## Affinity for pod assignment
   ## ref: https://kubernetes.io/docs/concepts/configuration/assign-pod-node/#affinity-and-anti-affinity
