@@ -65,7 +65,7 @@ gadsme/cubestore
 ### Remote dir
 
 By default a shared remoteDir is created to store metadata and datasets if no cloudstorage is configured.
-Prefer usin cloudStorage if your are running on `gcp` or `aws`.
+Prefer using cloudStorage if you are running on `gcp` or `aws`.
 
 ### Local dir
 
@@ -123,7 +123,7 @@ By default local dir are not persisted. You can enable persistance on router and
 | `cloudStorage.gcp.bucket`                           | The name of a bucket in GCS. Required when using GCS                                                                   |       |
 | `cloudStorage.gcp.subPath`                          | The path in a GCS bucket to store pre-aggregations. Optional                                                           |       |
 | `cloudStorage.aws.accessKeyID`                      | The Access Key ID for AWS. Required when using AWS S3                                                                  |       |
-| `cloudStorage.aws.secretKey`                        | A Base64 encoded JSON key file for connecting to Google Cloud. Required when using Google Cloud Storage                |       |
+| `cloudStorage.aws.secretKey`                        | The Secret Access Key for AWS. Required when using AWS S3                                                              |       |
 | `cloudStorage.aws.secretKeyFromSecret.name`         | The Secret Access Key for AWS. Required when using AWS S3 (using secret)                                               |       |
 | `cloudStorage.aws.secretKeyFromSecret.key`          | The Secret Access Key for AWS. Required when using AWS S3 (using secret)                                               |       |
 | `cloudStorage.aws.bucket`                           | The name of a bucket in AWS S3. Required when using AWS S3                                                             |       |
