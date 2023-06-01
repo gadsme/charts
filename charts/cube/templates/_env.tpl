@@ -20,7 +20,7 @@
 {{- if eq $i.type "clickhouse" }}
 {{- include "cube.env.database.clickhouse" (set $i "datasource" $e) }}
 {{- end }}
-{{- if eq $i.type "databricks" }}
+{{- if eq $i.type "databricks-jdbc" }}
 {{- include "cube.env.database.databricks" (set $i "datasource" $e) }}
 {{- end }}
 {{- if eq $i.type "elasticsearch" }}
