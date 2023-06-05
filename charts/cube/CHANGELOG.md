@@ -2,6 +2,10 @@
 
 The release numbering uses [semantic versioning](http://semver.org).
 
+## 2.0.1
+
+- fix databrics database type
+
 ## 2.0.0
 
 - remove logic to detect redis as default cacheAndQueueDriver
