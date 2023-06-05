@@ -2,6 +2,10 @@
 
 The release numbering uses [semantic versioning](http://semver.org).
 
+## 0.9.1
+
+- fix documentation
+
 ## 0.9.0
 
 - Update to cubestore 0.33.4
