@@ -379,3 +379,10 @@ workers:
   ##     value: "bar"
   ##
   extraEnvVars: []
+
+  ## Configurations for init-router initContainer
+  initRouter:
+    ## Define resources requests and limits for single Pods.
+    ## ref: https://kubernetes.io/docs/user-guide/compute-resources/
+    ##
+    resources: {}
