@@ -94,6 +94,10 @@ spec:
         - name: init-router
           image: busybox
           command: ['sh', '-c', 'until nc -vz {{ printf "%s-router" (include "cubestore.fullname" .)}} {{ .Values.router.metaPort }}; do echo "Waiting for router"; sleep 2; done;']
+          {{- if .Values.workers.initRouter.resources }}
+          resources:
+            {{- toYaml .Values.workers.initRouter.resources | nindent 12 }}
+          {{- end }}
       volumes:
       {{- if not .Values.workers.persistence.enabled }}
         - name: datadir

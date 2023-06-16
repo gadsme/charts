@@ -209,3 +209,4 @@ By default local dir are not persisted. You can enable persistance on router and
 | `workers.spreadConstraints`                           | Topology spread constraint for pod assignment                                                                       | `[]`              |
 | `workers.resources`                                   | Define resources requests and limits for single Pods                                                                | `{}`              |
 | `workers.service.annotations`                         | Additional custom annotations for workers service                                                                   | `{}`              |
+| `workers.initRouter.resources`                        | Defines resources for init-router initContainer                                                                     | `{}`              |
