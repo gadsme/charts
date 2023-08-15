@@ -8,11 +8,11 @@ fullnameOverride: ""
 
 ##  Labels to add to all deployed objects
 ##
-commonLabels: {}
+commonLabels: { }
 
 ## Annotations to add to all deployed objects
 ##
-commonAnnotations: {}
+commonAnnotations: { }
 
 image:
   ## Docker image repository
@@ -32,7 +32,7 @@ image:
   ## Specify a imagePullSecrets
   ## ref: https://kubernetes.io/docs/concepts/containers/images/#specifying-imagepullsecrets-on-a-pod
   ##
-  pullSecrets: []
+  pullSecrets: [ ]
 
 config:
   ## The logging level for Cube Store.
@@ -80,7 +80,7 @@ remoteDir:
 
     ## Additional custom annotations for the PVC
     ##
-    annotations: {}
+    annotations: { }
 
     ## Persistent Volume access modes
     ##
@@ -191,7 +191,7 @@ exporter:
   image:
     repository: prom/statsd-exporter
     tag: "v0.23.3"
-  extraArgs: []
+  extraArgs: [ ]
   statsd:
     # Maximum size of your metric mapping cache.
     # Relies on the least recently used replacement policy if max size is reached.
@@ -224,12 +224,12 @@ exporter:
       port: http
 
   resources:
-   requests:
-     cpu: 100m
-     memory: 128Mi
-   limits:
-     cpu: 100m
-     memory: 128Mi
+    requests:
+      cpu: 100m
+      memory: 128Mi
+    limits:
+      cpu: 100m
+      memory: 128Mi
 
   service:
     type: ClusterIP
@@ -237,7 +237,7 @@ exporter:
     port: 9102
     # Path under which to expose metrics.
     path: /metrics
-    annotations: {}
+    annotations: { }
 
 router:
   ## Service account for cubestore router to use
@@ -246,7 +246,7 @@ router:
     create: false
     name: ""
     automountServiceAccountToken: true
-    annotations: {}
+    annotations: { }
 
   ## The port for Cube Store to listen to HTTP connections on
   ##
@@ -288,22 +288,22 @@ router:
 
     ## Additional custom annotations for the PVC
     ##
-    annotations: {}
+    annotations: { }
 
   ## Affinity for pod assignment
   ## ref: https://kubernetes.io/docs/concepts/configuration/assign-pod-node/#affinity-and-anti-affinity
   ##
-  affinity: {}
+  affinity: { }
 
   ## Topology spread constraint for pod assignment
   ## ref: https://kubernetes.io/docs/concepts/workloads/pods/pod-topology-spread-constraints/
   ##
-  spreadConstraints: []
+  spreadConstraints: [ ]
 
   ## Define resources requests and limits for single Pods.
   ## ref: https://kubernetes.io/docs/user-guide/compute-resources/
   ##
-  resources: {}
+  resources: { }
 
   ## Configure options for liveness probes
   ## ref: https://kubernetes.io/docs/tasks/configure-pod-container/configure-liveness-readiness-probes/#configure-probes
@@ -329,24 +329,24 @@ router:
 
   ##  Custom livenessProbe that overrides the default one
   ##
-  customLivenessProbe: {}
+  customLivenessProbe: { }
 
   ## Custom readinessProbe that overrides the default one
   ##
-  customReadinessProbe: {}
+  customReadinessProbe: { }
 
   ## Tolerations for pod assignment
   ##
-  tolerations: {}
+  tolerations: { }
 
   ## Node selector for pod assignment
   ##
-  nodeSelector: {}
+  nodeSelector: { }
 
   service:
     ## Additional custom annotations for router service
     ##
-    annotations: {}
+    annotations: { }
 
   ## Extra environment variables to pass on to the pod. The value is evaluated as a template
   ## e.g:
@@ -354,7 +354,7 @@ router:
   ##   - name: FOO
   ##     value: "bar"
   ##
-  extraEnvVars: []
+  extraEnvVars: [ ]
 
 workers:
   ## Service account for cubestore workers to use
@@ -363,7 +363,7 @@ workers:
     create: false
     name: ""
     automountServiceAccountToken: true
-    annotations: {}
+    annotations: { }
 
   ## Number of workers to deploy
   ##
@@ -397,35 +397,35 @@ workers:
 
     ## Additional custom annotations for the PVC
     ##
-    annotations: {}
+    annotations: { }
 
   ## Affinity for pod assignment
   ## ref: https://kubernetes.io/docs/concepts/configuration/assign-pod-node/#affinity-and-anti-affinity
   ##
-  affinity: {}
+  affinity: { }
 
   ## topology spread constraint for pod assignment
   ## ref: https://kubernetes.io/docs/concepts/workloads/pods/pod-topology-spread-constraints/
   ##
-  spreadConstraints: []
+  spreadConstraints: [ ]
 
   ## Define resources requests and limits for single Pods.
   ## ref: https://kubernetes.io/docs/user-guide/compute-resources/
   ##
-  resources: {}
+  resources: { }
 
   ## Tolerations for pod assignment
   ##
-  tolerations: {}
+  tolerations: { }
 
   ## Node selector for pod assignment
   ##
-  nodeSelector: {}
+  nodeSelector: { }
 
   service:
     ## Additional custom annotations for workers service
     ##
-    annotations: {}
+    annotations: { }
 
   ## Extra environment variables to pass on to the pod. The value is evaluated as a template
   ## e.g:
@@ -433,11 +433,11 @@ workers:
   ##   - name: FOO
   ##     value: "bar"
   ##
-  extraEnvVars: []
+  extraEnvVars: [ ]
 
   ## Configurations for init-router initContainer
   initRouter:
     ## Define resources requests and limits for single Pods.
     ## ref: https://kubernetes.io/docs/user-guide/compute-resources/
     ##
-    resources: {}
+    resources: { }

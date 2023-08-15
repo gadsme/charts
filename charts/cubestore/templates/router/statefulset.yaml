@@ -136,10 +136,10 @@ spec:
           image: "{{ .Values.exporter.image.repository }}:{{ .Values.exporter.image.tag }}"
           imagePullPolicy: {{ .Values.image.pullPolicy }}
           args:
-            - --web.listen-address=: {{ .Values.exporter.service.port }}
+            - "--web.listen-address=:{{ .Values.exporter.service.port }}"
             - --web.telemetry-path={{ .Values.exporter.service.path }}
             {{- if .Values.metrics.port }}
-            - --statsd.listen-udp=: {{ .Values.metrics.port }}
+            - "--statsd.listen-udp=:{{ .Values.metrics.port }}"
             {{- else }}
             - --statsd.listen-udp=
             {{- end }}
@@ -147,7 +147,7 @@ spec:
             - --statsd.event-queue-size={{ .Values.exporter.statsd.eventQueueSize }}
             - --statsd.event-flush-threshold={{ .Values.exporter.statsd.eventFlushThreshold }}
             - --statsd.event-flush-interval={{ .Values.exporter.statsd.eventFlushInterval }}
-            {{- if or .Values.exporter.statsd.mappingConfigMapName .Values.exporter.statsd.mappingConfig }}
+            {{- if or .Values.exporter.statsd.mappingConfigMapName }}
             - --statsd.mapping-config=/etc/prometheus-statsd-exporter/statsd-mapping.conf
             {{- end }}
             {{- if .Values.exporter.extraArgs }}
