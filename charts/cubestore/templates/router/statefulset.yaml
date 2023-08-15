@@ -136,13 +136,9 @@ spec:
           image: "{{ .Values.exporter.image.repository }}:{{ .Values.exporter.image.tag }}"
           imagePullPolicy: {{ .Values.image.pullPolicy }}
           args:
-            - "--web.listen-address=:{{ .Values.exporter.service.port }}"
+            - '--web.listen-address=0.0.0.0:{{ .Values.exporter.service.port }}'
             - --web.telemetry-path={{ .Values.exporter.service.path }}
-            {{- if .Values.metrics.port }}
-            - "--statsd.listen-udp=:{{ .Values.metrics.port }}"
-            {{- else }}
-            - --statsd.listen-udp=
-            {{- end }}
+            - '--statsd.listen-udp=0.0.0.0:{{ .Values.metrics.port }}'
             - --statsd.cache-size={{ .Values.exporter.statsd.cacheSize }}
             - --statsd.event-queue-size={{ .Values.exporter.statsd.eventQueueSize }}
             - --statsd.event-flush-threshold={{ .Values.exporter.statsd.eventFlushThreshold }}
