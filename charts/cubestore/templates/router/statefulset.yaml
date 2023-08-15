@@ -24,7 +24,7 @@ spec:
         {{- include "cubestore.selectorLabels" . | nindent 8 }}
         {{- if .Values.commonLabels }}
         {{- toYaml .Values.commonLabels | nindent 8 }}
-        {{- end }}        
+        {{- end }}
       {{- if .Values.commonAnnotations }}
       annotations:
       {{- toYaml .Values.commonAnnotations | nindent 8 }}
@@ -131,15 +131,62 @@ spec:
             - name: remotedir
               mountPath: /cube/data
             {{- end }}
+        {{- if .Values.exporter.enabled }}
+        - name: statsd-exporter
+          image: "{{ .Values.exporter.image.repository }}:{{ .Values.exporter.image.tag }}"
+          imagePullPolicy: {{ .Values.image.pullPolicy }}
+          args:
+            - --web.listen-address=: {{ .Values.exporter.service.port }}
+            - --web.telemetry-path={{ .Values.exporter.service.path }}
+            {{- if .Values.metrics.port }}
+            - --statsd.listen-udp=: {{ .Values.metrics.port }}
+            {{- else }}
+            - --statsd.listen-udp=
+            {{- end }}
+            - --statsd.cache-size={{ .Values.exporter.statsd.cacheSize }}
+            - --statsd.event-queue-size={{ .Values.exporter.statsd.eventQueueSize }}
+            - --statsd.event-flush-threshold={{ .Values.exporter.statsd.eventFlushThreshold }}
+            - --statsd.event-flush-interval={{ .Values.exporter.statsd.eventFlushInterval }}
+            {{- if or .Values.exporter.statsd.mappingConfigMapName .Values.exporter.statsd.mappingConfig }}
+            - --statsd.mapping-config=/etc/prometheus-statsd-exporter/statsd-mapping.conf
+            {{- end }}
+            {{- if .Values.exporter.extraArgs }}
+            {{- toYaml .Values.exporter.extraArgs | nindent 12 }}
+            {{- end }}
+          ports:
+            - name: http-metrics
+              containerPort: {{ .Values.exporter.service.port }}
+              protocol: TCP
+            {{- if .Values.metrics.port }}
+            - name: metrics
+              containerPort: {{ .Values.metrics.port }}
+              protocol: UDP
+            {{- end }}
+          resources:
+            {{- toYaml .Values.exporter.resources | nindent 12 }}
+          {{- if or .Values.exporter.enabled }}
+          volumeMounts:
+            - name: statsd-mapping-config
+              mountPath: /etc/prometheus-statsd-exporter
+          {{- end }}
+        {{- end }}
       volumes:
       {{- if not .Values.router.persistence.enabled }}
         - name: datadir
-          emptyDir: {}
+          emptyDir: { }
       {{- end }}
       {{- if and (not .Values.cloudStorage.gcp.bucket) (not .Values.cloudStorage.aws.bucket) (not .Values.cloudStorage.minio.bucket) }}
         - name: remotedir
           persistentVolumeClaim:
             claimName: {{ printf "%s-remote-storage" (include "cubestore.fullname" .) }}
+      {{- end }}
+      {{- if or .Values.exporter.enabled }}
+        - name: statsd-mapping-config
+          configMap:
+            name: {{ .Values.exporter.statsd.mappingConfigMapName }}
+            items:
+              - key: {{ .Values.exporter.statsd.mappingConfigMapKey }}
+                path: statsd-mapping.conf
       {{- end }}
       {{- if .Values.router.affinity }}
       affinity:

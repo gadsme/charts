@@ -1,0 +1,16 @@
+{{- if .Values.exporter.enabled }}
+kind: ConfigMap
+apiVersion: v1
+metadata:
+  name: {{ .Values.exporter.statsd.mappingConfigMapName }}
+  labels:
+    app: statsd-exporter
+data:
+  {{ .Values.exporter.statsd.mappingConfigMapKey }}: |
+    mappings:
+      - match: ".+"
+        match_type: regex
+        name: "$0"
+        labels:
+          statsd_metric_name: "$0"
+{{- end }}

@@ -64,7 +64,7 @@ config:
   walSplitThreshold:
 
 ## Used to define the shared volume to store metadata and datasets
-## Prefer use cloudStorage if your are running on "gcp" or "aws"
+## Prefer use cloudStorage if you are running on "gcp" or "aws"
 ## If a cloudStorage configuration is used, no remoteDir will be created
 ##
 remoteDir:
@@ -180,9 +180,64 @@ metrics:
   ##
   address:
 
-  ## Required port to send where collector server accept UDP connections
+  ## Required port to send where collector server accepts UDP connections
   ##
   port:
+
+## Configurations for statsd-prometheus-exporter
+##
+exporter:
+  enabled: true
+  image:
+    repository: prom/statsd-exporter
+    tag: "v0.23.3"
+  extraArgs: []
+  statsd:
+    # Maximum size of your metric mapping cache.
+    # Relies on the least recently used replacement policy if max size is reached.
+    cacheSize: 1000
+
+    # Size of internal queue for processing events.
+    eventQueueSize: 10000
+
+    # Number of events to hold in queue before flushing.
+    eventFlushThreshold: 1000
+
+    # Time interval before flushing events in queue.
+    eventFlushInterval: 200ms
+
+    # Metric mapping ConfigMap
+    mappingConfigMapName: cs-metrics
+
+    # Name of the key inside Metric mapping ConfigMap.
+    mappingConfigMapKey: statsd.mappingConf
+
+
+  livenessProbe:
+    httpGet:
+      path: /health
+      port: http
+
+  readinessProbe:
+    httpGet:
+      path: /health
+      port: http
+
+  resources:
+   requests:
+     cpu: 100m
+     memory: 128Mi
+   limits:
+     cpu: 100m
+     memory: 128Mi
+
+  service:
+    type: ClusterIP
+    # The address on which to expose the web interface and generated Prometheus metrics.
+    port: 9102
+    # Path under which to expose metrics.
+    path: /metrics
+    annotations: {}
 
 router:
   ## Service account for cubestore router to use
