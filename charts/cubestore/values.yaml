@@ -32,7 +32,7 @@ image:
   ## Specify a imagePullSecrets
   ## ref: https://kubernetes.io/docs/concepts/containers/images/#specifying-imagepullsecrets-on-a-pod
   ##
-  pullSecrets: [ ]
+  pullSecrets: []
 
 config:
   ## The logging level for Cube Store.
@@ -191,7 +191,7 @@ exporter:
   image:
     repository: prom/statsd-exporter
     tag: "v0.24.0"
-  extraArgs: [ ]
+  extraArgs: []
   statsd:
     # Maximum size of your metric mapping cache.
     # Relies on the least recently used replacement policy if max size is reached.
@@ -299,7 +299,7 @@ router:
   ## Topology spread constraint for pod assignment
   ## ref: https://kubernetes.io/docs/concepts/workloads/pods/pod-topology-spread-constraints/
   ##
-  spreadConstraints: [ ]
+  spreadConstraints: []
 
   ## Define resources requests and limits for single Pods.
   ## ref: https://kubernetes.io/docs/user-guide/compute-resources/
@@ -355,7 +355,7 @@ router:
   ##   - name: FOO
   ##     value: "bar"
   ##
-  extraEnvVars: [ ]
+  extraEnvVars: []
 
 workers:
   ## Service account for cubestore workers to use
@@ -408,7 +408,7 @@ workers:
   ## topology spread constraint for pod assignment
   ## ref: https://kubernetes.io/docs/concepts/workloads/pods/pod-topology-spread-constraints/
   ##
-  spreadConstraints: [ ]
+  spreadConstraints: []
 
   ## Define resources requests and limits for single Pods.
   ## ref: https://kubernetes.io/docs/user-guide/compute-resources/
@@ -434,7 +434,7 @@ workers:
   ##   - name: FOO
   ##     value: "bar"
   ##
-  extraEnvVars: [ ]
+  extraEnvVars: []
 
   ## Configurations for init-router initContainer
   initRouter:
