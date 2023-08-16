@@ -8,7 +8,6 @@ metadata:
     {{- if .Values.commonLabels }}
     {{- toYaml .Values.commonLabels | nindent 4 }}
     {{- end }}
-    app: statsd-exporter
 data:
   {{ .Values.exporter.statsd.mappingConfigMapKey }}: |
     mappings:
