@@ -132,7 +132,7 @@ cloudStorage:
     ##
     region:
 
-    ## The path in a AWS S3 bucket to store pre-aggregations. Optional
+    ## The path in an AWS S3 bucket to store pre-aggregations. Optional
     ##
     subPath:
 
@@ -190,7 +190,7 @@ exporter:
   enabled: true
   image:
     repository: prom/statsd-exporter
-    tag: "v0.23.3"
+    tag: "v0.24.0"
   extraArgs: [ ]
   statsd:
     # Maximum size of your metric mapping cache.
@@ -206,12 +206,15 @@ exporter:
     # Time interval before flushing events in queue.
     eventFlushInterval: 200ms
 
-    # Metric mapping ConfigMap
-    mappingConfigMapName: cs-metrics
+    # Whether you use default mapping.
+    # If set to false, you should provide your own configMap with statsd metrics mapping.
+    useDefaultMapping: true
+
+    # Metrics mapping ConfigMap
+    mappingConfigMapName: cubestore-metrics-mapping
 
     # Name of the key inside Metric mapping ConfigMap.
     mappingConfigMapKey: statsd.mappingConf
-
 
   livenessProbe:
     httpGet:
@@ -232,12 +235,10 @@ exporter:
       memory: 128Mi
 
   service:
-    type: ClusterIP
     # The address on which to expose the web interface and generated Prometheus metrics.
     port: 9102
     # Path under which to expose metrics.
     path: /metrics
-    annotations: { }
 
 router:
   ## Service account for cubestore router to use
@@ -256,7 +257,7 @@ router:
   ##
   metaPort: 9999
 
-  ## The port for Cube Store to listen to connections on, for example: 3306
+  ## The port for Cube Store to listen to connections on, for example, 3306
   ##
   mysqlPort:
 
@@ -423,12 +424,12 @@ workers:
   nodeSelector: { }
 
   service:
-    ## Additional custom annotations for workers service
+    ## Additional custom annotations for worker service
     ##
     annotations: { }
 
   ## Extra environment variables to pass on to the pod. The value is evaluated as a template
-  ## e.g:
+  ## e.g.:
   ## extraEnvVars:
   ##   - name: FOO
   ##     value: "bar"

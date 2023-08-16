@@ -1,9 +1,13 @@
-{{- if .Values.exporter.enabled }}
+{{- if and .Values.exporter.enabled .Values.exporter.statsd.useDefaultMapping }}
 kind: ConfigMap
 apiVersion: v1
 metadata:
   name: {{ .Values.exporter.statsd.mappingConfigMapName }}
   labels:
+    {{- include "cubestore.labels" . | nindent 4 }}
+    {{- if .Values.commonLabels }}
+    {{- toYaml .Values.commonLabels | nindent 4 }}
+    {{- end }}
     app: statsd-exporter
 data:
   {{ .Values.exporter.statsd.mappingConfigMapKey }}: |

@@ -160,7 +160,7 @@ spec:
             {{- end }}
           resources:
             {{- toYaml .Values.exporter.resources | nindent 12 }}
-          {{- if or .Values.exporter.enabled }}
+          {{- if .Values.exporter.enabled }}
           volumeMounts:
             - name: statsd-mapping-config
               mountPath: /etc/prometheus-statsd-exporter
