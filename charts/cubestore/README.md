@@ -39,7 +39,7 @@ helm upgrade [RELEASE_NAME] gadsme/cubestore --install
 
 ## Configuration
 
-By default a router and two workers will be deployed. You can customize the deployment using helm values.
+By default, a router and two workers will be deployed. You can customize the deployment using helm values.
 
 Refer to the official documentation for more information:
 https://cube.dev/docs/reference/environment-variables#cube-store
@@ -60,23 +60,23 @@ $ helm install my-release \
 gadsme/cubestore
 ```
 
-## Persistance
+## Persistence
 
 ### Remote dir
 
-By default a shared remoteDir is created to store metadata and datasets if no cloudstorage is configured.
+By default, a shared remoteDir is created to store metadata and datasets if no cloudstorage is configured.
 Prefer using cloudStorage if you are running on `gcp` or `aws`.
 
 ### Local dir
 
-By default local dir are not persisted. You can enable persistance on router and master.
+By default, local dir is not persisted. You can enable persistence on router and master.
 
 ## Parameters
 
 ### Common parameters
 
 | Name                | Description                                                  | Value |
-| ------------------- | ------------------------------------------------------------ | ----- |
+|---------------------|--------------------------------------------------------------|-------|
 | `nameOverride`      | Override the name                                            | `""`  |
 | `fullnameOverride`  | Provide a name to substitute for the full names of resources | `""`  |
 | `commonLabels`      | Labels to add to all deployed objects                        | `{}`  |
@@ -85,7 +85,7 @@ By default local dir are not persisted. You can enable persistance on router and
 ### Image parameters
 
 | Name                | Description                                                                             | Value              |
-| ------------------- | --------------------------------------------------------------------------------------- | ------------------ |
+|---------------------|-----------------------------------------------------------------------------------------|--------------------|
 | `image.repository`  | Cubestore image repository                                                              | `cubejs/cubestore` |
 | `image.tag`         | Cubestore image tag (immutable tags are recommended)                                    | `0.32.14`          |
 | `image.pullPolicy`  | Cubestore image pull policy                                                             | `IfNotPresent`     |
@@ -94,7 +94,7 @@ By default local dir are not persisted. You can enable persistance on router and
 ### Global parameters
 
 | Name                       | Description                                                                                                       | Value   |
-| -------------------------- | ----------------------------------------------------------------------------------------------------------------- | ------- |
+|----------------------------|-------------------------------------------------------------------------------------------------------------------|---------|
 | `config.logLevel`          | The logging level for Cube Store                                                                                  | `error` |
 | `config.noUpload`          | If true, prevents uploading serialized pre-aggregations to cloud storage                                          |         |
 | `config.jobRunners`        | The number of parallel tasks that process non-interactive jobs like data insertion, compaction etc. Defaults to 4 |         |
@@ -106,7 +106,7 @@ By default local dir are not persisted. You can enable persistance on router and
 ### Remote dir parameters
 
 | Name                                   | Description                                                                | Value             |
-| -------------------------------------- | -------------------------------------------------------------------------- | ----------------- |
+|----------------------------------------|----------------------------------------------------------------------------|-------------------|
 | `remoteDir.persistence.resourcePolicy` | Setting it to "keep" to avoid removing PVCs during a helm delete operation | `keep`            |
 | `remoteDir.persistence.size`           | Persistent Volume size                                                     | `10Gi`            |
 | `remoteDir.persistence.annotations`    | Additional custom annotations for the PVC                                  | `{}`              |
@@ -116,7 +116,7 @@ By default local dir are not persisted. You can enable persistance on router and
 ### Cloud Storage parameters
 
 | Name                                                | Description                                                                                                            | Value |
-| --------------------------------------------------- | ---------------------------------------------------------------------------------------------------------------------- | ----- |
+|-----------------------------------------------------|------------------------------------------------------------------------------------------------------------------------|-------|
 | `cloudStorage.gcp.credentials`                      | A Base64 encoded JSON key file for connecting to Google Cloud. Required when using Google Cloud Storage                |       |
 | `cloudStorage.gcp.credentialsFromSecret.name`       | A Base64 encoded JSON key file for connecting to Google Cloud. Required when using Google Cloud Storage (using secret) |       |
 | `cloudStorage.gcp.credentialsFromSecret.key`        | A Base64 encoded JSON key file for connecting to Google Cloud. Required when using Google Cloud Storage (using secret) |       |
@@ -142,16 +142,16 @@ By default local dir are not persisted. You can enable persistance on router and
 
 ### Metrics
 
-| Name              | Description                                                         | Value |
-| ----------------- | ------------------------------------------------------------------- | ----- |
-| `metrics.format`  | Define which metrics collector format                               |       |
-| `metrics.address` | Required IP address to send metrics                                 |       |
-| `metrics.port`    | Required port to send where collector server accept UDP connections |       |
+| Name              | Description                                                                                                           | Value |
+|-------------------|-----------------------------------------------------------------------------------------------------------------------|-------|
+| `metrics.format`  | Define which metrics collector format. Set it to `statsd` if exporter.enabled is set to `true`                        |       |
+| `metrics.address` | Required IP address to send metrics. Leave it blank if exporter.enabled is set to `true`                              |       |
+| `metrics.port`    | Required port to send where collector server accept UDP connections. Must be set if exporter.enabled is set to `true` |       |
 
 ### Router parameters
 
 | Name                                                 | Description                                                                                                         | Value             |
-| ---------------------------------------------------- | ------------------------------------------------------------------------------------------------------------------- | ----------------- |
+|------------------------------------------------------|---------------------------------------------------------------------------------------------------------------------|-------------------|
 | `router.serviceAccount.create`                       | Specifies whether a ServiceAccount should be created                                                                | `false`           |
 | `router.serviceAccount.name`                         | Name of the service account to use. If not set and create is true, a name is generated using the fullname template. | `""`              |
 | `router.serviceAccount.automountServiceAccountToken` | Automount service account token for the server service account                                                      | `true`            |
@@ -190,7 +190,7 @@ By default local dir are not persisted. You can enable persistance on router and
 ### Workers parameters
 
 | Name                                                  | Description                                                                                                         | Value             |
-| ----------------------------------------------------- | ------------------------------------------------------------------------------------------------------------------- | ----------------- |
+|-------------------------------------------------------|---------------------------------------------------------------------------------------------------------------------|-------------------|
 | `workers.serviceAccount.create`                       | Specifies whether a ServiceAccount should be created                                                                | `false`           |
 | `workers.serviceAccount.name`                         | Name of the service account to use. If not set and create is true, a name is generated using the fullname template. | `""`              |
 | `workers.serviceAccount.automountServiceAccountToken` | Automount service account token for the server service account                                                      | `true`            |
@@ -210,3 +210,26 @@ By default local dir are not persisted. You can enable persistance on router and
 | `workers.resources`                                   | Define resources requests and limits for single Pods                                                                | `{}`              |
 | `workers.service.annotations`                         | Additional custom annotations for workers service                                                                   | `{}`              |
 | `workers.initRouter.resources`                        | Defines resources for init-router initContainer                                                                     | `{}`              |
+
+### Statsd exporter parameters
+
+You can enable statsd-prometheus-exporter as sidecar container for router stateful set.
+
+| Name                                   | Description                                                                                                     | Value                       |
+|----------------------------------------|-----------------------------------------------------------------------------------------------------------------|-----------------------------|
+| `exporter.enabled`                     | Whether statsd-prometheus-exporter will be enabled                                                              | `true`                      |
+| `exporter.image.repository`            | Exporter image repo                                                                                             | `prom/statsd-exporter`      |
+| `exporter.image.tag`                   | Labels to add to all deployed objects                                                                           | `v0.24.0`                   |
+| `exporter.extraArgs`                   | Extra arguments for pass for statsd-prometheus-exporter                                                         | `[]`                        |
+| `exporter.statsd.cacheSize`            | Maximum size of your metric mapping cache                                                                       | `1000`                      |
+| `exporter.statsd.eventQueueSize`       | Size of internal queue for processing events                                                                    | `10000`                     |
+| `exporter.statsd.eventFlushThreshold`  | Number of events to hold in queue before flushing                                                               | `1000`                      |
+| `exporter.statsd.eventFlushInterval`   | Time interval before flushing events in queue                                                                   | `200ms`                     |
+| `exporter.statsd.useDefaultMapping`    | Whether use default mapping. If set to false, you should provide your own configMap with statsd metrics mapping | `true`                      |
+| `exporter.statsd.mappingConfigMapName` | Metrics mapping ConfigMap                                                                                       | `cubestore-metrics-mapping` |
+| `exporter.statsd.mappingConfigMapKey`  | Name of the key inside Metric mapping ConfigMap.                                                                | `statsd.mappingConf`        |
+| `exporter.livenessProbe`               | Liveness probe for exporter container                                                                           | `{ }`                       |
+| `exporter.readinessProbe`              | Readiness probe for exporter container                                                                          | `{ }`                       |
+| `exporter.resources`                   | Resources for exporter container                                                                                | `{ }`                       |
+| `exporter.service.port`                | The address on which to expose the web interface and generated Prometheus metrics container                     | `9102`                      |
+| `exporter.service.path`                | Path under which to expose metrics                                                                              | `/metrics`                  |

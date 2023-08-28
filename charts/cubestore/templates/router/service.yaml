@@ -30,6 +30,11 @@ spec:
       port: {{ .Values.router.mysqlPort }}
       targetPort: mysql
     {{- end }}
+    {{- if and .Values.exporter.enabled .Values.exporter.service.port }}
+    - name: http-metrics
+      port: {{ .Values.exporter.service.port }}
+      targetPort: http-metrics
+    {{- end }}
   selector:
     app.kubernetes.io/component: router
     {{- include "cubestore.selectorLabels" . | nindent 4 }}
