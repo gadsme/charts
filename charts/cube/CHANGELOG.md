@@ -2,6 +2,11 @@
 
 The release numbering uses [semantic versioning](http://semver.org).
 
+## 2.0.2
+
+- update to cube 0.33.48
+- run containers as non root
+
 ## 2.0.1
 
 - fix databrics database type
