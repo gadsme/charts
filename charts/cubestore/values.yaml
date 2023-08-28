@@ -34,6 +34,14 @@ image:
   ##
   pullSecrets: []
 
+## Pod Security Context
+## ref: https://kubernetes.io/docs/tasks/configure-pod-container/security-context/
+## Some admission policies only allow use of non root containers
+securityContext:
+  enabled: false
+  #fsGroup:
+  #runAsUser:
+
 config:
   ## The logging level for Cube Store.
   ##

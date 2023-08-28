@@ -49,6 +49,15 @@ image:
   ##
   pullSecrets: []
 
+## Pod Security Context
+## ref: https://kubernetes.io/docs/tasks/configure-pod-container/security-context/
+## Some admission policies only allow use of non root containers
+securityContext:
+  enabled: false
+  # fsGroup: 1001
+  # runAsUser: 1001
+
+
 config:
   ## The port for a Cube deployment to listen to API connections on
   ##
