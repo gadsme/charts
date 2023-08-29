@@ -143,9 +143,7 @@ spec:
             - --statsd.event-queue-size={{ .Values.exporter.statsd.eventQueueSize }}
             - --statsd.event-flush-threshold={{ .Values.exporter.statsd.eventFlushThreshold }}
             - --statsd.event-flush-interval={{ .Values.exporter.statsd.eventFlushInterval }}
-            {{- if or .Values.exporter.statsd.mappingConfigMapName }}
             - --statsd.mapping-config=/etc/prometheus-statsd-exporter/statsd-mapping.conf
-            {{- end }}
             {{- if .Values.exporter.extraArgs }}
             {{- toYaml .Values.exporter.extraArgs | nindent 12 }}
             {{- end }}
@@ -160,11 +158,9 @@ spec:
             {{- end }}
           resources:
             {{- toYaml .Values.exporter.resources | nindent 12 }}
-          {{- if .Values.exporter.enabled }}
           volumeMounts:
             - name: statsd-mapping-config
               mountPath: /etc/prometheus-statsd-exporter
-          {{- end }}
         {{- end }}
       volumes:
       {{- if not .Values.router.persistence.enabled }}
@@ -176,7 +172,7 @@ spec:
           persistentVolumeClaim:
             claimName: {{ printf "%s-remote-storage" (include "cubestore.fullname" .) }}
       {{- end }}
-      {{- if or .Values.exporter.enabled }}
+      {{- if .Values.exporter.enabled }}
         - name: statsd-mapping-config
           configMap:
             name: {{ .Values.exporter.statsd.mappingConfigMapName }}
