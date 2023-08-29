@@ -30,6 +30,11 @@ spec:
       {{- toYaml .Values.commonAnnotations | nindent 8 }}
       {{- end }}
     spec:
+      {{- if .Values.securityContext.enabled }}
+      securityContext:
+        runAsUser: {{ .Values.securityContext.runAsUser }}
+        fsGroup: {{ .Values.securityContext.fsGroup }}
+      {{- end }}
       serviceAccountName: {{ template "cube.api.serviceAccountName" . }}
       {{- with .Values.image.pullSecrets }}
       imagePullSecrets:

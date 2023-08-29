@@ -2,6 +2,16 @@
 
 The release numbering uses [semantic versioning](http://semver.org).
 
+## 0.9.3
+
+- update to cubestore 0.33.48
+- add metrics statsd sidecar container
+- run containers as non root
+
+## 0.9.2
+
+- add init-router resource configuration
+
 ## 0.9.1
 
 - fix documentation

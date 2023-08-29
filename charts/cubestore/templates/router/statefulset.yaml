@@ -35,6 +35,11 @@ spec:
       imagePullSecrets:
         {{- toYaml . | nindent 8 }}
       {{- end }}
+      {{- if .Values.securityContext.enabled }}
+      securityContext:
+        runAsUser: {{ .Values.securityContext.runAsUser }}
+        fsGroup: {{ .Values.securityContext.fsGroup }}
+      {{- end }}
       containers:
         - name: cubestore
           {{- if .Values.image.tag }}
@@ -165,7 +170,7 @@ spec:
       volumes:
       {{- if not .Values.router.persistence.enabled }}
         - name: datadir
-          emptyDir: { }
+          emptyDir: {}
       {{- end }}
       {{- if and (not .Values.cloudStorage.gcp.bucket) (not .Values.cloudStorage.aws.bucket) (not .Values.cloudStorage.minio.bucket) }}
         - name: remotedir
