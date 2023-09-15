@@ -2,6 +2,10 @@
 
 The release numbering uses [semantic versioning](http://semver.org).
 
+## 0.9.4
+
+- add workers statsd sidecar to get metrics
+
 ## 0.9.3
 
 - update to cubestore 0.33.48
