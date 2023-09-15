@@ -25,6 +25,11 @@ spec:
     - name: worker
       port: {{ .Values.workers.port }}
       targetPort: worker
+    {{- if .Values.exporter.enabled }}
+    - name: http-metrics
+      port: {{ .Values.exporter.service.port }}
+      targetPort: http-metrics
+    {{- end }}
   selector:
     app.kubernetes.io/component: workers
     {{- include "cubestore.selectorLabels" . | nindent 4 }}

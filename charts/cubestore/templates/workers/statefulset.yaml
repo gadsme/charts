@@ -95,6 +95,37 @@ spec:
             - name: remotedir
               mountPath: /cube/data
             {{- end }}
+        {{- if .Values.exporter.enabled }}
+        - name: statsd-exporter
+          image: "{{ .Values.exporter.image.repository }}:{{ .Values.exporter.image.tag }}"
+          imagePullPolicy: {{ .Values.image.pullPolicy }}
+          args:
+            - '--web.listen-address=0.0.0.0:{{ .Values.exporter.service.port }}'
+            - --web.telemetry-path={{ .Values.exporter.service.path }}
+            - '--statsd.listen-udp=0.0.0.0:{{ .Values.metrics.port }}'
+            - --statsd.cache-size={{ .Values.exporter.statsd.cacheSize }}
+            - --statsd.event-queue-size={{ .Values.exporter.statsd.eventQueueSize }}
+            - --statsd.event-flush-threshold={{ .Values.exporter.statsd.eventFlushThreshold }}
+            - --statsd.event-flush-interval={{ .Values.exporter.statsd.eventFlushInterval }}
+            - --statsd.mapping-config=/etc/prometheus-statsd-exporter/statsd-mapping.conf
+            {{- if .Values.exporter.extraArgs }}
+            {{- toYaml .Values.exporter.extraArgs | nindent 12 }}
+            {{- end }}
+          ports:
+            - name: http-metrics
+              containerPort: {{ .Values.exporter.service.port }}
+              protocol: TCP
+            {{- if .Values.metrics.port }}
+            - name: metrics
+              containerPort: {{ .Values.metrics.port }}
+              protocol: UDP
+            {{- end }}
+          resources:
+            {{- toYaml .Values.exporter.resources | nindent 12 }}
+          volumeMounts:
+            - name: statsd-mapping-config
+              mountPath: /etc/prometheus-statsd-exporter
+        {{- end }}
       initContainers:
         - name: init-router
           image: busybox
@@ -112,6 +143,14 @@ spec:
         - name: remotedir
           persistentVolumeClaim:
             claimName: {{ printf "%s-remote-storage" (include "cubestore.fullname" .) }}
+      {{- end }}
+      {{- if .Values.exporter.enabled }}
+        - name: statsd-mapping-config
+          configMap:
+            name: {{ .Values.exporter.statsd.mappingConfigMapName }}
+            items:
+              - key: {{ .Values.exporter.statsd.mappingConfigMapKey }}
+                path: statsd-mapping.conf
       {{- end }}
       {{- if .Values.workers.affinity }}
       affinity:

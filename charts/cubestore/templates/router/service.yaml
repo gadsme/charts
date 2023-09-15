@@ -30,7 +30,7 @@ spec:
       port: {{ .Values.router.mysqlPort }}
       targetPort: mysql
     {{- end }}
-    {{- if and .Values.exporter.enabled .Values.exporter.service.port }}
+    {{- if .Values.exporter.enabled }}
     - name: http-metrics
       port: {{ .Values.exporter.service.port }}
       targetPort: http-metrics
