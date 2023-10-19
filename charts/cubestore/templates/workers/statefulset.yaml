@@ -128,7 +128,7 @@ spec:
         {{- end }}
       initContainers:
         - name: init-router
-          image: busybox
+          image: "{{ .Values.workers.initRouter.image.repository }}:{{ .Values.workers.initRouter.image.tag }}"
           command: ['sh', '-c', 'until nc -vz {{ printf "%s-router" (include "cubestore.fullname" .)}} {{ .Values.router.metaPort }}; do echo "Waiting for router"; sleep 2; done;']
           {{- if .Values.workers.initRouter.resources }}
           resources:
