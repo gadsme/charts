@@ -209,6 +209,8 @@ By default, local dir is not persisted. You can enable persistence on router and
 | `workers.spreadConstraints`                           | Topology spread constraint for pod assignment                                                                       | `[]`              |
 | `workers.resources`                                   | Define resources requests and limits for single Pods                                                                | `{}`              |
 | `workers.service.annotations`                         | Additional custom annotations for workers service                                                                   | `{}`              |
+| `workers.initRouter.image.repository`                 | Defines the image repository for the init-router initContainer                                                      | `busybox`         |
+| `workers.initRouter.image.tag`                        | Defines the image tag for the init-router initContainer                                                             | `latest`          |
 | `workers.initRouter.resources`                        | Defines resources for init-router initContainer                                                                     | `{}`              |
 
 ### Statsd exporter parameters
