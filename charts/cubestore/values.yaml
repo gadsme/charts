@@ -446,6 +446,15 @@ workers:
 
   ## Configurations for init-router initContainer
   initRouter:
+    image:
+      ## Docker initRouter image repository
+      ##
+      repository: busybox
+
+      ## Docker initRouter image tag
+      ##
+      tag: latest
+
     ## Define resources requests and limits for single Pods.
     ## ref: https://kubernetes.io/docs/user-guide/compute-resources/
     ##
