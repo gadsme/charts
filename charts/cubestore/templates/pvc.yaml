@@ -12,7 +12,7 @@ metadata:
   {{- if or .Values.remoteDir.persistence.annotations (eq .Values.remoteDir.persistence.resourcePolicy "keep") .Values.commonAnnotations }}
   annotations:
     {{- if .Values.securityContext.enabled }}
-    pv.beta.kubernetes.io/gid: {{ .Values.securityContext.fsGroup  | quote }}
+    pv.beta.kubernetes.io/gid: "{{ .Values.securityContext.fsGroup }}"
     {{- end }}
     {{- if .Values.remoteDir.persistence.annotations }}
     {{- toYaml .Values.remoteDir.persistence.annotations | nindent 4 }}
