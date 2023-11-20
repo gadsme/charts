@@ -41,7 +41,8 @@ spec:
         {{- toYaml . | nindent 8 }}
       {{- end }}
       {{- if .Values.api.initContainers }}
-      initContainers: {{- tpl (toYaml .Values.api.initContainers) . | nindent 6 }}
+      initContainers:
+        {{- toYaml .Values.api.initContainers | nindent 8 }}
       {{- end }}
       containers:
         - name: cube
