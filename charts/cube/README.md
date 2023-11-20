@@ -493,6 +493,7 @@ cubestore:
 | `api.readinessProbe.failureThreshold`             | Success threshold for readinessProbe                                                                                | `3`     |
 | `api.customLivenessProbe`                         | Custom livenessProbe that overrides the default one                                                                 | `{}`    |
 | `api.customReadinessProbe`                        | Custom readinessProbe that overrides the default one                                                                | `{}`    |
+| `api.initContainers`                              | Add init containers to load models using volume mounts ( an alternative to using configs, example in values)        | `[]`    |
 
 ### Worker parameters
 
