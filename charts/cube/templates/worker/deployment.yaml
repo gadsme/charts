@@ -41,6 +41,10 @@ spec:
       imagePullSecrets:
         {{- toYaml . | nindent 8 }}
       {{- end }}
+      {{- if .Values.config.initContainers }}
+      initContainers:
+        {{- toYaml .Values.config.initContainers | nindent 8 }}
+      {{- end }}
       containers:
         - name: cube
           {{- if .Values.image.tag }}
@@ -127,5 +131,5 @@ spec:
       volumes:
         {{- toYaml .Values.config.volumes | nindent 8 }}
       {{- end }}
-      
+
 {{- end }}

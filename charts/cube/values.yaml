@@ -167,6 +167,18 @@ config:
   ##
   dropPreAggWithoutTouch:
 
+  ## Init containers to run before starting the main container
+  ## We can use an empty volume and volume mounts to copy data
+  ## from a remote location like s3 to the local volume
+  ##
+  initContainers: []
+  # - name: aws-init-container
+  #   image: amazon/aws-cli:latest
+  #   command: ['sh', '-c', 'aws s3 cp s3://your-s3-bucket/your-data /path/to/volume/mount']
+  #   volumeMounts:
+  #   - name: data-volume
+  #     mountPath: /path/to/volume/mount
+
   ## The config volumes
   ## Will be used to both api and worker
   volumes: []
@@ -584,19 +596,6 @@ api:
     annotations: {}
 
   apiCount: 1
-
-  ## Init containers to run before starting the main container
-  ## We can use an empty volume and volume mounts to copy data
-  ## from a remote location like s3 to the local volume
-  ##
-  initContainers: []
-  # - name: aws-init-container
-  #   image: amazon/aws-cli:latest
-  #   command: ['sh', '-c', 'aws s3 cp s3://your-s3-bucket/your-data /path/to/volume/mount']
-  #   volumeMounts:
-  #   - name: data-volume
-  #     mountPath: /path/to/volume/mount
-
 
   ## Affinity for pod assignment
   ## ref: https://kubernetes.io/docs/concepts/configuration/assign-pod-node/#affinity-and-anti-affinity
