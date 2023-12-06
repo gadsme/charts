@@ -384,6 +384,9 @@ datasources:
         ## The AWS Access Key ID to use for the export bucket.
         ##
         key:
+        # keyFromSecret:
+        #   name:
+        #   key:
 
         ## The AWS Secret Access Key to use for the export bucket.
         ##
