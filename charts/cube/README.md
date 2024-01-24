@@ -304,6 +304,7 @@ cubestore:
 | `config.dropPreAggWithoutTouch`                            | If true, it enables dropping pre-aggregations that Refresh Worker doesn't touch within touchPreAggTimeout                    |         |
 | `config.volumes`                                           | The config volumes. Will be used to both api and worker                                                                      | `[]`    |
 | `config.volumeMounts`                                      | The config volumeMounts. Will be used to both api and worker                                                                 | `[]`    |
+| `config.initContainers`                                    | Add init containers to load models using volume mounts ( an alternative to using configs, example in values)                 | `[]`    |
 
 ### Redis parameters
 
@@ -493,7 +494,6 @@ cubestore:
 | `api.readinessProbe.failureThreshold`             | Success threshold for readinessProbe                                                                                | `3`     |
 | `api.customLivenessProbe`                         | Custom livenessProbe that overrides the default one                                                                 | `{}`    |
 | `api.customReadinessProbe`                        | Custom readinessProbe that overrides the default one                                                                | `{}`    |
-| `api.initContainers`                              | Add init containers to load models using volume mounts ( an alternative to using configs, example in values)        | `[]`    |
 
 ### Worker parameters
 
