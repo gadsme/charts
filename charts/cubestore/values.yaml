@@ -124,6 +124,9 @@ cloudStorage:
     ## The Access Key ID for AWS. Required when using AWS S3
     ##
     accessKeyID:
+    # accessKeyIDFromSecret:
+    #   name:
+    #   key:
 
     ## The Secret Access Key for AWS. Required when using AWS S3
     ##

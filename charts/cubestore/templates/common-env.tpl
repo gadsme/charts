@@ -42,6 +42,12 @@
 {{- if .Values.cloudStorage.aws.accessKeyID }}
 - name: CUBESTORE_AWS_ACCESS_KEY_ID
   value: {{ .Values.cloudStorage.aws.accessKeyID | quote }}
+{{- else if .Values.cloudStorage.aws.accessKeyIDFromSecret }}
+- name: CUBESTORE_AWS_ACCESS_KEY_ID
+  valueFrom:
+    secretKeyRef:
+      name: {{ .Values.cloudStorage.aws.accessKeyIDFromSecret.name | required "cloudStorage.aws.accessKeyIDFromSecret.name is required" }}
+      key: {{ .Values.cloudStorage.aws.accessKeyIDFromSecret.key | required "cloudStorage.aws.accessKeyIDFromSecret.key is required" }}
 {{- end }}
 {{- if .Values.cloudStorage.aws.secretKey }}
 - name: CUBESTORE_AWS_SECRET_ACCESS_KEY

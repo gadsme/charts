@@ -80,6 +80,12 @@
 {{- if ((.export).aws).key }}
 - name: {{ include "cube.env.decorated" (dict "key" "CUBEJS_DB_EXPORT_BUCKET_AWS_KEY" "datasource" .datasource) }}
   value: {{ .export.aws.key | quote }}
+{{- else if ((.export).aws).keyFromSecret }}
+- name: {{ include "cube.env.decorated" (dict "key" "CUBEJS_DB_EXPORT_BUCKET_AWS_KEY" "datasource" .datasource) }}
+  valueFrom:
+    secretKeyRef:
+      name: {{ .export.aws.keyFromSecret.name | required "export.aws.keyFromSecret.name is required" }}
+      key: {{ .export.aws.keyFromSecret.key | required "export.aws.keyFromSecret.key is required" }}
 {{- end }}
 {{- if ((.export).aws).secret }}
 - name: {{ include "cube.env.decorated" (dict "key" "CUBEJS_DB_EXPORT_BUCKET_AWS_SECRET" "datasource" .datasource) }}
