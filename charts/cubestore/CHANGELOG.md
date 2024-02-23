@@ -2,6 +2,11 @@
 
 The release numbering uses [semantic versioning](http://semver.org).
 
+## 0.11.0
+
+- update to cubestore 0.34.56
+- add aws accessKeyID from secret
+
 ## 0.10.0
 
 - update to cubestore 0.34.23
