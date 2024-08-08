@@ -63,10 +63,6 @@ config:
   ##
   apiPort: 4000
 
-  ## The port to listen to MySQL-compatible connections on
-  ##
-  sqlPort:
-
   ## The port to listen to Postgres-compatible connections on
   ##
   pgSqlPort:

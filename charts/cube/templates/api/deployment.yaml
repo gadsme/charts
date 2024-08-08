@@ -56,11 +56,6 @@ spec:
             - name: http
               containerPort: {{ .Values.config.apiPort }}
               protocol: TCP
-            {{- if .Values.config.sqlPort }}
-            - name: sql
-              containerPort: {{ .Values.config.sqlPort }}
-              protocol: TCP
-            {{- end }}
             {{- if .Values.config.pgSqlPort }}
             - name: pgsql
               containerPort: {{ .Values.config.pgSqlPort }}

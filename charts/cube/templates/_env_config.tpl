@@ -5,10 +5,6 @@
 - name: DEBUG_LOG
   value: {{ .Values.config.debug | quote }}
 {{- end }}
-{{- if .Values.config.sqlPort }}
-- name: CUBEJS_SQL_PORT
-  value: {{ .Values.config.sqlPort | quote }}
-{{- end }}
 {{- if .Values.config.pgSqlPort }}
 - name: CUBEJS_PG_SQL_PORT
   value: {{ .Values.config.pgSqlPort | quote }}

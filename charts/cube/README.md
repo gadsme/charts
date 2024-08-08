@@ -275,7 +275,6 @@ cubestore:
 | Name                                                       | Description                                                                                                                  | Value   |
 | ---------------------------------------------------------- | ---------------------------------------------------------------------------------------------------------------------------- | ------- |
 | `config.apiPort`                                           | The port for a Cube deployment to listen to API connections on                                                               | `4000`  |
-| `config.sqlPort`                                           | The port to listen to MySQL-compatible connections on                                                                        |         |
 | `config.pgSqlPort`                                         | The port to listen to Postgres-compatible connections on                                                                     |         |
 | `config.sqlUser`                                           | The username to access the SQL api                                                                                           |         |
 | `config.sqlPassword`                                       | The password to access the SQL api                                                                                           |         |
