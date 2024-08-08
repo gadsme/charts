@@ -412,6 +412,24 @@ cubestore:
 | `datasources.<name>.databricks.token`        | The personal access token used to authenticate the Databricks connection  |       |
 | `datasources.<name>.databricks.catalog`      | Databricks catalog name                                                   |       |
 
+### DuckDB datasource parameters
+
+| Name                                                           | Description                                                                                                         | Value   |
+| -------------------------------------------------------------- | ------------------------------------------------------------------------------------------------------------------- | ------- | ------ |
+| `datasources.<name>.duckdb.memoryLimit`                        | The maximum memory limit for DuckDB. Equivalent to SET memory_limit=<MEMORY_LIMIT>. Default is 75% of available RAM |         |
+| `datasources.<name>.duckdb.schema`                             | The default search schema                                                                                           |         |
+| `datasources.<name>.duckdb.motherduckToken`                    | The service token to use for connections to MotherDuck                                                              |         |
+| `datasources.<name>.duckdb.databasePath`                       | The database filepath to use for connection to a local database.                                                    |         |
+| `datasources.<name>.duckdb.s3.accessKeyId`                     | The Access Key ID to use for database connections                                                                   |         |
+| `datasources.<name>.duckdb.s3.secretAccessKey`                 | The Secret Access Key to use for database connections                                                               |         |
+| `datasources.<name>.duckdb.s3.secretAccessKeyFromSecret.name ` | The Secret Access Key to use for database connections (using secret)                                                |         |
+| `datasources.<name>.duckdb.s3.secretAccessKeyFromSecret.key `  | The Secret Access Key to use for database connections (using secret)                                                |         |
+| `datasources.<name>.duckdb.s3.endpoint`                        | The S3 endpoint                                                                                                     |         |
+| `datasources.<name>.duckdb.s3.region`                          | The region of the bucket                                                                                            |         |
+| `datasources.<name>.duckdb.s3.useSSL`                          | Use SSL for connection                                                                                              |         |
+| `datasources.<name>.duckdb.s3.urlStyle`                        | To choose the S3 URL style(vhost or path)                                                                           | 'vhost' | 'path' |
+| `datasources.<name>.duckdb.s3.sessionToken`                    | The token for the S3 session                                                                                        |         |
+
 ### Clickhouse datasource parameters
 
 | Name                                     | Description                                             | Value |

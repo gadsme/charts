@@ -462,6 +462,55 @@ datasources:
       ##
       keyFile:
 
+    dubckdb:
+      ## The maximum memory limit for DuckDB. Equivalent to SET memory_limit=<MEMORY_LIMIT>. Default is 75% of available RAM
+      ##
+      memoryLimit:
+
+      ## The default search schema
+      ##
+      schema:
+
+      ## The service token to use for connections to MotherDuck
+      ##
+      motherduckToken:
+
+      ## The database filepath to use for connection to a local
+      ##
+      databasePath:
+
+      s3:
+        ## The Access Key ID to use for database
+        ##
+        accessKeyId:
+
+        ## The Secret Access Key to use for database
+        ##
+        secretAccessKey:
+        # secretAccessKeyFromSecret:
+        #   name:
+        #   key:
+
+        ## The S3 endpoint
+        ##
+        endpoint:
+
+        ## The region of the bucket
+        ##
+        region:
+
+        ## Use SSL for connection
+        ##
+        useSSL:
+
+        ## To choose the S3 URL style(vhost or path)
+        ##
+        urlStyle:
+
+        ## The token for the S3 session
+        ##
+        sessionToken:
+
     hive:
       ## The version of the CDH instance for Apache Hive
       ##
@@ -480,6 +529,7 @@ datasources:
 
     materialize:
       ## The name of the Materialize cluster to connect to
+      ##
       cluster: 
 
     snowFlake:

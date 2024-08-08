@@ -23,6 +23,9 @@
 {{- if eq $i.type "databricks-jdbc" }}
 {{- include "cube.env.database.databricks" (set $i "datasource" $e) }}
 {{- end }}
+{{- if eq $i.type "duckdb" }}
+{{- include "cube.env.database.duckdb" (set $i "datasource" $e) }}
+{{- end }}
 {{- if eq $i.type "elasticsearch" }}
 {{- include "cube.env.database.elasticsearch" (set $i "datasource" $e) }}
 {{- end }}
