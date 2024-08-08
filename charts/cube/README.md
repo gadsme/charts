@@ -22,9 +22,11 @@
     - [Athena parameters](#athena-datasource-parameters)
     - [Bigquery parameters](#bigquery-datasource-parameters)
     - [Databricks parameters](#databricks-datasource-parameters)
+    - [DuckDB parameters](#duckdb-datasource-parameters)
     - [ClickHouse parameters](#clickhouse-datasource-parameters)
     - [Firebolt parameters](#firebolt-datasource-parameters)
     - [Hive parameters](#hive-datasource-parameters)
+    - [Materialize parameters](#materialize-datasource-parameters)
     - [Presto parameters](#presto-datasource-parameters)
     - [Snowflake parameters](#snowflake-datasource-parameters)
     - [Trino parameters](#trino-datasource-parameters)
@@ -251,15 +253,15 @@ cubestore:
 
 ### Global parameters
 
-| Name                        | Description                                                                             | Value |
-| --------------------------- | --------------------------------------------------------------------------------------- | ----- |
-| `nameOverride`              | Override the name                                                                       | `""`  |
-| `fullnameOverride`          | Provide a name to substitute for the full names of resources                            | `""`  |
-| `commonLabels`              | Labels to add to all deployed objects                                                   | `{}`  |
-| `commonAnnotations`         | Annotations to add to all deployed objects                                              | `{}`  |
-| `extraEnvVars`              | Extra environment variables to pass on to the pod. The value is evaluated as a template | `[]`  |
-| `extraEnvVarsFromConfigMap` | Name of a Config Map containing extra environment variables to pass on to the pod       |       |
-| `extraEnvVarsFromSecret`    | Name of a Secret containing extra environment variables to pass on to the pod           |       |
+| Name                        | Description                                                                              | Value |
+| --------------------------- | ---------------------------------------------------------------------------------------- | ----- |
+| `nameOverride`              | Override the name                                                                        | `""`  |
+| `fullnameOverride`          | Provide a name to substitute for the full names of resources                             | `""`  |
+| `commonLabels`              | Labels to add to all deployed objects                                                    | `{}`  |
+| `commonAnnotations`         | Annotations to add to all deployed objects                                               | `{}`  |
+| `extraEnvVars`              | Extra environment variables to pass on to all pods. The value is evaluated as a template | `[]`  |
+| `extraEnvVarsFromConfigMap` | Name of a Config Map containing extra environment variables to pass on to all pods       |       |
+| `extraEnvVarsFromSecret`    | Name of a Secret containing extra environment variables to pass on to all pods           |       |
 
 ### Image parameters
 
@@ -519,6 +521,9 @@ cubestore:
 | `api.readinessProbe.failureThreshold`             | Success threshold for readinessProbe                                                                                | `3`     |
 | `api.customLivenessProbe`                         | Custom livenessProbe that overrides the default one                                                                 | `{}`    |
 | `api.customReadinessProbe`                        | Custom readinessProbe that overrides the default one                                                                | `{}`    |
+| `api.extraEnvVars`                                | Extra environment variables to pass on to the pod. The value is evaluated as a template                             | `[]`    |
+| `api.extraEnvVarsFromConfigMap`                   | Name of a Config Map containing extra environment variables to pass on to the pod                                   |         |
+| `api.extraEnvVarsFromSecret`                      | Name of a Secret containing extra environment variables to pass on to the pod                                       |         |
 
 ### Worker parameters
 
@@ -546,6 +551,9 @@ cubestore:
 | `worker.readinessProbe.failureThreshold`             | Success threshold for readinessProbe                                                                                | `3`     |
 | `worker.customLivenessProbe`                         | Custom livenessProbe that overrides the default one                                                                 | `{}`    |
 | `worker.customReadinessProbe`                        | Custom readinessProbe that overrides the default one                                                                | `{}`    |
+| `worker.extraEnvVars`                                | Extra environment variables to pass on to the pod. The value is evaluated as a template                             | `[]`    |
+| `worker.extraEnvVarsFromConfigMap`                   | Name of a Config Map containing extra environment variables to pass on to the pod                                   |         |
+| `worker.extraEnvVarsFromSecret`                      | Name of a Secret containing extra environment variables to pass on to the pod                                       |         |
 
 ## Ingress parameters
 

@@ -64,7 +64,10 @@ spec:
             {{- if .Values.extraEnvVars }}
             {{- include "cube.tplvalues.render" (dict "value" .Values.extraEnvVars "context" $) | nindent 12 }}
             {{- end }}
-          {{- if or .Values.extraEnvVarsFromConfigMap .Values.extraEnvVarsFromSecret }}
+            {{- if .Values.worker.extraEnvVars }}
+            {{- include "cube.tplvalues.render" (dict "value" .Values.worker.extraEnvVars "context" $) | nindent 12 }}
+            {{- end }}
+          {{- if or .Values.extraEnvVarsFromConfigMap .Values.extraEnvVarsFromSecret .Values.worker.extraEnvVarsFromConfigMap .Values.worker.extraEnvVarsFromSecret }}
           envFrom:
             {{- if .Values.extraEnvVarsFromConfigMap }}
             - configMapRef:
@@ -73,6 +76,14 @@ spec:
             {{- if .Values.extraEnvVarsFromSecret }}
             - secretRef:
                 name: {{ include "cube.tplvalues.render" (dict "value" .Values.extraEnvVarsFromSecret "context" $) }}
+            {{- end }}
+            {{- if .Values.worker.extraEnvVarsFromConfigMap }}
+            - configMapRef:
+                name: {{ include "cube.tplvalues.render" (dict "value" .Values.worker.extraEnvVarsFromConfigMap "context" $) }}
+            {{- end }}
+            {{- if .Values.worker.extraEnvVarsFromSecret }}
+            - secretRef:
+                name: {{ include "cube.tplvalues.render" (dict "value" .Values.worker.extraEnvVarsFromSecret "context" $) }}
             {{- end }}
           {{- end }}
           {{- if .Values.worker.livenessProbe.enabled }}

@@ -14,7 +14,7 @@ commonLabels: {}
 ##
 commonAnnotations: {}
 
-## Extra environment variables to pass on to the pod. The value is evaluated as a template
+## Extra environment variables to pass on to all pods. The value is evaluated as a template
 ## e.g:
 ## extraEnvVars:
 ##   - name: FOO
@@ -22,11 +22,11 @@ commonAnnotations: {}
 ##
 extraEnvVars: []
 
-## Name of a Config Map containing extra environment variables to pass on to the pod
+## Name of a Config Map containing extra environment variables to pass on to all pods
 ##
 extraEnvVarsFromConfigMap:
 
-## Name of a Secret containing extra environment variables to pass on to the pod
+## Name of a Secret containing extra environment variables to pass on to all pods
 ##
 extraEnvVarsFromSecret:
 
@@ -707,6 +707,22 @@ api:
   ##
   nodeSelector: {}
 
+  ## Extra environment variables to pass on to the pod. The value is evaluated as a template
+  ## e.g:
+  ## extraEnvVars:
+  ##   - name: FOO
+  ##     value: "bar"
+  ##
+  extraEnvVars: []
+  
+  ## Name of a Config Map containing extra environment variables to pass on to the pod
+  ##
+  extraEnvVarsFromConfigMap:
+  
+  ## Name of a Secret containing extra environment variables to pass on to the pod
+  ##
+  extraEnvVarsFromSecret:
+
 worker:
   ## Set to true to enable a separate refresh worker
   ##
@@ -772,6 +788,22 @@ worker:
   ## Node selector for pod assignment
   ##
   nodeSelector: {}
+
+  ## Extra environment variables to pass on to the pod. The value is evaluated as a template
+  ## e.g:
+  ## extraEnvVars:
+  ##   - name: FOO
+  ##     value: "bar"
+  ##
+  extraEnvVars: []
+  
+  ## Name of a Config Map containing extra environment variables to pass on to the pod
+  ##
+  extraEnvVarsFromConfigMap:
+  
+  ## Name of a Secret containing extra environment variables to pass on to the pod
+  ##
+  extraEnvVarsFromSecret:
 
 ## Configure the ingress resource that allows you to access the
 ## Cube installation. Set up the URL
