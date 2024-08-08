@@ -2,6 +2,13 @@
 
 The release numbering uses [semantic versioning](http://semver.org).
 
+## 2.3.0
+
+- update to cube 0.35.67
+- add materialize config
+- add duckdb config
+- remove old mysql sql api
+
 ## 2.2.0
 
 - update to cube 0.34.56
