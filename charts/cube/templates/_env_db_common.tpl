@@ -55,6 +55,10 @@
 - name: {{ include "cube.env.decorated" (dict "key" "CUBEJS_DB_QUERY_TIMEOUT" "datasource" .datasource) }}
   value: {{ .queryTimeout | quote }}
 {{- end }}
+{{- if .fetchColumnsByOrdinalPosition }}
+- name: {{ include "cube.env.decorated" (dict "key" "CUBEJS_DB_FETCH_COLUMNS_BY_ORDINAL_POSITION" "datasource" .datasource) }}
+  value: {{ .fetchColumnsByOrdinalPosition | quote }}
+{{- end }}
 {{- if (.export).name }}
 - name: {{ include "cube.env.decorated" (dict "key" "CUBEJS_DB_EXPORT_BUCKET" "datasource" .datasource) }}
   value: {{ .export.name | quote }}

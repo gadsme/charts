@@ -321,6 +321,10 @@ datasources:
     ##
     queryTimeout:
 
+    ## Force fetching of columns by ordinal positions. Certain data-providers (e.g., Redshift) do not guarantee columns in the same order on each request (e.g., SELECT * FROM foo). This flag ensures that columns will be fetched in proper order for pre-aggregation generation.
+    ##
+    fetchColumnsByOrdinalPosition:
+
     ssl:
       ## If true, enables SSL encryption for database connections from Cube
       ##
