@@ -32,6 +32,9 @@
 {{- if eq $i.type "hive" }}
 {{- include "cube.env.database.hive" (set $i "datasource" $e) }}
 {{- end }}
+{{- if eq $i.type "materialize" }}
+{{- include "cube.env.database.materialize" (set $i "datasource" $e) }}
+{{- end }}
 {{- if eq $i.type "presto" }}
 {{- include "cube.env.database.presto" (set $i "datasource" $e) }}
 {{- end }}

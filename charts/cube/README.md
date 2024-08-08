@@ -435,6 +435,12 @@ cubestore:
 | `datasources.<name>.hive.type`          | The type of Apache Hive server                  |       |
 | `datasources.<name>.hive.version`       | The version of Apache Hive                      |       |
 
+### Materialize datasource parameters
+
+| Name                                     | Description                                       | Value |
+| ---------------------------------------- | ------------------------------------------------- | ----- |
+| `datasources.<name>.materialize.cluster` | The name of the Materialize cluster to connect to |       |
+
 ### Presto datasource parameters
 
 | Name                                | Description                             | Value |

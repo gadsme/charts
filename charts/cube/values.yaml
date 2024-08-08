@@ -478,6 +478,10 @@ datasources:
       ## The version of Apache Hive
       version:
 
+    materialize:
+      ## The name of the Materialize cluster to connect to
+      cluster: 
+
     snowFlake:
       ## The Snowflake account ID to use when connecting to the database
       ##
