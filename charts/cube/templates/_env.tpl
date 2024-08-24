@@ -38,7 +38,7 @@
 {{- if eq $i.type "materialize" }}
 {{- include "cube.env.database.materialize" (set $i "datasource" $e) }}
 {{- end }}
-{{- if eq $i.type "presto" }}
+{{- if eq $i.type "prestodb" }}
 {{- include "cube.env.database.presto" (set $i "datasource" $e) }}
 {{- end }}
 {{- if eq $i.type "snowflake" }}
