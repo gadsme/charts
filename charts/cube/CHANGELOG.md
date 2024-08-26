@@ -2,6 +2,11 @@
 
 The release numbering uses [semantic versioning](http://semver.org).
 
+## 2.3.1
+
+- update to cube 0.35.76
+- fix CUBEJS_DB_TYPE for presto
+
 ## 2.3.0
 
 - update to cube 0.35.67

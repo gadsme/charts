@@ -4,7 +4,7 @@ description: A Helm chart for Cube
 home: https://cube.dev
 type: application
 version: 2.3.1
-appVersion: "0.35.67"
+appVersion: "0.35.76"
 keywords:
   - cubejs
   - cube
