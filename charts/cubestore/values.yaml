@@ -316,7 +316,15 @@ router:
   ## ref: https://kubernetes.io/docs/user-guide/compute-resources/
   ##
   resources: {}
-
+  ## to match guidance: https://cube.dev/docs/product/deployment/production-checklist#appropriate-cluster-sizing
+  # resources:
+  #   requests:
+  #     cpu: "4"
+  #     memory: "6Gi"
+  #   limits:
+  #     cpu: "4"
+  #     memory: "6Gi"
+  
   ## Configure options for liveness probes
   ## ref: https://kubernetes.io/docs/tasks/configure-pod-container/configure-liveness-readiness-probes/#configure-probes
   ##
@@ -425,7 +433,15 @@ workers:
   ## ref: https://kubernetes.io/docs/user-guide/compute-resources/
   ##
   resources: {}
-
+  ## to match guidance: https://cube.dev/docs/product/deployment/production-checklist#appropriate-cluster-sizing
+  # resources:
+  #   requests:
+  #     cpu: "4"
+  #     memory: "8Gi"
+  #   limits:
+  #     cpu: "4"
+  #     memory: "8Gi"
+  
   ## Tolerations for pod assignment
   ##
   tolerations: {}
