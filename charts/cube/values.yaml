@@ -668,6 +668,14 @@ api:
   ## ref: https://kubernetes.io/docs/user-guide/compute-resources/
   ##
   resources: {}
+  ## to match guidance: https://cube.dev/docs/product/deployment/production-checklist#appropriate-cluster-sizing
+  # resources:
+  #   requests:
+  #     cpu: "2"
+  #     memory: "3Gi"
+  #   limits:
+  #     cpu: "2"
+  #     memory: "3Gi"
 
   ## Configure options for liveness probes
   ## ref: https://kubernetes.io/docs/tasks/configure-pod-container/configure-liveness-readiness-probes/#configure-probes
@@ -750,7 +758,15 @@ worker:
   ## ref: https://kubernetes.io/docs/user-guide/compute-resources/
   ##
   resources: {}
-
+  ## to match guidance: https://cube.dev/docs/product/deployment/production-checklist#appropriate-cluster-sizing
+  # resources:
+  #   requests:
+  #     cpu: "2"
+  #     memory: "6Gi"
+  #   limits:
+  #     cpu: "2"
+  #     memory: "6Gi"
+        
   ## Configure options for liveness probes
   ## ref: https://kubernetes.io/docs/tasks/configure-pod-container/configure-liveness-readiness-probes/#configure-probes
   ##
