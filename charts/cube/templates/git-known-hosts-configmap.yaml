@@ -1,0 +1,18 @@
+{{- if and .Values.config.gitSync.knownHosts .Values.config.gitSync.enabled}}
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  labels:
+    {{- include "cube.labels" . | nindent 4 }}
+    {{- if .Values.commonLabels }}
+    {{- toYaml .Values.commonLabels | nindent 4 }}
+    {{- end }}
+  {{- if .Values.commonAnnotations }}
+  annotations:
+    {{- toYaml .Values.commonAnnotations | nindent 4 }}
+  {{- end }}
+  name: {{ template "git_sync_known_hosts" . }}
+data:
+  known_hosts: |-
+    {{- .Values.config.gitSync.knownHosts | nindent 4 }}
+{{- end }}

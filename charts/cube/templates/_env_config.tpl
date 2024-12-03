@@ -87,7 +87,7 @@
 {{- end }}
 {{- if .Values.config.schemaPath }}
 - name: CUBEJS_SCHEMA_PATH
-  value: {{ .Values.config.schemaPath | quote }}
+  value: {{ include "schema_path" . }}
 {{- end }}
 {{- if .Values.config.topicName }}
 - name: CUBEJS_TOPIC_NAME
