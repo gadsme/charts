@@ -132,3 +132,201 @@ Usage:
         {{- tpl (.value | toYaml) .context }}
     {{- end }}
 {{- end -}}
+
+
+{{/*
+Set the default value for container securityContext
+If no value is passed for <node>.securityContexts.container or <node>.securityContext, defaults to UID in the local node.
+
+    +-----------------------------------+      +------------------------+      +-------------+
+    | <node>.securityContexts.container |  ->  | <node>.securityContext |  ->  | <node>.uid  |
+    +-----------------------------------+      +------------------------+      +-------------+
+
+The template can be called like so:
+  include "localContainerSecurityContext" .Values.statsd
+
+It is important to pass the local variables scope to this template as it is used to determine the local node value for uid.
+*/}}
+{{- define "localContainerSecurityContext" -}}
+  {{- if .securityContexts.container -}}
+    {{ toYaml .securityContexts.container | print }}
+  {{- else if .securityContext -}}
+    {{ toYaml .securityContext | print }}
+  {{- else -}}
+runAsUser: {{ .uid }}
+  {{- end -}}
+{{- end -}}
+
+{{/* User defined gitSync container environment from */}}
+{{- define "custom_git_sync_environment_from" }}
+  {{- $Global := . }}
+  {{- with .Values.config.gitSync.envFrom }}
+    {{- tpl . $Global | nindent 2 }}
+  {{- end }}
+{{- end }}
+
+{{/*  Git sync container */}}
+{{- define "git_sync_container" }}
+- name: {{ .Values.config.gitSync.containerName }}{{ if .is_init }}-init{{ end }}
+  image: {{ printf "%s:%s" .Values.config.gitSync.image.repository .Values.config.gitSync.image.tag }}
+  imagePullPolicy: {{ .Values.config.gitSync.image.pullPolicy }}
+  securityContext: {{- include "localContainerSecurityContext" .Values.config.gitSync | nindent 4 }}
+  envFrom: {{- include "custom_git_sync_environment_from" . | default "\n  []" | indent 2 }}
+  env:
+    {{- if or .Values.config.gitSync.sshKeySecret .Values.config.gitSync.sshKey }}
+    - name: GIT_SSH_KEY_FILE
+      value: "/etc/git-secret/ssh"
+    - name: GITSYNC_SSH_KEY_FILE
+      value: "/etc/git-secret/ssh"
+    - name: GIT_SYNC_SSH
+      value: "true"
+    - name: GITSYNC_SSH
+      value: "true"
+    {{- if .Values.config.gitSync.knownHosts }}
+    - name: GIT_KNOWN_HOSTS
+      value: "true"
+    - name: GITSYNC_SSH_KNOWN_HOSTS
+      value: "true"
+    - name: GIT_SSH_KNOWN_HOSTS_FILE
+      value: "/etc/git-secret/known_hosts"
+    - name: GITSYNC_SSH_KNOWN_HOSTS_FILE
+      value: "/etc/git-secret/known_hosts"
+    {{- else }}
+    - name: GIT_KNOWN_HOSTS
+      value: "false"
+    - name: GITSYNC_SSH_KNOWN_HOSTS
+      value: "false"
+    {{- end }}
+    {{ else if .Values.config.gitSync.credentialsSecret }}
+    - name: GIT_SYNC_USERNAME
+      valueFrom:
+        secretKeyRef:
+          name: {{ .Values.config.gitSync.credentialsSecret | quote }}
+          key: GIT_SYNC_USERNAME
+    - name: GITSYNC_USERNAME
+      valueFrom:
+        secretKeyRef:
+          name: {{ .Values.config.gitSync.credentialsSecret | quote }}
+          key: GITSYNC_USERNAME
+    - name: GIT_SYNC_PASSWORD
+      valueFrom:
+        secretKeyRef:
+          name: {{ .Values.config.gitSync.credentialsSecret | quote }}
+          key: GIT_SYNC_PASSWORD
+    - name: GITSYNC_PASSWORD
+      valueFrom:
+        secretKeyRef:
+          name: {{ .Values.config.gitSync.credentialsSecret | quote }}
+          key: GITSYNC_PASSWORD
+    {{- end }}
+    - name: GIT_SYNC_REV
+      value: {{ .Values.config.gitSync.rev | quote }}
+    - name: GITSYNC_REF
+      value: {{ .Values.config.gitSync.ref | quote }}
+    - name: GIT_SYNC_BRANCH
+      value: {{ .Values.config.gitSync.branch | quote }}
+    - name: GIT_SYNC_REPO
+      value: {{ .Values.config.gitSync.repo | quote }}
+    - name: GITSYNC_REPO
+      value: {{ .Values.config.gitSync.repo | quote }}
+    - name: GIT_SYNC_DEPTH
+      value: {{ .Values.config.gitSync.depth | quote }}
+    - name: GITSYNC_DEPTH
+      value: {{ .Values.config.gitSync.depth | quote }}
+    - name: GIT_SYNC_ROOT
+      value: "/git"
+    - name: GITSYNC_ROOT
+      value: "/git"
+    - name: GIT_SYNC_DEST
+      value: "repo"
+    - name: GITSYNC_LINK
+      value: "repo"
+    - name: GIT_SYNC_ADD_USER
+      value: "true"
+    - name: GITSYNC_ADD_USER
+      value: "true"
+    {{- if .Values.config.gitSync.wait }}
+    - name: GIT_SYNC_WAIT
+      value: {{ .Values.config.gitSync.wait | quote }}
+    {{- end }}
+    - name: GITSYNC_PERIOD
+      value: {{ .Values.config.gitSync.period | quote }}
+    - name: GIT_SYNC_MAX_SYNC_FAILURES
+      value: {{ .Values.config.gitSync.maxFailures | quote }}
+    - name: GITSYNC_MAX_FAILURES
+      value: {{ .Values.config.gitSync.maxFailures | quote }}
+    {{- if .is_init }}
+    - name: GIT_SYNC_ONE_TIME
+      value: "true"
+    - name: GITSYNC_ONE_TIME
+      value: "true"
+    {{- end }}
+    {{- with .Values.config.gitSync.env }}
+    {{- toYaml . | nindent 4 }}
+    {{- end }}
+  resources: {{ toYaml .Values.config.gitSync.resources | nindent 4 }}
+  volumeMounts:
+  - name: schemas
+    mountPath: /git
+  {{- if or .Values.config.gitSync.sshKeySecret .Values.config.gitSync.sshKey }}
+  - name: git-sync-ssh-key
+    mountPath: /etc/git-secret/ssh
+    readOnly: true
+    subPath: gitSshKey
+  {{- if .Values.config.gitSync.knownHosts }}
+  - name: git-sync-ssh-known-hosts
+    mountPath: /etc/git-secret/known_hosts
+    readOnly: true
+    subPath: known_hosts
+  {{- end }}
+  {{- end }}
+  {{- if .Values.config.gitSync.extraVolumeMounts }}
+    {{- tpl (toYaml .Values.config.gitSync.extraVolumeMounts) . | nindent 2 }}
+  {{- end }}
+  {{- if and .Values.config.gitSync.containerLifecycleHooks (not .is_init) }}
+  lifecycle: {{- tpl (toYaml .Values.config.gitSync.containerLifecycleHooks) . | nindent 4 }}
+  {{- end }}
+{{- end }}
+
+{{- define "git_sync_mount" -}}
+- name: schemas
+  {{- if .Values.config.schemaPath }}
+  mountPath: {{ .Values.config.schemaPath }}
+  {{- end }}
+  readOnly: True
+{{- end }}
+
+{{/* Create the name of the git sync ssh secret to use */}}
+{{- define "git_sync_ssh_key" -}}
+  {{- default (printf "%s-ssh-secret" (include "cube.fullname" .)) .Values.config.gitSync.sshKeySecret }}
+{{- end }}
+
+{{/* Create the name of the git sync known hosts configmap to use */}}
+{{- define "git_sync_known_hosts" -}}
+  {{- default (printf "%s-ssh-known-hosts" (include "cube.fullname" .)) .Values.config.gitSync.sshKeySecret }}
+{{- end }}
+
+{{/*  Git ssh key volume */}}
+{{- define "git_sync_ssh_key_volume" }}
+- name: git-sync-ssh-key
+  secret:
+    secretName: {{ template "git_sync_ssh_key" . }}
+    defaultMode: 288
+{{- end }}
+
+{{/*  Git ssh known hosts volume */}}
+{{- define "git_sync_known_hosts_volume" }}
+- name: git-sync-ssh-known-hosts
+  configMap:
+    name: {{ template "git_sync_known_hosts" . }}
+    defaultMode: 288
+{{- end }}
+
+
+{{- define "schema_path" -}}
+  {{- if .Values.config.gitSync.enabled }}
+    {{- printf "%s/repo/%s" .Values.config.schemaPath .Values.config.gitSync.subPath }}
+  {{- else }}
+    {{- printf "%s" .Values.config.schemaPath }}
+  {{- end }}
+{{- end }}
