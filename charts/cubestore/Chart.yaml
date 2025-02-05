@@ -2,8 +2,8 @@ apiVersion: v2
 name: cubestore
 description: A Helm chart for Cubestore
 type: application
-version: 0.12.1
-appVersion: "0.35.76"
+version: 1.0.0
+appVersion: "1.2.0"
 keywords:
   - cube
   - cubejs
