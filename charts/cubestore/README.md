@@ -87,7 +87,7 @@ By default, local dir is not persisted. You can enable persistence on router and
 | Name                | Description                                                                             | Value              |
 |---------------------|-----------------------------------------------------------------------------------------|--------------------|
 | `image.repository`  | Cubestore image repository                                                              | `cubejs/cubestore` |
-| `image.tag`         | Cubestore image tag (immutable tags are recommended)                                    | `0.32.14`          |
+| `image.tag`         | Cubestore image tag (immutable tags are recommended)                                    | `1.2.0`            |
 | `image.pullPolicy`  | Cubestore image pull policy                                                             | `IfNotPresent`     |
 | `image.pullSecrets` | If defined, uses a Secret to pull an image from a private Docker registry or repository | `[]`               |
 
