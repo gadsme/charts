@@ -3,7 +3,7 @@ name: cube
 description: A Helm chart for Cube
 home: https://cube.dev
 type: application
-version: 3.0.0
+version: 3.0.1
 appVersion: "1.2.0"
 keywords:
   - cubejs
