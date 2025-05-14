@@ -124,6 +124,9 @@ spec:
           volumeMounts:
             {{- toYaml .Values.config.volumeMounts | nindent 12 }}
           {{- end }}
+      {{- if .Values.config.sidecarContainers }}
+        {{- toYaml .Values.config.sidecarContainers | nindent 8 }}
+      {{- end }}
       {{- if .Values.api.affinity }}
       affinity:
         {{- toYaml .Values.api.affinity | nindent 8 }}
