@@ -175,6 +175,18 @@ config:
   #   - name: data-volume
   #     mountPath: /path/to/volume/mount
 
+  ## Side containers to run before along with the main container
+  ## We can use an empty volume and volume mounts to sync data
+  ## from a remote location like s3 to the local volume
+  ##
+  sidecarContainers: []
+  # - name: aws-sync-container
+  #   image: amazon/aws-cli:latest
+  #   command: ['sh', '-c', 'while true; do aws s3 cp s3://your-s3-bucket/your-data /path/to/volume/mount; sleep 30; done']
+  #   volumeMounts:
+  #   - name: data-volume
+  #     mountPath: /path/to/volume/mount
+
   ## The config volumes
   ## Will be used to both api and worker
   volumes: []
