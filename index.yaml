@@ -7,6 +7,29 @@ entries:
           url: https://github.com/gadsme/charts
     apiVersion: v2
     appVersion: 1.2.0
+    created: "2025-06-25T14:23:39.772729201Z"
+    description: A Helm chart for Cube
+    digest: 8bf720ee66ee16f0424cac864c0e96df77b63f287bffbee9ea278bfb6b57794b
+    home: https://cube.dev
+    keywords:
+    - cubejs
+    - cube
+    maintainers:
+    - email: luc.vauvillier@gmail.com
+      name: Luc Vauvillier
+    name: cube
+    sources:
+    - https://github.com/cube-js/cube.js
+    type: application
+    urls:
+    - https://github.com/gadsme/charts/releases/download/cube-3.0.1/cube-3.0.1.tgz
+    version: 3.0.1
+  - annotations:
+      artifacthub.io/links: |
+        - name: Chart Source
+          url: https://github.com/gadsme/charts
+    apiVersion: v2
+    appVersion: 1.2.0
     created: "2025-02-24T09:53:15.419217315Z"
     description: A Helm chart for Cube
     digest: efe4a8ff03a630acde8ef0183693d9c75475fec0ddb693f596ce2b8457c8b5cc
@@ -388,6 +411,29 @@ entries:
     - https://github.com/gadsme/charts/releases/download/cube-0.3.0/cube-0.3.0.tgz
     version: 0.3.0
   cubestore:
+  - annotations:
+      artifacthub.io/links: |
+        - name: Chart Source
+          url: https://github.com/gadsme/charts
+    apiVersion: v2
+    appVersion: 1.2.0
+    created: "2025-06-25T14:23:39.927451269Z"
+    description: A Helm chart for Cubestore
+    digest: 8cc3fce27a0fc2c27815865362302b79be71f820e0a8eea5f169e7ab20c0f685
+    keywords:
+    - cube
+    - cubejs
+    - cubestore
+    maintainers:
+    - email: luc.vauvillier@gmail.com
+      name: Luc Vauvillier
+    name: cubestore
+    sources:
+    - https://github.com/cube-js/cube.js
+    type: application
+    urls:
+    - https://github.com/gadsme/charts/releases/download/cubestore-1.0.1/cubestore-1.0.1.tgz
+    version: 1.0.1
   - annotations:
       artifacthub.io/links: |
         - name: Chart Source
@@ -831,4 +877,4 @@ entries:
     urls:
     - https://github.com/gadsme/charts/releases/download/cubestore-0.1.0/cubestore-0.1.0.tgz
     version: 0.1.0
-generated: "2025-02-24T09:53:15.57472933Z"
+generated: "2025-06-25T14:23:39.927944531Z"
