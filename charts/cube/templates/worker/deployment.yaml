@@ -13,7 +13,7 @@ metadata:
     {{- toYaml .Values.commonAnnotations | nindent 4 }}
   {{- end }}
 spec:
-  replicas: 1
+  replicas: {{ .Values.worker.workersCount }}
   selector:
     matchLabels:
       app.kubernetes.io/component: worker
@@ -136,6 +136,9 @@ spec:
       {{- if .Values.worker.nodeSelector }}
       nodeSelector:
         {{- toYaml .Values.worker.nodeSelector | nindent 8 }}
+      {{- end }}
+      {{- if .Values.worker.priorityClassName }}
+      priorityClassName: {{ .Values.worker.priorityClassName }}
       {{- end }}
       {{- if .Values.worker.spreadConstraints }}
       topologySpreadConstraints:
