@@ -1,0 +1,27 @@
+{{- if (.Values.api.horizontalPodAutoscaler).enabled | default false }}
+apiVersion: autoscaling/v2
+kind: HorizontalPodAutoscaler
+metadata:
+  name: {{ printf "%s-api" (include "cube.fullname" .) }}
+  labels:
+    app.kubernetes.io/component: api
+    {{- include "cube.labels" . | nindent 4 }}
+    {{- if .Values.commonLabels }}
+    {{- toYaml .Values.commonLabels | nindent 4 }}
+    {{- end }}
+  {{- if .Values.commonAnnotations }}
+  annotations:
+    {{- toYaml .Values.commonAnnotations | nindent 4 }}
+  {{- end }}
+spec:
+  scaleTargetRef:
+    apiVersion: apps/v1
+    kind: Deployment
+    name: {{ printf "%s-api" (include "cube.fullname" .) }}
+  minReplicas: {{ .Values.api.horizontalPodAutoscaler.minReplicas | default 1 }}
+  maxReplicas: {{ .Values.api.horizontalPodAutoscaler.maxReplicas | default 10 }}
+  {{- if .Values.api.horizontalPodAutoscaler.metrics }}
+  metrics:
+    {{- toYaml .Values.api.horizontalPodAutoscaler.metrics | nindent 4 }}
+  {{- end }}
+{{- end }} 

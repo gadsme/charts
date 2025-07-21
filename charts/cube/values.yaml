@@ -666,10 +666,35 @@ api:
 
   apiCount: 1
 
+  ## Pod Disruption Budget
+  ##
+  ## podDisruptionBudget:
+  ##   enabled: false
+  ##   maxUnavailable: 1
+  ##   minAvailable: 1
+
+  ## Horizontal Pod Autoscaler
+  ##
+  ## horizontalPodAutoscaler:
+  ##   enabled: false
+  ##   minReplicas: 2
+  ##   maxReplicas: 5
+  ##   metrics:
+  ##     - type: Resource
+  ##       resource:
+  ##         name: cpu
+  ##         target:
+  ##           type: Utilization
+  ##           averageUtilization: 80
+
   ## Affinity for pod assignment
   ## ref: https://kubernetes.io/docs/concepts/configuration/assign-pod-node/#affinity-and-anti-affinity
   ##
   affinity: {}
+
+  ## Priority Class Name
+  ##
+  ## priorityClassName: ""
 
   ## Topology spread constraint for pod assignment
   ## ref: https://kubernetes.io/docs/concepts/workloads/pods/pod-topology-spread-constraints/
@@ -747,6 +772,35 @@ worker:
   ## Set to true to enable a separate refresh worker
   ##
   enabled: true
+
+  ## The number of workers to deploy
+  ##
+  workersCount: 1
+
+  ## Pod Disruption Budget
+  ##
+  ## podDisruptionBudget:
+  ##   enabled: false
+  ##   maxUnavailable: 1
+  ##   minAvailable: 1
+
+  ## Horizontal Pod Autoscaler
+  ##
+  ## horizontalPodAutoscaler:
+  ##   enabled: false
+  ##   minReplicas: 2
+  ##   maxReplicas: 5
+  ##   metrics:
+  ##     - type: Resource
+  ##       resource:
+  ##         name: cpu
+  ##         target:
+  ##           type: Utilization
+  ##           averageUtilization: 80
+
+  ## Priority Class Name
+  ##
+  ## priorityClassName: ""
 
   ## Service account for cube worker to use
   ##

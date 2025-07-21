@@ -198,6 +198,9 @@ spec:
       nodeSelector:
         {{- toYaml .Values.router.nodeSelector | nindent 8 }}
       {{- end }}
+      {{- if .Values.router.priorityClassName }}
+      priorityClassName: {{ .Values.router.priorityClassName }}
+      {{- end }}
       {{- if .Values.router.spreadConstraints }}
       topologySpreadConstraints:
         {{- toYaml .Values.router.spreadConstraints | nindent 8 }}

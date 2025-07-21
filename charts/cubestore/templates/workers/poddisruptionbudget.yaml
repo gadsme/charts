@@ -1,0 +1,27 @@
+{{- if (.Values.workers.podDisruptionBudget).enabled | default false }}
+apiVersion: policy/v1
+kind: PodDisruptionBudget
+metadata:
+  name: {{ printf "%s-workers" (include "cubestore.fullname" .) }}
+  labels:
+    app.kubernetes.io/component: workers
+    {{- include "cubestore.labels" . | nindent 4 }}
+    {{- if .Values.commonLabels }}
+    {{- toYaml .Values.commonLabels | nindent 4 }}
+    {{- end }}
+  {{- if .Values.commonAnnotations }}
+  annotations:
+    {{- toYaml .Values.commonAnnotations | nindent 4 }}
+  {{- end }}
+spec:
+  {{- if .Values.workers.podDisruptionBudget.maxUnavailable }}
+  maxUnavailable: {{ .Values.workers.podDisruptionBudget.maxUnavailable }}
+  {{- end }}
+  {{- if .Values.workers.podDisruptionBudget.minAvailable }}
+  minAvailable: {{ .Values.workers.podDisruptionBudget.minAvailable }}
+  {{- end }}
+  selector:
+    matchLabels:
+      app.kubernetes.io/component: workers
+      {{- include "cubestore.selectorLabels" . | nindent 6 }}
+{{- end }} 
