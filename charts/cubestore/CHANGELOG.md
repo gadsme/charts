@@ -2,6 +2,10 @@
 
 The release numbering uses [semantic versioning](http://semver.org).
 
+## 1.1.0
+
+- add metaHost param to customize Cube Store router hostname
+
 ## 1.0.1
 
 - set the replicas on the router StatefulSet to 1

@@ -74,7 +74,7 @@ spec:
             - name: CUBESTORE_WORKERS
               value: {{ join "," $workers | quote }}
             - name: CUBESTORE_META_ADDR
-              value: {{ printf "%s-router:%d" (include "cubestore.fullname" .) (.Values.router.metaPort | int) }}
+              value: {{ printf "%s:%d" (default (printf "%s-router" (include "cubestore.fullname" .)) .Values.router.metaHost) (.Values.router.metaPort | int) }}
             - name: CUBESTORE_DATA_DIR
               value: /cube/.cubestore/data
             {{- if and (not .Values.cloudStorage.gcp.bucket) (not .Values.cloudStorage.aws.bucket) (not .Values.cloudStorage.minio.bucket) }}
