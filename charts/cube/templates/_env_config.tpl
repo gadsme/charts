@@ -55,6 +55,10 @@
 - name: CUBEJS_SCHEDULED_REFRESH_CONCURRENCY
   value: {{ .Values.config.scheduledRefreshConcurrency | quote }}
 {{- end }}
+{{- if .Values.config.scheduledRefreshQueriesPerAppId }}
+- name: CUBEJS_SCHEDULED_REFRESH_QUERIES_PER_APP_ID
+  value: {{ .Values.config.scheduledRefreshQueriesPerAppId | quote }}
+{{- end }}
 {{- if .Values.config.preAggregationsSchema }}
 - name: CUBEJS_PRE_AGGREGATIONS_SCHEMA
   value: {{ .Values.config.preAggregationsSchema | quote }}

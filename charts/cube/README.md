@@ -296,6 +296,8 @@ cubestore:
 | `config.app`                                               | An application ID used to uniquely identify the Cube deployment. Can be different for multitenant setups. Defaults to cubejs |         |
 | `config.rollupOnly`                                        | If true, this instance of Cube will only query rollup pre-aggregations. Defaults to false                                    |         |
 | `config.scheduledRefreshTimezones`                         | A comma-separated list of timezones to schedule refreshes for                                                                |         |
+| `config.scheduledRefreshConcurrency`                       | How many pre-aggregations refresh worker will build in parallel (DEPRECATED: Use scheduledRefreshQueriesPerAppId instead)    |         |
+| `config.scheduledRefreshQueriesPerAppId`                   | How many queries will be run concurrently per app (tenant). Replaces scheduledRefreshConcurrency                             |         |
 | `config.webSockets`                                        | If true, then use WebSocket for data fetching. Defaults to true                                                              |         |
 | `config.preAggregationsSchema`                             | The schema name to use for storing pre-aggregations true                                                                     |         |
 | `config.cacheAndQueueDriver`                               | The cache and queue driver to use for the Cube deployment. Defaults to cubestore                                             |         |

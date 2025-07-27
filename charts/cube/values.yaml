@@ -126,9 +126,14 @@ config:
   scheduledRefreshTimezones:
 
   ## How many pre-aggregations refresh worker will build in parallel. Please note changing this param doesn't change queue concurrency and it should be adjusted accordingly
+  ## DEPRECATED: This setting is deprecated. Use scheduledRefreshQueriesPerAppId instead.
   ##
   scheduledRefreshConcurrency:
 
+  ## How many queries will be run concurrently per app (tenant). Replaces scheduledRefreshConcurrency.
+  ##
+  scheduledRefreshQueriesPerAppId:
+  
   ## The schema name to use for storing pre-aggregations.
   ## Defaults to dev_pre_aggregations/prod_pre_aggregations for development/production mode
   ##
