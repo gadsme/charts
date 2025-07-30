@@ -35,6 +35,7 @@ spec:
                 name: {{ include "cube.fullname" . }}
                 port:
                   name: http
+                  number: {{ .Values.config.apiPort }}
     {{- end }}
   {{- if .Values.ingress.tls  }}
   tls:
