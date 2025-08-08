@@ -2,13 +2,10 @@
 
 The release numbering uses [semantic versioning](http://semver.org).
 
-## 1.1.1
-
-- use metaHost param for CUBESTORE_SERVER_NAME
-
 ## 1.1.0
 
 - add metaHost param to customize Cube Store router hostname
+- use metaHost param for CUBESTORE_SERVER_NAME
 
 ## 1.0.1
 
