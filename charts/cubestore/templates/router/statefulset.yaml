@@ -70,7 +70,7 @@ spec:
             {{- $headlessServiceName := printf "%s-%s" $fullName "headless" }}
             {{- $workerPort := .Values.workers.port | int }}
             - name: CUBESTORE_SERVER_NAME
-              value: {{ printf "%s-router:%d" (include "cubestore.fullname" .) (.Values.router.metaPort | int) }}
+              value: {{ printf "%s:%d" (default (printf "%s-router" (include "cubestore.fullname" .)) .Values.router.metaHost) (.Values.router.metaPort | int) }}
             {{- if .Values.router.mysqlPort }}
             - name: CUBESTORE_PORT
               value: {{ .Values.router.mysqlPort | quote }}
