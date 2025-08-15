@@ -2,6 +2,10 @@
 
 The release numbering uses [semantic versioning](http://semver.org).
 
+## 3.2.0
+
+- add scheduledRefreshQueriesPerAppId to replace scheduledRefreshConcurrency
+
 ## 3.0.1
 
 - add sidecar support
