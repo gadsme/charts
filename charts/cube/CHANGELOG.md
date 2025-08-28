@@ -2,6 +2,10 @@
 
 The release numbering uses [semantic versioning](http://semver.org).
 
+## 3.3.0
+
+- add per deployment annotaions
+
 ## 3.2.0
 
 - add scheduledRefreshQueriesPerAppId to replace scheduledRefreshConcurrency
