@@ -671,6 +671,9 @@ api:
 
   apiCount: 1
 
+  ## Annotations for the API deploymnet
+  annotations: {}
+
   ## Affinity for pod assignment
   ## ref: https://kubernetes.io/docs/concepts/configuration/assign-pod-node/#affinity-and-anti-affinity
   ##
@@ -760,6 +763,9 @@ worker:
     name: ""
     automountServiceAccountToken: true
     annotations: {}
+
+  ## Annotations for the worker deploymnet
+  annotations: {}
 
   ## Affinity for pod assignment
   ## ref: https://kubernetes.io/docs/concepts/configuration/assign-pod-node/#affinity-and-anti-affinity
