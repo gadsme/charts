@@ -31,6 +31,10 @@
 - name: CUBEJS_LOG_LEVEL
   value: {{ .Values.config.logLevel | quote }}
 {{- end }}
+{{- if .Values.config.sqlLogLevel }}
+- name: CUBESQL_LOG_LEVEL
+  value: {{ .Values.config.sqlLogLevel | quote }}
+{{- end }}
 {{- if .Values.config.app }}
 - name: CUBEJS_APP
   value: {{ .Values.config.app | quote }}

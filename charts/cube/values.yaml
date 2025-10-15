@@ -90,6 +90,10 @@ config:
   ##
   logLevel: "warn"
 
+  ## The logging level for Cube SQL API
+  ##
+  sqlLogLevel: "warn"
+
   ## If true, then send telemetry to Cube
   ##
   telemetry: false
