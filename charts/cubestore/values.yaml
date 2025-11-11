@@ -237,6 +237,12 @@ exporter:
     #     match_metric_type: timer
     #     labels:
     #       method: "$1"
+    #   - match: "*.*"
+    #     match_metric_type: counter
+    #     name: "cubestore_count_total"
+    #     labels:
+    #       category: "$1"
+    #       method: "$2"
     mappings: []
 
   livenessProbe:
