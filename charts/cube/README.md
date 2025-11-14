@@ -289,6 +289,7 @@ cubestore:
 | `config.apiSecret`                                         | The secret key used to sign and verify JWTs. Generated on project scaffold                                                   |         |
 | `config.apiSecretFromSecret.name`                          | The secret key used to sign and verify JWTs. Generated on project scaffold (using secret)                                    |         |
 | `config.apiSecretFromSecret.key`                           | The secret key used to sign and verify JWTs. Generated on project scaffold (using secret)                                    |         |
+| `config.defaultApiScopes`                                  | API scopes used to allow or disallow access to REST API endpoints.                                                           |         |
 | `config.Values.config.playgroundAuthSecret`                | The secret key used to enable system APIs                                                                                    |         |
 | `config.Values.config.playgroundAuthSecretFromSecret.name` | The secret key used to enable system APIs (using secret)                                                                     |         |
 | `config.Values.config.playgroundAuthSecretFromSecret.key`  | The secret key used to enable system APIs (using secret)                                                                     |         |
@@ -302,13 +303,15 @@ cubestore:
 | `config.preAggregationsSchema`                             | The schema name to use for storing pre-aggregations true                                                                     |         |
 | `config.cacheAndQueueDriver`                               | The cache and queue driver to use for the Cube deployment. Defaults to cubestore                                             |         |
 | `config.concurrency`                                       | The number of concurrent connections each query queue has to the database                                                    |         |
+| `config.queryDefaultLimit`                                 | The default row limit in the result set if it's not explicitly specified in an API query.                                    |         |
+| `config.queryLimit`                                        | The maximum row limit in the result set                                                                                      |         |
 | `config.topicName`                                         | The name of the Amazon SNS or Google Cloud Pub/Sub topicredis                                                                |         |
 | `config.touchPreAggTimeout`                                | The number of seconds without a touch before pre-aggregation is considered orphaned and marked for removal                   |         |
 | `config.dropPreAggWithoutTouch`                            | If true, it enables dropping pre-aggregations that Refresh Worker doesn't touch within touchPreAggTimeout                    |         |
 | `config.volumes`                                           | The config volumes. Will be used to both api and worker                                                                      | `[]`    |
 | `config.volumeMounts`                                      | The config volumeMounts. Will be used to both api and worker                                                                 | `[]`    |
 | `config.initContainers`                                    | Add init containers to load models using volume mounts ( an alternative to using configs, example in values)                 | `[]`    |
-| `config.sidecarContainers`                                    | Add sidecar containers to load models using volume mounts ( an alternative to using configs, example in values)                 | `[]`    |
+| `config.sidecarContainers`                                 | Add sidecar containers to load models using volume mounts ( an alternative to using configs, example in values)              | `[]`    |
 
 ### Redis parameters
 
@@ -421,21 +424,21 @@ cubestore:
 
 ### DuckDB datasource parameters
 
-| Name                                                           | Description                                                                                                         | Value   |
-| -------------------------------------------------------------- | ------------------------------------------------------------------------------------------------------------------- | ------- |
-| `datasources.<name>.duckdb.memoryLimit`                        | The maximum memory limit for DuckDB. Equivalent to SET memory_limit=<MEMORY_LIMIT>. Default is 75% of available RAM |         |
-| `datasources.<name>.duckdb.schema`                             | The default search schema                                                                                           |         |
-| `datasources.<name>.duckdb.motherduckToken`                    | The service token to use for connections to MotherDuck                                                              |         |
-| `datasources.<name>.duckdb.databasePath`                       | The database filepath to use for connection to a local database.                                                    |         |
-| `datasources.<name>.duckdb.s3.accessKeyId`                     | The Access Key ID to use for database connections                                                                   |         |
-| `datasources.<name>.duckdb.s3.secretAccessKey`                 | The Secret Access Key to use for database connections                                                               |         |
-| `datasources.<name>.duckdb.s3.secretAccessKeyFromSecret.name`  | The Secret Access Key to use for database connections (using secret)                                                |         |
-| `datasources.<name>.duckdb.s3.secretAccessKeyFromSecret.key`   | The Secret Access Key to use for database connections (using secret)                                                |         |
-| `datasources.<name>.duckdb.s3.endpoint`                        | The S3 endpoint                                                                                                     |         |
-| `datasources.<name>.duckdb.s3.region`                          | The region of the bucket                                                                                            |         |
-| `datasources.<name>.duckdb.s3.useSSL`                          | Use SSL for connection                                                                                              |         |
-| `datasources.<name>.duckdb.s3.urlStyle`                        | To choose the S3 URL style(vhost or path)                                                                           | `vhost` \| `path` |
-| `datasources.<name>.duckdb.s3.sessionToken`                    | The token for the S3 session                                                                                        |         |
+| Name                                                          | Description                                                                                                         | Value             |
+| ------------------------------------------------------------- | ------------------------------------------------------------------------------------------------------------------- | ----------------- |
+| `datasources.<name>.duckdb.memoryLimit`                       | The maximum memory limit for DuckDB. Equivalent to SET memory_limit=<MEMORY_LIMIT>. Default is 75% of available RAM |                   |
+| `datasources.<name>.duckdb.schema`                            | The default search schema                                                                                           |                   |
+| `datasources.<name>.duckdb.motherduckToken`                   | The service token to use for connections to MotherDuck                                                              |                   |
+| `datasources.<name>.duckdb.databasePath`                      | The database filepath to use for connection to a local database.                                                    |                   |
+| `datasources.<name>.duckdb.s3.accessKeyId`                    | The Access Key ID to use for database connections                                                                   |                   |
+| `datasources.<name>.duckdb.s3.secretAccessKey`                | The Secret Access Key to use for database connections                                                               |                   |
+| `datasources.<name>.duckdb.s3.secretAccessKeyFromSecret.name` | The Secret Access Key to use for database connections (using secret)                                                |                   |
+| `datasources.<name>.duckdb.s3.secretAccessKeyFromSecret.key`  | The Secret Access Key to use for database connections (using secret)                                                |                   |
+| `datasources.<name>.duckdb.s3.endpoint`                       | The S3 endpoint                                                                                                     |                   |
+| `datasources.<name>.duckdb.s3.region`                         | The region of the bucket                                                                                            |                   |
+| `datasources.<name>.duckdb.s3.useSSL`                         | Use SSL for connection                                                                                              |                   |
+| `datasources.<name>.duckdb.s3.urlStyle`                       | To choose the S3 URL style(vhost or path)                                                                           | `vhost` \| `path` |
+| `datasources.<name>.duckdb.s3.sessionToken`                   | The token for the S3 session                                                                                        |                   |
 
 ### Clickhouse datasource parameters
 

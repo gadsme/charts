@@ -101,6 +101,10 @@ config:
   #   name:
   #   key:
 
+  ## API scopes used to allow or disallow access to REST API endpoints.
+  ##
+  defaultApiScopes:
+
   ## The secret key used to enable playground and system apis
   ##
   playgroundAuthSecret:
@@ -150,6 +154,14 @@ config:
   ## The number of concurrent connections each query queue has to the database
   ##
   concurrency:
+
+  ## The default row limit in the result set if it's not explicitly specified in an API query.
+  ##
+  queryDefaultLimit:
+  
+  ## The maximum row limit in the result set.
+  ##
+  queryLimit:
 
   ## The name of the Amazon SNS or Google Cloud Pub/Sub topic
   ## Defaults to <process.env.CUBEJS_APP>-process if undefined, and finally cubejs-process

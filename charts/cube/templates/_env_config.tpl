@@ -43,6 +43,14 @@
 - name: CUBEJS_CONCURRENCY
   value: {{ .Values.config.concurrency | quote }}
 {{- end }}
+{{- if .Values.config.queryLimit }}
+- name: CUBEJS_DB_QUERY_DEFAULT_LIMIT
+  value: {{ .Values.config.queryDefaultLimit | quote }}
+{{- end }}
+{{- if .Values.config.queryLimit }}
+- name: CUBEJS_DB_QUERY_LIMIT
+  value: {{ .Values.config.queryLimit | quote }}
+{{- end }}
 {{- if .Values.config.rollupOnly }}
 - name: CUBEJS_ROLLUP_ONLY
   value: {{ .Values.config.rollupOnly | quote }}
@@ -78,6 +86,10 @@
     secretKeyRef:
       name: {{ .Values.config.apiSecretFromSecret.name | required "config.apiSecretFromSecret.name is required" }}
       key: {{ .Values.config.apiSecretFromSecret.key | required "config.apiSecretFromSecret.key is required" }}
+{{- end }}
+{{- if .Values.config.defaultApiScopes }}
+- name: CUBEJS_DEFAULT_API_SCOPES
+  value: {{ .Values.config.defaultApiScopes | quote }}
 {{- end }}
 {{- if .Values.config.playgroundAuthSecret }}
 - name: CUBEJS_PLAYGROUND_AUTH_SECRET
