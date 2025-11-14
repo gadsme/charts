@@ -4,6 +4,7 @@ The release numbering uses [semantic versioning](http://semver.org).
 
 ## 1.2.0
 
+- update to cubestore 1.5.3
 - allow custom statsd metric mappings
 
 ## 1.1.0
