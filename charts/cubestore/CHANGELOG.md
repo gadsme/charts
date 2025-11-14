@@ -2,6 +2,10 @@
 
 The release numbering uses [semantic versioning](http://semver.org).
 
+## 1.2.0
+
+- allow custom statsd metric mappings
+
 ## 1.1.0
 
 - add metaHost param to customize Cube Store router hostname

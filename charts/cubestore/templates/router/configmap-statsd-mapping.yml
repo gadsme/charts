@@ -11,9 +11,13 @@ metadata:
 data:
   {{ .Values.exporter.statsd.mappingConfigMapKey }}: |
     mappings:
+{{- if .Values.exporter.statsd.mappings }}
+{{ toYaml .Values.exporter.statsd.mappings | indent 6 }}
+{{- else }}
       - match: ".+"
         match_type: regex
         name: "$0"
         labels:
           statsd_metric_name: "$0"
+{{- end }}
 {{- end }}

@@ -227,6 +227,24 @@ exporter:
     # Name of the key inside Metric mapping ConfigMap.
     mappingConfigMapKey: statsd.mappingConf
 
+    # Custom statsd mappings. If provided, these will be used instead of the default mapping.
+    # Example:
+    # mappings:
+    #   - match: "*.ms"
+    #     name: "cubestore_duration_milliseconds"
+    #     timer_type: histogram
+    #     buckets: [1, 10, 50, 100, 250, 500, 1000, 2000, 5000, 10000]
+    #     match_metric_type: timer
+    #     labels:
+    #       method: "$1"
+    #   - match: "*.*"
+    #     match_metric_type: counter
+    #     name: "cubestore_count_total"
+    #     labels:
+    #       category: "$1"
+    #       method: "$2"
+    mappings: []
+
   livenessProbe:
     httpGet:
       path: /health
