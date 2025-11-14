@@ -6,6 +6,29 @@ entries:
         - name: Chart Source
           url: https://github.com/gadsme/charts
     apiVersion: v2
+    appVersion: 1.5.3
+    created: "2025-11-14T16:22:23.060539837Z"
+    description: A Helm chart for Cube
+    digest: ed9a1e3dedf5f34063aeb8ec1c0c33e24685ba785d8776a74a60c26d02b4c8ed
+    home: https://cube.dev
+    keywords:
+    - cubejs
+    - cube
+    maintainers:
+    - email: luc.vauvillier@gmail.com
+      name: Luc Vauvillier
+    name: cube
+    sources:
+    - https://github.com/cube-js/cube.js
+    type: application
+    urls:
+    - https://github.com/gadsme/charts/releases/download/cube-3.3.0/cube-3.3.0.tgz
+    version: 3.3.0
+  - annotations:
+      artifacthub.io/links: |
+        - name: Chart Source
+          url: https://github.com/gadsme/charts
+    apiVersion: v2
     appVersion: 1.2.0
     created: "2025-08-15T10:52:58.699851059Z"
     description: A Helm chart for Cube
@@ -434,6 +457,29 @@ entries:
     - https://github.com/gadsme/charts/releases/download/cube-0.3.0/cube-0.3.0.tgz
     version: 0.3.0
   cubestore:
+  - annotations:
+      artifacthub.io/links: |
+        - name: Chart Source
+          url: https://github.com/gadsme/charts
+    apiVersion: v2
+    appVersion: 1.5.3
+    created: "2025-11-14T16:22:23.267401201Z"
+    description: A Helm chart for Cubestore
+    digest: fcff1538e7304701cb473794fbb1217f91723d5cc053e3fe91bb612faca0924a
+    keywords:
+    - cube
+    - cubejs
+    - cubestore
+    maintainers:
+    - email: luc.vauvillier@gmail.com
+      name: Luc Vauvillier
+    name: cubestore
+    sources:
+    - https://github.com/cube-js/cube.js
+    type: application
+    urls:
+    - https://github.com/gadsme/charts/releases/download/cubestore-1.2.0/cubestore-1.2.0.tgz
+    version: 1.2.0
   - annotations:
       artifacthub.io/links: |
         - name: Chart Source
@@ -923,4 +969,4 @@ entries:
     urls:
     - https://github.com/gadsme/charts/releases/download/cubestore-0.1.0/cubestore-0.1.0.tgz
     version: 0.1.0
-generated: "2025-08-15T10:52:58.846194998Z"
+generated: "2025-11-14T16:22:23.267671297Z"
