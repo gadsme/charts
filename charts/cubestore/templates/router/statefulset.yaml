@@ -31,6 +31,9 @@ spec:
       {{- toYaml .Values.commonAnnotations | nindent 8 }}
       {{- end }}
     spec:
+      {{- if .Values.router.priorityClassName }}
+      priorityClassName: {{ .Values.router.priorityClassName }}
+      {{- end }}
       serviceAccountName: {{ template "cubestore.router.serviceAccountName" . }}
       {{- with .Values.image.pullSecrets }}
       imagePullSecrets:

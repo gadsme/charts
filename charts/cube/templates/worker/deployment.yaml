@@ -31,6 +31,9 @@ spec:
       {{- toYaml .Values.commonAnnotations | nindent 8 }}
       {{- end }}
     spec:
+      {{- if .Values.worker.priorityClassName }}
+      priorityClassName: {{ .Values.worker.priorityClassName }}
+      {{- end }}
       {{- if .Values.securityContext.enabled }}
       securityContext:
         runAsUser: {{ .Values.securityContext.runAsUser }}
