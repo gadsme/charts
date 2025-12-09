@@ -278,6 +278,10 @@ router:
     automountServiceAccountToken: true
     annotations: {}
 
+  ## Priority class name for the router pods
+  ##
+  priorityClassName: ""
+
   ## The port for Cube Store to listen to HTTP connections on
   ##
   httpPort: 3030
@@ -406,6 +410,10 @@ workers:
     name: ""
     automountServiceAccountToken: true
     annotations: {}
+
+  ## Priority class name for the worker pods
+  ##
+  priorityClassName: ""
 
   ## Number of workers to deploy
   ##

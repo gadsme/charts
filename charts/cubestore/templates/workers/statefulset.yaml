@@ -32,6 +32,9 @@ spec:
       {{- toYaml .Values.commonAnnotations | nindent 8 }}
       {{- end }}
     spec:
+      {{- if .Values.workers.priorityClassName }}
+      priorityClassName: {{ .Values.workers.priorityClassName }}
+      {{- end }}
       serviceAccountName: {{ template "cubestore.workers.serviceAccountName" . }}
       {{- with .Values.image.pullSecrets }}
       imagePullSecrets:

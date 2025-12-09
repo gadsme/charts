@@ -683,6 +683,10 @@ api:
 
   apiCount: 1
 
+  ## Priority class name for the API pods
+  ##
+  priorityClassName: ""
+
   ## Affinity for pod assignment
   ## ref: https://kubernetes.io/docs/concepts/configuration/assign-pod-node/#affinity-and-anti-affinity
   ##
@@ -772,6 +776,10 @@ worker:
     name: ""
     automountServiceAccountToken: true
     annotations: {}
+
+  ## Priority class name for the worker pods
+  ##
+  priorityClassName: ""
 
   ## Affinity for pod assignment
   ## ref: https://kubernetes.io/docs/concepts/configuration/assign-pod-node/#affinity-and-anti-affinity
