@@ -2,6 +2,10 @@
 
 The release numbering uses [semantic versioning](http://semver.org).
 
+## 3.4.0
+
+- add startupProbe and customStartupProbe support for api and worker
+
 ## 3.2.0
 
 - add scheduledRefreshQueriesPerAppId to replace scheduledRefreshConcurrency

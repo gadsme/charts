@@ -86,6 +86,20 @@ spec:
                 name: {{ include "cube.tplvalues.render" (dict "value" .Values.worker.extraEnvVarsFromSecret "context" $) }}
             {{- end }}
           {{- end }}
+          {{- if .Values.worker.startupProbe.enabled }}
+          startupProbe:
+            initialDelaySeconds: {{ .Values.worker.startupProbe.initialDelaySeconds }}
+            periodSeconds: {{ .Values.worker.startupProbe.periodSeconds }}
+            timeoutSeconds: {{ .Values.worker.startupProbe.timeoutSeconds }}
+            successThreshold: {{ .Values.worker.startupProbe.successThreshold }}
+            failureThreshold: {{ .Values.worker.startupProbe.failureThreshold }}
+            httpGet:
+              path: /livez
+              port: http
+          {{- else if .Values.worker.customStartupProbe }}
+          startupProbe:
+            {{- toYaml .Values.worker.customStartupProbe | nindent 12 }}
+          {{- end }}
           {{- if .Values.worker.livenessProbe.enabled }}
           livenessProbe:
             initialDelaySeconds: {{ .Values.worker.livenessProbe.initialDelaySeconds }}
