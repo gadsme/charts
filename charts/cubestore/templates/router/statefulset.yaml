@@ -31,6 +31,12 @@ spec:
       {{- toYaml .Values.commonAnnotations | nindent 8 }}
       {{- end }}
     spec:
+      {{- if .Values.router.priorityClassName }}
+      priorityClassName: {{ .Values.router.priorityClassName }}
+      {{- end }}
+      {{- if .Values.router.terminationGracePeriodSeconds }}
+      terminationGracePeriodSeconds: {{ .Values.router.terminationGracePeriodSeconds }}
+      {{- end }}
       serviceAccountName: {{ template "cubestore.router.serviceAccountName" . }}
       {{- with .Values.image.pullSecrets }}
       imagePullSecrets:
@@ -40,7 +46,14 @@ spec:
       securityContext:
         runAsUser: {{ .Values.securityContext.runAsUser }}
         fsGroup: {{ .Values.securityContext.fsGroup }}
+        {{- with .Values.securityContext.fsGroupChangePolicy }}
+        fsGroupChangePolicy: {{ . }}
+        {{- end }}
       {{- end }}
+      dnsConfig:
+        options:
+          - name: ndots
+            value: "1"
       containers:
         - name: cubestore
           {{- if .Values.image.tag }}
@@ -49,6 +62,10 @@ spec:
           image: "{{ .Values.image.repository }}:v{{ .Chart.AppVersion }}"
           {{- end }}
           imagePullPolicy: {{ .Values.image.pullPolicy | quote }}
+          {{- with .Values.containerSecurityContext }}
+          securityContext:
+            {{- toYaml . | nindent 12 }}
+          {{- end }}
           ports:
             - name: http
               containerPort: {{ .Values.router.httpPort }}
@@ -67,7 +84,7 @@ spec:
           env:
             {{- include "cubestore.common-env" . | nindent 12 }}
             {{- $fullName := include "cubestore.fullname" . }}
-            {{- $headlessServiceName := printf "%s-%s" $fullName "headless" }}
+            {{- $headlessServiceName := printf "%s-%s.%s.svc.cluster.local" $fullName "headless" .Release.Namespace }}
             {{- $workerPort := .Values.workers.port | int }}
             - name: CUBESTORE_SERVER_NAME
               value: {{ printf "%s:%d" (default (printf "%s-router" (include "cubestore.fullname" .)) .Values.router.metaHost) (.Values.router.metaPort | int) }}
@@ -125,6 +142,10 @@ spec:
           {{- else if .Values.router.customReadinessProbe }}
           readinessProbe:
             {{- toYaml .Values.router.customReadinessProbe | nindent 12 }}
+          {{- end }}
+          {{- with .Values.router.lifecycle }}
+          lifecycle:
+            {{- toYaml . | nindent 12 }}
           {{- end }}
           {{- if .Values.router.resources }}
           resources:

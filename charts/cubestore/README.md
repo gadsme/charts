@@ -155,6 +155,9 @@ By default, local dir is not persisted. You can enable persistence on router and
 | `router.serviceAccount.create`                       | Specifies whether a ServiceAccount should be created                                                                | `false`           |
 | `router.serviceAccount.name`                         | Name of the service account to use. If not set and create is true, a name is generated using the fullname template. | `""`              |
 | `router.serviceAccount.automountServiceAccountToken` | Automount service account token for the server service account                                                      | `true`            |
+| `containerSecurityContext` | Security context for the cubestore container, rendered verbatim | `{}` |
+| `router.lifecycle` | Container lifecycle hooks, rendered verbatim (e.g. a `preStop` sleep) | `{}` |
+| `router.terminationGracePeriodSeconds` | Grace period for a terminating pod, in seconds (Kubernetes default is 30) | `""` |
 | `router.serviceAccount.annotations`                  | Annotations for service account. Evaluated as a template. Only used if create is true.                              | `{}`              |
 | `router.httpPort`                                    | The port for Cube Store to listen to HTTP connections on                                                            | `3030`            |
 | `router.metaPort`                                    | The port for the router node to listen for connections on                                                           | `9999`            |
@@ -195,6 +198,8 @@ By default, local dir is not persisted. You can enable persistence on router and
 | `workers.serviceAccount.create`                       | Specifies whether a ServiceAccount should be created                                                                | `false`           |
 | `workers.serviceAccount.name`                         | Name of the service account to use. If not set and create is true, a name is generated using the fullname template. | `""`              |
 | `workers.serviceAccount.automountServiceAccountToken` | Automount service account token for the server service account                                                      | `true`            |
+| `workers.lifecycle` | Container lifecycle hooks, rendered verbatim (e.g. a `preStop` sleep) | `{}` |
+| `workers.terminationGracePeriodSeconds` | Grace period for a terminating pod, in seconds (Kubernetes default is 30) | `""` |
 | `workers.serviceAccount.annotations`                  | Annotations for service account. Evaluated as a template. Only used if create is true.                              | `{}`              |
 | `workers.workersCount`                                | Number of workers to deploy                                                                                         | `1`               |
 | `workers.port`                                        | The port for the router node to listen for connections on                                                           | `9001`            |

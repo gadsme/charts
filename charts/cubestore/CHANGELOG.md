@@ -2,6 +2,10 @@
 
 The release numbering uses [semantic versioning](http://semver.org).
 
+## 1.4.1
+
+- appVersion 1.8.3.
+
 ## 1.2.0
 
 - update to cubestore 1.5.3

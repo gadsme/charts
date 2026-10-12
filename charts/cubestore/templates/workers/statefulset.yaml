@@ -32,6 +32,12 @@ spec:
       {{- toYaml .Values.commonAnnotations | nindent 8 }}
       {{- end }}
     spec:
+      {{- if .Values.workers.priorityClassName }}
+      priorityClassName: {{ .Values.workers.priorityClassName }}
+      {{- end }}
+      {{- if .Values.workers.terminationGracePeriodSeconds }}
+      terminationGracePeriodSeconds: {{ .Values.workers.terminationGracePeriodSeconds }}
+      {{- end }}
       serviceAccountName: {{ template "cubestore.workers.serviceAccountName" . }}
       {{- with .Values.image.pullSecrets }}
       imagePullSecrets:
@@ -41,7 +47,14 @@ spec:
       securityContext:
         runAsUser: {{ .Values.securityContext.runAsUser }}
         fsGroup: {{ .Values.securityContext.fsGroup }}
+        {{- with .Values.securityContext.fsGroupChangePolicy }}
+        fsGroupChangePolicy: {{ . }}
+        {{- end }}
       {{- end }}
+      dnsConfig:
+        options:
+          - name: ndots
+            value: "1"
       containers:
         - name: cubestore
           {{- if .Values.image.tag }}
@@ -50,6 +63,10 @@ spec:
           image: "{{ .Values.image.repository }}:v{{ .Chart.AppVersion }}"
           {{- end }}
           imagePullPolicy: {{ .Values.image.pullPolicy | quote }}
+          {{- with .Values.containerSecurityContext }}
+          securityContext:
+            {{- toYaml . | nindent 12 }}
+          {{- end }}
           ports:
             - name: worker
               containerPort: {{ .Values.workers.port }}
@@ -57,7 +74,7 @@ spec:
           env:
             {{- include "cubestore.common-env" . | nindent 12 }}
             {{- $fullName := include "cubestore.fullname" . }}
-            {{- $headlessServiceName := printf "%s-%s" $fullName "headless" }}
+            {{- $headlessServiceName := printf "%s-%s.%s.svc.cluster.local" $fullName "headless" .Release.Namespace }}
             {{- $workerPort := .Values.workers.port | int }}
             - name: MY_POD_NAME
               valueFrom:
@@ -84,6 +101,10 @@ spec:
             {{- if .Values.workers.extraEnvVars }}
             {{- include "cubestore.tplvalues.render" (dict "value" .Values.workers.extraEnvVars "context" $) | nindent 12 }}
             {{- end }}
+          {{- with .Values.workers.lifecycle }}
+          lifecycle:
+            {{- toYaml . | nindent 12 }}
+          {{- end }}
           {{- if .Values.workers.resources }}
           resources:
             {{- toYaml .Values.workers.resources | nindent 12 }}

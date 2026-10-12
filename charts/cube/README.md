@@ -15,7 +15,6 @@
   - [Global parameters](#global-parameters)
   - [Image parameters](#image-parameters)
   - [Config parameters](#config-parameters)
-  - [Redis parameters](#redis-parameters)
   - [JWT parameters](#jwt-parameters)
   - [Datasources configuration](#datasources-configuration)
     - [Common parameters](#common-datasource-parameters)
@@ -297,15 +296,13 @@ cubestore:
 | `config.app`                                               | An application ID used to uniquely identify the Cube deployment. Can be different for multitenant setups. Defaults to cubejs |         |
 | `config.rollupOnly`                                        | If true, this instance of Cube will only query rollup pre-aggregations. Defaults to false                                    |         |
 | `config.scheduledRefreshTimezones`                         | A comma-separated list of timezones to schedule refreshes for                                                                |         |
-| `config.scheduledRefreshConcurrency`                       | How many pre-aggregations refresh worker will build in parallel (DEPRECATED: Use scheduledRefreshQueriesPerAppId instead)    |         |
-| `config.scheduledRefreshQueriesPerAppId`                   | How many queries will be run concurrently per app (tenant). Replaces scheduledRefreshConcurrency                             |         |
+| `config.scheduledRefreshQueriesPerAppId`                   | How many queries will be run concurrently per app (tenant).                                                                            |         |
 | `config.webSockets`                                        | If true, then use WebSocket for data fetching. Defaults to true                                                              |         |
 | `config.preAggregationsSchema`                             | The schema name to use for storing pre-aggregations true                                                                     |         |
 | `config.cacheAndQueueDriver`                               | The cache and queue driver to use for the Cube deployment. Defaults to cubestore                                             |         |
 | `config.concurrency`                                       | The number of concurrent connections each query queue has to the database                                                    |         |
 | `config.queryDefaultLimit`                                 | The default row limit in the result set if it's not explicitly specified in an API query.                                    |         |
 | `config.queryLimit`                                        | The maximum row limit in the result set                                                                                      |         |
-| `config.topicName`                                         | The name of the Amazon SNS or Google Cloud Pub/Sub topicredis                                                                |         |
 | `config.touchPreAggTimeout`                                | The number of seconds without a touch before pre-aggregation is considered orphaned and marked for removal                   |         |
 | `config.dropPreAggWithoutTouch`                            | If true, it enables dropping pre-aggregations that Refresh Worker doesn't touch within touchPreAggTimeout                    |         |
 | `config.volumes`                                           | The config volumes. Will be used to both api and worker                                                                      | `[]`    |
@@ -313,18 +310,6 @@ cubestore:
 | `config.initContainers`                                    | Add init containers to load models using volume mounts ( an alternative to using configs, example in values)                 | `[]`    |
 | `config.sidecarContainers`                                 | Add sidecar containers to load models using volume mounts ( an alternative to using configs, example in values)              | `[]`    |
 
-### Redis parameters
-
-| Name                            | Description                                                                                                                                              | Value |
-| ------------------------------- | -------------------------------------------------------------------------------------------------------------------------------------------------------- | ----- |
-| `redis.url`                     | The host URL for a Redis server. Note that this must include the `redis://` protocol prefix.                                                             |       |
-| `redis.password`                | The password used to connect to the Redis server                                                                                                         |       |
-| `redis.passwordFromSecret.name` | The password used to connect to the Redis server (using secret)                                                                                          |       |
-| `redis.passwordFromSecret.key`  | The password used to connect to the Redis server (using secret)                                                                                          |       |
-| `redis.tls`                     | If true, then the connection to the Redis server is protected by TLS authentication. Defaults to false                                                   |       |
-| `redis.poolMin`                 | The minimum number of connections to keep active in the Redis connection pool for a single appId (tenant). Must be lower than poolMax. Defaults to 2     |       |
-| `redis.poolMax`                 | The maximum number of connections to keep active in the Redis connection pool for a single appId (tenant). Must be higher than poolMin. Defaults to 1000 |       |
-| `redis.useIoRedis`              | Use ioredis instead of redis. Defaults to false                                                                                                          |       |
 
 ### JWT parameters
 
@@ -527,6 +512,9 @@ cubestore:
 | `api.readinessProbe.failureThreshold`             | Success threshold for readinessProbe                                                                                | `3`     |
 | `api.customLivenessProbe`                         | Custom livenessProbe that overrides the default one                                                                 | `{}`    |
 | `api.customReadinessProbe`                        | Custom readinessProbe that overrides the default one                                                                | `{}`    |
+| `api.updateStrategy` | Deployment rollout strategy, rendered verbatim into `spec.strategy`. Empty means the Kubernetes default (maxSurge/maxUnavailable 25%) | `{}` |
+| `api.lifecycle` | Container lifecycle hooks (e.g. `preStop`), rendered verbatim | `{}` |
+| `api.terminationGracePeriodSeconds` | Grace period for a terminating pod, in seconds (Kubernetes default is 30) | `""` |
 | `api.extraEnvVars`                                | Extra environment variables to pass on to the pod. The value is evaluated as a template                             | `[]`    |
 | `api.extraEnvVarsFromConfigMap`                   | Name of a Config Map containing extra environment variables to pass on to the pod                                   |         |
 | `api.extraEnvVarsFromSecret`                      | Name of a Secret containing extra environment variables to pass on to the pod                                       |         |
@@ -557,6 +545,9 @@ cubestore:
 | `worker.readinessProbe.failureThreshold`             | Success threshold for readinessProbe                                                                                | `3`     |
 | `worker.customLivenessProbe`                         | Custom livenessProbe that overrides the default one                                                                 | `{}`    |
 | `worker.customReadinessProbe`                        | Custom readinessProbe that overrides the default one                                                                | `{}`    |
+| `worker.updateStrategy` | Deployment rollout strategy, rendered verbatim into `spec.strategy`. Empty means the Kubernetes default (maxSurge/maxUnavailable 25%) | `{}` |
+| `worker.lifecycle` | Container lifecycle hooks (e.g. `preStop`), rendered verbatim | `{}` |
+| `worker.terminationGracePeriodSeconds` | Grace period for a terminating pod, in seconds (Kubernetes default is 30) | `""` |
 | `worker.extraEnvVars`                                | Extra environment variables to pass on to the pod. The value is evaluated as a template                             | `[]`    |
 | `worker.extraEnvVarsFromConfigMap`                   | Name of a Config Map containing extra environment variables to pass on to the pod                                   |         |
 | `worker.extraEnvVarsFromSecret`                      | Name of a Secret containing extra environment variables to pass on to the pod                                       |         |

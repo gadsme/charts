@@ -1,7 +1,38 @@
 name: Release Charts
 
+# Publishes packaged charts into the gh-pages branch and refreshes index.yaml.
+#
+# Deliberately does NOT use helm/chart-releaser-action, and does not create GitHub
+# releases at all. chart-releaser creates a release before uploading the package, and
+# release creation in this org is refused by a ruleset:
+#
+#   422 Validation Failed [{Resource:Release Field:pre_receive
+#       Message:pre_receive Repository rule violations found
+#
+# Before that it failed on immutable releases ("Cannot upload assets to an immutable
+# release"), which left an asset-less cube-3.6.0 release behind. Between those two, the
+# served index sat at cube 3.3.1 / cubestore 1.2.1 for months while consumers quietly
+# vendored `helm package` output instead. This workflow does what had to be done by
+# hand on 2026-08-19, so it stops being manual.
+#
+# Packages already live in gh-pages alongside index.yaml, which is a normal Helm repo
+# layout and needs no release assets.
+
 on:
   workflow_dispatch:
+  # Publish on merge as well: the index went stale for months purely because nobody
+  # remembered to dispatch it. Safe to run often — it is idempotent (see below) and
+  # publishing cannot affect any running deployment, since consumers pin and vendor
+  # their own chart version.
+  push:
+    branches: [main]
+    paths:
+      - "charts/**"
+
+concurrency:
+  # Never let two publishes race on the gh-pages branch.
+  group: release-charts
+  cancel-in-progress: false
 
 jobs:
   release:
@@ -9,22 +40,93 @@ jobs:
       contents: write
     runs-on: ubuntu-latest
     steps:
-      - name: Checkout
-        uses: actions/checkout@v3
-        with:
-          fetch-depth: 0
+      - name: Checkout main
+        uses: actions/checkout@v4
 
-      - name: Configure Git
-        run: |
-          git config user.name "$GITHUB_ACTOR"
-          git config user.email "$GITHUB_ACTOR@users.noreply.github.com"
+      - name: Checkout gh-pages
+        uses: actions/checkout@v4
+        with:
+          ref: gh-pages
+          path: pages
 
       - name: Install Helm
         uses: azure/setup-helm@v4
-
-      - name: Run chart-releaser
-        uses: helm/chart-releaser-action@v1.6.0
         with:
-          charts_dir: charts
-        env:
-          CR_TOKEN: "${{ secrets.GITHUB_TOKEN }}"
+          # Pinned, not `latest`. The packaging below must be reproducible run to
+          # run, and an unpinned helm silently changes the packer under us.
+          version: v4.2.4
+
+      - name: Package charts and stage anything new
+        id: stage
+        run: |
+          set -euo pipefail
+          mkdir -p build
+          for chart in charts/*/; do
+            helm package "$chart" -d build
+          done
+
+          added=""
+          for tgz in build/*.tgz; do
+            name=$(basename "$tgz")
+            if [[ -f "pages/$name" ]]; then
+              # An already-published version whose CONTENT differs means a released
+              # chart was edited without a version bump. Refuse rather than silently
+              # rewriting history consumers already pulled.
+              #
+              # Compare extracted contents, NOT raw bytes. `helm package` is
+              # deterministic for a given helm build but NOT across builds — gzip
+              # framing differs — and some published versions here were packaged by
+              # hand from a developer machine before this workflow existed. A byte
+              # comparison flagged an identical cubestore-1.4.0 on this workflow's
+              # first real run (2026-08-20) and blocked an unrelated publish.
+              rm -rf /tmp/cmp-new /tmp/cmp-old
+              mkdir -p /tmp/cmp-new /tmp/cmp-old
+              tar xzf "$tgz" -C /tmp/cmp-new
+              tar xzf "pages/$name" -C /tmp/cmp-old
+              if ! diff -r /tmp/cmp-old /tmp/cmp-new >/dev/null; then
+                echo "::error::$name already published with different content — bump the chart version instead of editing a released one"
+                diff -r /tmp/cmp-old /tmp/cmp-new || true
+                exit 1
+              fi
+              echo "unchanged: $name"
+            else
+              cp "$tgz" "pages/$name"
+              added="$added $name"
+              echo "new: $name"
+            fi
+          done
+
+          if [[ -z "$added" ]]; then
+            echo "changed=false" >> "$GITHUB_OUTPUT"
+            echo "Nothing new to publish."
+          else
+            echo "changed=true" >> "$GITHUB_OUTPUT"
+            echo "added=$added" >> "$GITHUB_OUTPUT"
+          fi
+
+      - name: Refresh the index and push
+        if: steps.stage.outputs.changed == 'true'
+        working-directory: pages
+        run: |
+          set -euo pipefail
+          # --merge keeps every entry already published, including versions whose
+          # packages predate this workflow and are served from release assets.
+          helm repo index . \
+            --url "https://${GITHUB_REPOSITORY_OWNER}.github.io/${GITHUB_REPOSITORY#*/}" \
+            --merge index.yaml
+
+          git config user.name "$GITHUB_ACTOR"
+          git config user.email "$GITHUB_ACTOR@users.noreply.github.com"
+          git add -A
+          git commit -m "Publish${{ steps.stage.outputs.added }}"
+          git push origin gh-pages
+
+      - name: Summary
+        run: |
+          if [[ "${{ steps.stage.outputs.changed }}" == "true" ]]; then
+            echo "Published:${{ steps.stage.outputs.added }}" >> "$GITHUB_STEP_SUMMARY"
+          else
+            echo "No new chart versions to publish." >> "$GITHUB_STEP_SUMMARY"
+          fi
+          echo "" >> "$GITHUB_STEP_SUMMARY"
+          echo "GitHub Pages serves the index a minute or two after the push completes." >> "$GITHUB_STEP_SUMMARY"

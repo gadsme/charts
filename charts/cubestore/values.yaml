@@ -37,10 +37,25 @@ image:
 ## Pod Security Context
 ## ref: https://kubernetes.io/docs/tasks/configure-pod-container/security-context/
 ## Some admission policies only allow use of non root containers
+## Container-level security context for the cubestore container, rendered verbatim.
+## Deliberately empty by default: cubestore owns its PVCs, and dropping it to
+## non-root has caused a production outage here before, so hardening it is a
+## validated change rather than a default.
+##   containerSecurityContext:
+##     allowPrivilegeEscalation: false
+##     capabilities:
+##       drop: ["ALL"]
+##
+containerSecurityContext: {}
+
 securityContext:
   enabled: false
   #fsGroup:
   #runAsUser:
+  ## fsGroupChangePolicy: set to "OnRootMismatch" to avoid recursively
+  ## re-chowning large data volumes on every pod restart (only chowns when
+  ## the top-level dir ownership doesn't already match fsGroup).
+  #fsGroupChangePolicy: OnRootMismatch
 
 config:
   ## The logging level for Cube Store.
@@ -278,6 +293,24 @@ router:
     automountServiceAccountToken: true
     annotations: {}
 
+  ## Priority class name for the router pods
+  ##
+  priorityClassName: ""
+
+  ## Container lifecycle hooks, rendered verbatim. On Kubernetes >= 1.30 prefer the
+  ## native sleep action over an exec shell -- cubestore's image needs no shell for it:
+  ##   lifecycle:
+  ##     preStop:
+  ##       sleep:
+  ##         seconds: 15
+  ##
+  lifecycle: {}
+
+  ## Grace period for a terminating pod, in seconds. Kubernetes defaults to 30.
+  ## Raise it above any preStop sleep, or the hook is cut short.
+  ##
+  terminationGracePeriodSeconds: ""
+
   ## The port for Cube Store to listen to HTTP connections on
   ##
   httpPort: 3030
@@ -406,6 +439,24 @@ workers:
     name: ""
     automountServiceAccountToken: true
     annotations: {}
+
+  ## Priority class name for the worker pods
+  ##
+  priorityClassName: ""
+
+  ## Container lifecycle hooks, rendered verbatim. On Kubernetes >= 1.30 prefer the
+  ## native sleep action over an exec shell -- cubestore's image needs no shell for it:
+  ##   lifecycle:
+  ##     preStop:
+  ##       sleep:
+  ##         seconds: 15
+  ##
+  lifecycle: {}
+
+  ## Grace period for a terminating pod, in seconds. Kubernetes defaults to 30.
+  ## Raise it above any preStop sleep, or the hook is cut short.
+  ##
+  terminationGracePeriodSeconds: ""
 
   ## Number of workers to deploy
   ##

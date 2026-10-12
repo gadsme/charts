@@ -1,7 +1,6 @@
 {{- define "cube.env" -}}
 {{- include "cube.env.config" . }}
 {{- include "cube.env.jwt" . }}
-{{- include "cube.env.redis" . }}
 {{- include "cube.env.cubestore" . }}
 
 {{- $datasources := list }}

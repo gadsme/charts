@@ -13,7 +13,11 @@ metadata:
     {{- toYaml .Values.commonAnnotations | nindent 4 }}
   {{- end }}
 spec:
-  replicas: 1
+  replicas: {{ coalesce .Values.worker.replicaCount 1 }}
+  {{- with .Values.worker.updateStrategy }}
+  strategy:
+    {{- toYaml . | nindent 4 }}
+  {{- end }}
   selector:
     matchLabels:
       app.kubernetes.io/component: worker
@@ -31,6 +35,12 @@ spec:
       {{- toYaml .Values.commonAnnotations | nindent 8 }}
       {{- end }}
     spec:
+      {{- if .Values.worker.priorityClassName }}
+      priorityClassName: {{ .Values.worker.priorityClassName }}
+      {{- end }}
+      {{- if .Values.worker.terminationGracePeriodSeconds }}
+      terminationGracePeriodSeconds: {{ .Values.worker.terminationGracePeriodSeconds }}
+      {{- end }}
       {{- if .Values.securityContext.enabled }}
       securityContext:
         runAsUser: {{ .Values.securityContext.runAsUser }}
@@ -53,6 +63,10 @@ spec:
           image: "{{ .Values.image.repository }}:v{{ .Chart.AppVersion }}"
           {{- end }}
           imagePullPolicy: {{ .Values.image.pullPolicy | quote }}
+          {{- with .Values.containerSecurityContext }}
+          securityContext:
+            {{- toYaml . | nindent 12 }}
+          {{- end }}
           ports:
             - name: http
               containerPort: {{ .Values.config.apiPort }}
@@ -113,6 +127,10 @@ spec:
           {{- else if .Values.worker.customReadinessProbe }}
           readinessProbe:
             {{- toYaml .Values.worker.customReadinessProbe | nindent 12 }}
+          {{- end }}
+          {{- with .Values.worker.lifecycle }}
+          lifecycle:
+            {{- toYaml . | nindent 12 }}
           {{- end }}
           {{- if .Values.worker.resources }}
           resources:

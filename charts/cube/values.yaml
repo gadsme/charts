@@ -57,6 +57,18 @@ securityContext:
   # fsGroup: 1001
   # runAsUser: 1001
 
+## Container Security Context
+## Applied verbatim to the `cube` container in both the api and worker
+## Deployments. Leave empty ({}) to omit. Example hardening:
+##   containerSecurityContext:
+##     allowPrivilegeEscalation: false
+##     readOnlyRootFilesystem: true
+##     capabilities:
+##       drop: ["ALL"]
+##     seccompProfile:
+##       type: RuntimeDefault
+containerSecurityContext: {}
+
 
 config:
   ## The port for a Cube deployment to listen to API connections on
@@ -129,12 +141,7 @@ config:
   ##
   scheduledRefreshTimezones:
 
-  ## How many pre-aggregations refresh worker will build in parallel. Please note changing this param doesn't change queue concurrency and it should be adjusted accordingly
-  ## DEPRECATED: This setting is deprecated. Use scheduledRefreshQueriesPerAppId instead.
-  ##
-  scheduledRefreshConcurrency:
-
-  ## How many queries will be run concurrently per app (tenant). Replaces scheduledRefreshConcurrency.
+  ## How many queries will be run concurrently per app (tenant).
   ##
   scheduledRefreshQueriesPerAppId:
   
@@ -162,11 +169,6 @@ config:
   ## The maximum row limit in the result set.
   ##
   queryLimit:
-
-  ## The name of the Amazon SNS or Google Cloud Pub/Sub topic
-  ## Defaults to <process.env.CUBEJS_APP>-process if undefined, and finally cubejs-process
-  ##
-  topicName:
 
   ## The number of seconds without a touch before pre-aggregation is considered orphaned and marked for removal.
   ##
@@ -228,35 +230,6 @@ config:
   #   mountPath: /cube/conf/schema
   #   subPath: model
 
-redis:
-  ## The host URL for a Redis server
-  ##
-  url:
-
-  ## The password used to connect to the Redis server
-  ##
-  password:
-  # passwordFromSecret:
-  #   name:
-  #   key:
-
-  ## If true, then the connection to the Redis server is protected by TLS authentication. Defaults to false
-  ##
-  tls:
-
-  ## The minimum number of connections to keep active in the Redis connection pool for a single appId (tenant).
-  ## Must be lower than poolMax. Defaults to 2
-  ##
-  poolMin:
-
-  ## The maximum number of connections to keep active in the Redis connection pool for a single appId (tenant).
-  ## Must be higher than poolMin. Defaults to 1000
-  ##
-  poolMax:
-
-  ## Use ioredis instead of redis. Defaults to false
-  ##
-  useIoRedis:
 
 jwt:
   ## A valid URL to a JSON Web Key Sets (JWKS)
@@ -681,7 +654,16 @@ api:
     automountServiceAccountToken: true
     annotations: {}
 
-  apiCount: 1
+  ## Number of API pod replicas. Prefer `replicaCount`; `apiCount` is kept
+  ## as a deprecated alias. If both are set, `replicaCount` wins. Default
+  ## (when neither is set) is 1, supplied by the deployment template via
+  ## `coalesce`.
+  ## replicaCount: 2
+  apiCount: 1  # DEPRECATED — use replicaCount
+
+  ## Priority class name for the API pods
+  ##
+  priorityClassName: ""
 
   ## Affinity for pod assignment
   ## ref: https://kubernetes.io/docs/concepts/configuration/assign-pod-node/#affinity-and-anti-affinity
@@ -736,6 +718,24 @@ api:
   ##
   customReadinessProbe: {}
 
+  ## Deployment rollout strategy, rendered verbatim into `spec.strategy`. Empty
+  ## means the Kubernetes default (RollingUpdate, maxSurge 25% / maxUnavailable
+  ## 25%). Set maxSurge: 0 when the namespace quota cannot fit an extra pod
+  ## during a rollout — with a surge the new ReplicaSet just never schedules and
+  ## the old pods keep serving, which looks like a successful deploy.
+  ##
+  updateStrategy: {}
+
+  ## Container lifecycle hooks (e.g. a preStop sleep so the ingress stops routing
+  ## before the process goes away). Rendered verbatim into the container spec.
+  ##
+  lifecycle: {}
+
+  ## Grace period for a terminating pod, in seconds. Kubernetes defaults to 30;
+  ## set this higher when a preStop hook plus in-flight requests need longer.
+  ##
+  terminationGracePeriodSeconds: ""
+
   ## Tolerations for pod assignment
   ##
   tolerations: {}
@@ -772,6 +772,15 @@ worker:
     name: ""
     automountServiceAccountToken: true
     annotations: {}
+
+  ## Number of worker pod replicas. Previously hardcoded to 1; now
+  ## configurable. Default (when unset) is 1, supplied by the deployment
+  ## template via `coalesce`. A HorizontalPodAutoscaler can override.
+  ## replicaCount: 2
+
+  ## Priority class name for the worker pods
+  ##
+  priorityClassName: ""
 
   ## Affinity for pod assignment
   ## ref: https://kubernetes.io/docs/concepts/configuration/assign-pod-node/#affinity-and-anti-affinity
@@ -825,6 +834,24 @@ worker:
   ## Custom readinessProbe that overrides the default one
   ##
   customReadinessProbe: {}
+
+  ## Deployment rollout strategy, rendered verbatim into `spec.strategy`. Empty
+  ## means the Kubernetes default (RollingUpdate, maxSurge 25% / maxUnavailable
+  ## 25%). Set maxSurge: 0 when the namespace quota cannot fit an extra pod
+  ## during a rollout — with a surge the new ReplicaSet just never schedules and
+  ## the old pods keep serving, which looks like a successful deploy.
+  ##
+  updateStrategy: {}
+
+  ## Container lifecycle hooks (e.g. a preStop sleep so the ingress stops routing
+  ## before the process goes away). Rendered verbatim into the container spec.
+  ##
+  lifecycle: {}
+
+  ## Grace period for a terminating pod, in seconds. Kubernetes defaults to 30;
+  ## set this higher when a preStop hook plus in-flight requests need longer.
+  ##
+  terminationGracePeriodSeconds: ""
 
   ## Tolerations for pod assignment
   ##
