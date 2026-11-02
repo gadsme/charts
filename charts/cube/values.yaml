@@ -738,6 +738,17 @@ api:
     successThreshold: 1
     failureThreshold: 3
 
+  ## Configure options for startup probes
+  ## ref: https://kubernetes.io/docs/tasks/configure-pod-container/configure-liveness-readiness-probes/#configure-probes
+  ##
+  startupProbe:
+    enabled: false
+    initialDelaySeconds: 10
+    periodSeconds: 30
+    timeoutSeconds: 3
+    successThreshold: 1
+    failureThreshold: 3
+
   ##  Custom livenessProbe that overrides the default one
   ##
   customLivenessProbe: {}
@@ -745,6 +756,10 @@ api:
   ## Custom readinessProbe that overrides the default one
   ##
   customReadinessProbe: {}
+
+  ## Custom startupProbe that overrides the default one
+  ##
+  customStartupProbe: {}
 
   ## Tolerations for pod assignment
   ##
@@ -828,6 +843,17 @@ worker:
     successThreshold: 1
     failureThreshold: 3
 
+  ## Configure options for startup probes
+  ## ref: https://kubernetes.io/docs/tasks/configure-pod-container/configure-liveness-readiness-probes/#configure-probes
+  ##
+  startupProbe:
+    enabled: false
+    initialDelaySeconds: 10
+    periodSeconds: 30
+    timeoutSeconds: 3
+    successThreshold: 1
+    failureThreshold: 3
+
   ##  Custom livenessProbe that overrides the default one
   ##
   customLivenessProbe: {}
@@ -835,6 +861,10 @@ worker:
   ## Custom readinessProbe that overrides the default one
   ##
   customReadinessProbe: {}
+
+  ## Custom startupProbe that overrides the default one
+  ##
+  customStartupProbe: {}
 
   ## Tolerations for pod assignment
   ##

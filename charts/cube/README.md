@@ -522,16 +522,23 @@ cubestore:
 | `api.livenessProbe.initialDelaySeconds`           | Initial delay seconds for livenessProbe                                                                             | `10`    |
 | `api.livenessProbe.periodSeconds`                 | Period seconds for livenessProbe                                                                                    | `30`    |
 | `api.livenessProbe.timeoutSeconds`                | Timeout seconds for livenessProbe                                                                                   | `3`     |
-| `api.livenessProbe.successThreshold`              | Failure threshold for livenessProbe                                                                                 | `1`     |
-| `api.livenessProbe.failureThreshold`              | Success threshold for livenessProbe                                                                                 | `3`     |
+| `api.livenessProbe.successThreshold`              | Success threshold for livenessProbe                                                                                 | `1`     |
+| `api.livenessProbe.failureThreshold`              | Failure threshold for livenessProbe                                                                                 | `3`     |
 | `api.readinessProbe.enabled`                      | Enable readinessProbe                                                                                               | `true`  |
 | `api.readinessProbe.initialDelaySeconds`          | Initial delay seconds for readinessProbe                                                                            | `10`    |
 | `api.readinessProbe.periodSeconds`                | Period seconds for readinessProbe                                                                                   | `30`    |
 | `api.readinessProbe.timeoutSeconds`               | Timeout seconds for readinessProbe                                                                                  | `3`     |
-| `api.readinessProbe.successThreshold`             | Failure threshold for readinessProbe                                                                                | `1`     |
-| `api.readinessProbe.failureThreshold`             | Success threshold for readinessProbe                                                                                | `3`     |
+| `api.readinessProbe.successThreshold`             | Success threshold for readinessProbe                                                                                | `1`     |
+| `api.readinessProbe.failureThreshold`             | Failure threshold for readinessProbe                                                                                | `3`     |
+| `api.startupProbe.enabled`                        | Enable startupProbe                                                                                                 | `false` |
+| `api.startupProbe.initialDelaySeconds`            | Initial delay seconds for startupProbe                                                                              | `10`    |
+| `api.startupProbe.periodSeconds`                  | Period seconds for startupProbe                                                                                     | `30`    |
+| `api.startupProbe.timeoutSeconds`                 | Timeout seconds for startupProbe                                                                                    | `3`     |
+| `api.startupProbe.successThreshold`               | Success threshold for startupProbe                                                                                  | `1`     |
+| `api.startupProbe.failureThreshold`               | Failure threshold for startupProbe                                                                                  | `3`     |
 | `api.customLivenessProbe`                         | Custom livenessProbe that overrides the default one                                                                 | `{}`    |
 | `api.customReadinessProbe`                        | Custom readinessProbe that overrides the default one                                                                | `{}`    |
+| `api.customStartupProbe`                          | Custom startupProbe that overrides the default one                                                                  | `{}`    |
 | `api.extraEnvVars`                                | Extra environment variables to pass on to the pod. The value is evaluated as a template                             | `[]`    |
 | `api.extraEnvVarsFromConfigMap`                   | Name of a Config Map containing extra environment variables to pass on to the pod                                   |         |
 | `api.extraEnvVarsFromSecret`                      | Name of a Secret containing extra environment variables to pass on to the pod                                       |         |
@@ -552,16 +559,23 @@ cubestore:
 | `worker.livenessProbe.initialDelaySeconds`           | Initial delay seconds for livenessProbe                                                                             | `10`    |
 | `worker.livenessProbe.periodSeconds`                 | Period seconds for livenessProbe                                                                                    | `30`    |
 | `worker.livenessProbe.timeoutSeconds`                | Timeout seconds for livenessProbe                                                                                   | `3`     |
-| `worker.livenessProbe.successThreshold`              | Failure threshold for livenessProbe                                                                                 | `1`     |
-| `worker.livenessProbe.failureThreshold`              | Success threshold for livenessProbe                                                                                 | `3`     |
+| `worker.livenessProbe.successThreshold`              | Success threshold for livenessProbe                                                                                 | `1`     |
+| `worker.livenessProbe.failureThreshold`              | Failure threshold for livenessProbe                                                                                 | `3`     |
 | `worker.readinessProbe.enabled`                      | Enable readinessProbe                                                                                               | `true`  |
 | `worker.readinessProbe.initialDelaySeconds`          | Initial delay seconds for readinessProbe                                                                            | `10`    |
 | `worker.readinessProbe.periodSeconds`                | Period seconds for readinessProbe                                                                                   | `30`    |
 | `worker.readinessProbe.timeoutSeconds`               | Timeout seconds for readinessProbe                                                                                  | `3`     |
-| `worker.readinessProbe.successThreshold`             | Failure threshold for readinessProbe                                                                                | `1`     |
-| `worker.readinessProbe.failureThreshold`             | Success threshold for readinessProbe                                                                                | `3`     |
+| `worker.readinessProbe.successThreshold`             | Success threshold for readinessProbe                                                                                | `1`     |
+| `worker.readinessProbe.failureThreshold`             | Failure threshold for readinessProbe                                                                                | `3`     |
+| `worker.startupProbe.enabled`                        | Enable startupProbe                                                                                                 | `false` |
+| `worker.startupProbe.initialDelaySeconds`            | Initial delay seconds for startupProbe                                                                              | `10`    |
+| `worker.startupProbe.periodSeconds`                  | Period seconds for startupProbe                                                                                     | `30`    |
+| `worker.startupProbe.timeoutSeconds`                 | Timeout seconds for startupProbe                                                                                    | `3`     |
+| `worker.startupProbe.successThreshold`               | Success threshold for startupProbe                                                                                  | `1`     |
+| `worker.startupProbe.failureThreshold`               | Failure threshold for startupProbe                                                                                  | `3`     |
 | `worker.customLivenessProbe`                         | Custom livenessProbe that overrides the default one                                                                 | `{}`    |
 | `worker.customReadinessProbe`                        | Custom readinessProbe that overrides the default one                                                                | `{}`    |
+| `worker.customStartupProbe`                          | Custom startupProbe that overrides the default one                                                                  | `{}`    |
 | `worker.extraEnvVars`                                | Extra environment variables to pass on to the pod. The value is evaluated as a template                             | `[]`    |
 | `worker.extraEnvVarsFromConfigMap`                   | Name of a Config Map containing extra environment variables to pass on to the pod                                   |         |
 | `worker.extraEnvVarsFromSecret`                      | Name of a Secret containing extra environment variables to pass on to the pod                                       |         |
