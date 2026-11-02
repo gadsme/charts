@@ -67,6 +67,10 @@ config:
   ##
   pgSqlPort:
 
+  ## The superuser name to access the SQL api
+  ##
+  sqlSuperUser:
+
   ## The username to access the SQL api
   ##
   sqlUser:
@@ -306,6 +310,9 @@ datasources:
     ## The host URL for a database
     ##
     host:
+    # hostFromSecret:
+    #   name:
+    #   key:
 
     ## The port for the database connection
     ##
@@ -322,6 +329,9 @@ datasources:
     ## The username used to connect to the database
     ##
     user:
+    # userFromSecret:
+    #   name:
+    #   key:
 
     ## The password used to connect to the database
     ##
