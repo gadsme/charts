@@ -2,6 +2,23 @@
 
 The release numbering uses [semantic versioning](http://semver.org).
 
+## 4.0.0
+
+- update to cube 1.8.16
+- BREAKING: remove `redis.*` values (Redis support was removed in Cube v0.36)
+- BREAKING: remove `datasources.<name>.elasticsearch.*` values (Elasticsearch driver was removed in Cube v1.7)
+- BREAKING: remove `config.scheduledRefreshConcurrency` (removed in Cube v1.7), use `config.scheduledRefreshQueriesPerAppId`
+- BREAKING: remove `config.topicName` (`CUBEJS_TOPIC_NAME` is no longer used)
+- BREAKING: remove `datasources.<name>.catalog`, use `datasources.<name>.presto.catalog` or `datasources.<name>.trino.catalog`
+- add all missing environment variables from the Cube documentation (API, compiler, Tesseract, refresh, SQL API, DAX/MDX, drivers, export bucket)
+- add ksqlDB, MySQL, MSSQL, Pinot and Redshift datasource parameters
+- add `datasources.<name>.preAggregations` to configure a dedicated pre-aggregations connection (`CUBEJS_PRE_AGGREGATIONS_*`)
+- add `datasources.<name>.hostFromSecret`, `datasources.<name>.userFromSecret` and `config.sqlSuperUser`
+- add `startupProbe` / `customStartupProbe` support for api and worker
+- fix `false` values being ignored for `dropPreAggWithoutTouch`, `fetchColumnsByOrdinalPosition`, `snowFlake.clientSessionKeepAlive` and `duckdb.s3.useSSL`
+- fix `snowFlake.privateKeyPass`, `clickhouse.readonly` and `duckdb.s3.urlStyle` not being applied
+- fix `CUBEJS_DB_QUERY_DEFAULT_LIMIT` being gated on `config.queryLimit`
+
 ## 3.2.0
 
 - add scheduledRefreshQueriesPerAppId to replace scheduledRefreshConcurrency
