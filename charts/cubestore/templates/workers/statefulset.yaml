@@ -81,9 +81,31 @@ spec:
             - name: CUBESTORE_REMOTE_DIR
               value: /cube/data
             {{- end }}
+            {{- if .Values.extraEnvVars }}
+            {{- include "cubestore.tplvalues.render" (dict "value" .Values.extraEnvVars "context" $) | nindent 12 }}
+            {{- end }}
             {{- if .Values.workers.extraEnvVars }}
             {{- include "cubestore.tplvalues.render" (dict "value" .Values.workers.extraEnvVars "context" $) | nindent 12 }}
             {{- end }}
+          {{- if or .Values.extraEnvVarsFromConfigMap .Values.extraEnvVarsFromSecret .Values.workers.extraEnvVarsFromConfigMap .Values.workers.extraEnvVarsFromSecret }}
+          envFrom:
+            {{- if .Values.extraEnvVarsFromConfigMap }}
+            - configMapRef:
+                name: {{ include "cubestore.tplvalues.render" (dict "value" .Values.extraEnvVarsFromConfigMap "context" $) }}
+            {{- end }}
+            {{- if .Values.extraEnvVarsFromSecret }}
+            - secretRef:
+                name: {{ include "cubestore.tplvalues.render" (dict "value" .Values.extraEnvVarsFromSecret "context" $) }}
+            {{- end }}
+            {{- if .Values.workers.extraEnvVarsFromConfigMap }}
+            - configMapRef:
+                name: {{ include "cubestore.tplvalues.render" (dict "value" .Values.workers.extraEnvVarsFromConfigMap "context" $) }}
+            {{- end }}
+            {{- if .Values.workers.extraEnvVarsFromSecret }}
+            - secretRef:
+                name: {{ include "cubestore.tplvalues.render" (dict "value" .Values.workers.extraEnvVarsFromSecret "context" $) }}
+            {{- end }}
+          {{- end }}
           {{- if .Values.workers.resources }}
           resources:
             {{- toYaml .Values.workers.resources | nindent 12 }}

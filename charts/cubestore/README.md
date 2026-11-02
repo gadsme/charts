@@ -75,12 +75,15 @@ By default, local dir is not persisted. You can enable persistence on router and
 
 ### Common parameters
 
-| Name                | Description                                                  | Value |
-|---------------------|--------------------------------------------------------------|-------|
-| `nameOverride`      | Override the name                                            | `""`  |
-| `fullnameOverride`  | Provide a name to substitute for the full names of resources | `""`  |
-| `commonLabels`      | Labels to add to all deployed objects                        | `{}`  |
-| `commonAnnotations` | Annotations to add to all deployed objects                   | `{}`  |
+| Name                        | Description                                                                                                   | Value |
+|-----------------------------|---------------------------------------------------------------------------------------------------------------|-------|
+| `nameOverride`              | Override the name                                                                                             | `""`  |
+| `fullnameOverride`          | Provide a name to substitute for the full names of resources                                                  | `""`  |
+| `commonLabels`              | Labels to add to all deployed objects                                                                         | `{}`  |
+| `commonAnnotations`         | Annotations to add to all deployed objects                                                                    | `{}`  |
+| `extraEnvVars`              | Extra environment variables to pass on to all pods (router and workers). The value is evaluated as a template | `[]`  |
+| `extraEnvVarsFromConfigMap` | Name of a Config Map containing extra environment variables to pass on to all pods (router and workers)       |       |
+| `extraEnvVarsFromSecret`    | Name of a Secret containing extra environment variables to pass on to all pods (router and workers)           |       |
 
 ### Image parameters
 
@@ -191,6 +194,8 @@ By default, local dir is not persisted. You can enable persistence on router and
 | `router.mysqlPort`                                   | The port for Cube Store to listen to connections on                                                                 |                   |
 | `router.statusPort`                                  | The port for Cube Store to expose status probes                                                                     | `3331`            |
 | `router.extraEnvVars`                                | Extra environment variables to pass on to the pod. The value is evaluated as a template                             | `[]`              |
+| `router.extraEnvVarsFromConfigMap`                   | Name of a Config Map containing extra environment variables to pass on to the pod                                   |                   |
+| `router.extraEnvVarsFromSecret`                      | Name of a Secret containing extra environment variables to pass on to the pod                                       |                   |
 | `router.persistence.enabled`                         | Enable persistence for local data using Persistent Volume Claims                                                    | `false`           |
 | `router.persistance.size`                            | Persistent Volume size                                                                                              | `10Gi`            |
 | `router.persistence.storageClass`                    | The storage class to use for the router pvc                                                                         | `""`              |
@@ -228,6 +233,8 @@ By default, local dir is not persisted. You can enable persistence on router and
 | `workers.workersCount`                                | Number of workers to deploy                                                                                         | `1`               |
 | `workers.port`                                        | The port for the router node to listen for connections on                                                           | `9001`            |
 | `workers.extraEnvVars`                                | Extra environment variables to pass on to the pod. The value is evaluated as a template                             | `[]`              |
+| `workers.extraEnvVarsFromConfigMap`                   | Name of a Config Map containing extra environment variables to pass on to the pod                                   |                   |
+| `workers.extraEnvVarsFromSecret`                      | Name of a Secret containing extra environment variables to pass on to the pod                                       |                   |
 | `workers.persistence.enabled`                         | Enable persistence for local data using Persistent Volume Claims                                                    | `false`           |
 | `workers.persistance.size`                            | Persistent Volume size                                                                                              | `10Gi`            |
 | `workers.persistence.storageClass`                    | The storage class to use for the workers pvc                                                                        | `""`              |

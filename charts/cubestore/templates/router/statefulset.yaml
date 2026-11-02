@@ -95,9 +95,31 @@ spec:
             - name: CUBESTORE_REMOTE_DIR
               value: /cube/data
             {{- end }}
+            {{- if .Values.extraEnvVars }}
+            {{- include "cubestore.tplvalues.render" (dict "value" .Values.extraEnvVars "context" $) | nindent 12 }}
+            {{- end }}
             {{- if .Values.router.extraEnvVars }}
             {{- include "cubestore.tplvalues.render" (dict "value" .Values.router.extraEnvVars "context" $) | nindent 12 }}
             {{- end }}
+          {{- if or .Values.extraEnvVarsFromConfigMap .Values.extraEnvVarsFromSecret .Values.router.extraEnvVarsFromConfigMap .Values.router.extraEnvVarsFromSecret }}
+          envFrom:
+            {{- if .Values.extraEnvVarsFromConfigMap }}
+            - configMapRef:
+                name: {{ include "cubestore.tplvalues.render" (dict "value" .Values.extraEnvVarsFromConfigMap "context" $) }}
+            {{- end }}
+            {{- if .Values.extraEnvVarsFromSecret }}
+            - secretRef:
+                name: {{ include "cubestore.tplvalues.render" (dict "value" .Values.extraEnvVarsFromSecret "context" $) }}
+            {{- end }}
+            {{- if .Values.router.extraEnvVarsFromConfigMap }}
+            - configMapRef:
+                name: {{ include "cubestore.tplvalues.render" (dict "value" .Values.router.extraEnvVarsFromConfigMap "context" $) }}
+            {{- end }}
+            {{- if .Values.router.extraEnvVarsFromSecret }}
+            - secretRef:
+                name: {{ include "cubestore.tplvalues.render" (dict "value" .Values.router.extraEnvVarsFromSecret "context" $) }}
+            {{- end }}
+          {{- end }}
           {{- if .Values.router.livenessProbe.enabled }}
           livenessProbe:
             initialDelaySeconds: {{ .Values.router.livenessProbe.initialDelaySeconds }}
