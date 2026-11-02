@@ -15,7 +15,6 @@
   - [Global parameters](#global-parameters)
   - [Image parameters](#image-parameters)
   - [Config parameters](#config-parameters)
-  - [Redis parameters](#redis-parameters)
   - [JWT parameters](#jwt-parameters)
   - [Datasources configuration](#datasources-configuration)
     - [Common parameters](#common-datasource-parameters)
@@ -298,34 +297,19 @@ cubestore:
 | `config.app`                                               | An application ID used to uniquely identify the Cube deployment. Can be different for multitenant setups. Defaults to cubejs |         |
 | `config.rollupOnly`                                        | If true, this instance of Cube will only query rollup pre-aggregations. Defaults to false                                    |         |
 | `config.scheduledRefreshTimezones`                         | A comma-separated list of timezones to schedule refreshes for                                                                |         |
-| `config.scheduledRefreshConcurrency`                       | How many pre-aggregations refresh worker will build in parallel (DEPRECATED: Use scheduledRefreshQueriesPerAppId instead)    |         |
-| `config.scheduledRefreshQueriesPerAppId`                   | How many queries will be run concurrently per app (tenant). Replaces scheduledRefreshConcurrency                             |         |
+| `config.scheduledRefreshQueriesPerAppId`                   | How many queries will be run concurrently per app (tenant)                                                                   |         |
 | `config.webSockets`                                        | If true, then use WebSocket for data fetching. Defaults to true                                                              |         |
 | `config.preAggregationsSchema`                             | The schema name to use for storing pre-aggregations true                                                                     |         |
 | `config.cacheAndQueueDriver`                               | The cache and queue driver to use for the Cube deployment. Defaults to cubestore                                             |         |
 | `config.concurrency`                                       | The number of concurrent connections each query queue has to the database                                                    |         |
 | `config.queryDefaultLimit`                                 | The default row limit in the result set if it's not explicitly specified in an API query.                                    |         |
 | `config.queryLimit`                                        | The maximum row limit in the result set                                                                                      |         |
-| `config.topicName`                                         | The name of the Amazon SNS or Google Cloud Pub/Sub topicredis                                                                |         |
 | `config.touchPreAggTimeout`                                | The number of seconds without a touch before pre-aggregation is considered orphaned and marked for removal                   |         |
 | `config.dropPreAggWithoutTouch`                            | If true, it enables dropping pre-aggregations that Refresh Worker doesn't touch within touchPreAggTimeout                    |         |
 | `config.volumes`                                           | The config volumes. Will be used to both api and worker                                                                      | `[]`    |
 | `config.volumeMounts`                                      | The config volumeMounts. Will be used to both api and worker                                                                 | `[]`    |
 | `config.initContainers`                                    | Add init containers to load models using volume mounts ( an alternative to using configs, example in values)                 | `[]`    |
 | `config.sidecarContainers`                                 | Add sidecar containers to load models using volume mounts ( an alternative to using configs, example in values)              | `[]`    |
-
-### Redis parameters
-
-| Name                            | Description                                                                                                                                              | Value |
-| ------------------------------- | -------------------------------------------------------------------------------------------------------------------------------------------------------- | ----- |
-| `redis.url`                     | The host URL for a Redis server. Note that this must include the `redis://` protocol prefix.                                                             |       |
-| `redis.password`                | The password used to connect to the Redis server                                                                                                         |       |
-| `redis.passwordFromSecret.name` | The password used to connect to the Redis server (using secret)                                                                                          |       |
-| `redis.passwordFromSecret.key`  | The password used to connect to the Redis server (using secret)                                                                                          |       |
-| `redis.tls`                     | If true, then the connection to the Redis server is protected by TLS authentication. Defaults to false                                                   |       |
-| `redis.poolMin`                 | The minimum number of connections to keep active in the Redis connection pool for a single appId (tenant). Must be lower than poolMax. Defaults to 2     |       |
-| `redis.poolMax`                 | The maximum number of connections to keep active in the Redis connection pool for a single appId (tenant). Must be higher than poolMin. Defaults to 1000 |       |
-| `redis.useIoRedis`              | Use ioredis instead of redis. Defaults to false                                                                                                          |       |
 
 ### JWT parameters
 
@@ -367,7 +351,6 @@ cubestore:
 | `datasources.<name>.passFromSecret.key`                    | The password used to connect to the database (using secret)                                                                                                                                                                                                                   |         |
 | `datasources.<name>.domain`                                | A domain name within the database to connect to                                                                                                                                                                                                                               |         |
 | `datasources.<name>.socketPath`                            | The path to a Unix socket for a MySQL database                                                                                                                                                                                                                                |         |
-| `datasources.<name>.catalog`                               | The catalog within the database to connect to                                                                                                                                                                                                                                 |         |
 | `datasources.<name>.maxPool`                               | The maximum number of connections to keep active in the database connection pool                                                                                                                                                                                              |         |
 | `datasources.<name>.queryTimeout`                          | The timeout value for any queries made to the database by Cube                                                                                                                                                                                                                |         |
 | `datasources.<name>.fetchColumnsByOrdinalPosition`         | Force fetching of columns by ordinal positions. Certain data-providers (e.g., Redshift) do not guarantee columns in the same order on each request (e.g., SELECT \* FROM foo). This flag ensures that columns will be fetched in proper order for pre-aggregation generation. |

@@ -63,10 +63,6 @@
 - name: CUBEJS_SCHEDULED_REFRESH_TIMEZONES
   value: {{ .Values.config.scheduledRefreshTimezones | quote }}
 {{- end }}
-{{- if .Values.config.scheduledRefreshConcurrency }}
-- name: CUBEJS_SCHEDULED_REFRESH_CONCURRENCY
-  value: {{ .Values.config.scheduledRefreshConcurrency | quote }}
-{{- end }}
 {{- if .Values.config.scheduledRefreshQueriesPerAppId }}
 - name: CUBEJS_SCHEDULED_REFRESH_QUERIES_PER_APP_ID
   value: {{ .Values.config.scheduledRefreshQueriesPerAppId | quote }}
@@ -108,10 +104,6 @@
 {{- if .Values.config.schemaPath }}
 - name: CUBEJS_SCHEMA_PATH
   value: {{ .Values.config.schemaPath | quote }}
-{{- end }}
-{{- if .Values.config.topicName }}
-- name: CUBEJS_TOPIC_NAME
-  value: {{ .Values.config.topicName | quote }}
 {{- end }}
 {{- if .Values.config.dropPreAggWithoutTouch }}
 - name: CUBEJS_DROP_PRE_AGG_WITHOUT_TOUCH

@@ -55,10 +55,6 @@
 - name: {{ include "cube.env.decorated" (dict "key" "CUBEJS_DB_SOCKET_PATH" "datasource" .datasource) }}
   value: {{ .socketPath | quote }}
 {{- end }}
-{{- if .catalog }}
-- name: {{ include "cube.env.decorated" (dict "key" "CUBEJS_DB_CATALOG" "datasource" .datasource) }}
-  value: {{ .catalog | quote }}
-{{- end }}
 {{- if .maxPool }}
 - name: {{ include "cube.env.decorated" (dict "key" "CUBEJS_DB_MAX_POOL" "datasource" .datasource) }}
   value: {{ .maxPool | quote }}

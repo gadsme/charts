@@ -1,7 +1,6 @@
 {{- define "cube.env" -}}
 {{- include "cube.env.config" . }}
 {{- include "cube.env.jwt" . }}
-{{- include "cube.env.redis" . }}
 {{- include "cube.env.cubestore" . }}
 
 {{- $datasources := list }}
@@ -25,9 +24,6 @@
 {{- end }}
 {{- if eq $i.type "duckdb" }}
 {{- include "cube.env.database.duckdb" (set $i "datasource" $e) }}
-{{- end }}
-{{- if eq $i.type "elasticsearch" }}
-{{- include "cube.env.database.elasticsearch" (set $i "datasource" $e) }}
 {{- end }}
 {{- if eq $i.type "firebolt" }}
 {{- include "cube.env.database.firebolt" (set $i "datasource" $e) }}
