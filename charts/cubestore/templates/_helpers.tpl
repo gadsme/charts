@@ -1,4 +1,16 @@
 {{/*
+Env var conditions: which check to use
+- Only when false, 0 or "" means something different from leaving the key unset:
+  booleans that Cube defaults to true (e.g. sqlPushDown: false), numbers where 0 has a meaning
+  (e.g. maxQueuedQueryPlans: 0 disables the limit), strings where "" has a meaning:
+    {{- if not (kindIs "invalid" .x) }}
+  Skips only unset or empty keys (nil), so false, 0 and "" are rendered.
+- Everything else, including any option with a xFromSecret fallback:
+    {{- if .x }}
+  Skips false, 0 and "" too; an empty string falls through to xFromSecret instead of rendering an empty value.
+*/}}
+
+{{/*
 Expand the name of the chart.
 */}}
 {{- define "cubestore.name" -}}

@@ -93,15 +93,40 @@ By default, local dir is not persisted. You can enable persistence on router and
 
 ### Global parameters
 
-| Name                       | Description                                                                                                       | Value   |
-|----------------------------|-------------------------------------------------------------------------------------------------------------------|---------|
-| `config.logLevel`          | The logging level for Cube Store                                                                                  | `error` |
-| `config.noUpload`          | If true, prevents uploading serialized pre-aggregations to cloud storage                                          |         |
-| `config.jobRunners`        | The number of parallel tasks that process non-interactive jobs like data insertion, compaction etc. Defaults to 4 |         |
-| `config.telemetry`         | If true, then send telemetry to Cube                                                                              | `false` |
-| `config.queryTimeout`      | The timeout for SQL queries in seconds. Defaults to 120                                                           |         |
-| `config.selectWorkers`     | The number of Cube Store sub-processes that handle SELECT queries. Defaults to 4                                  |         |
-| `config.walSplitThreshold` | The maximum number of rows to keep in a single chunk of data right after insertion. Defaults to 262144            |         |
+| Name                                        | Description                                                                                                                       | Value   |
+|---------------------------------------------|-----------------------------------------------------------------------------------------------------------------------------------|---------|
+| `config.logLevel`                           | The logging level for Cube Store                                                                                                  | `error` |
+| `config.noUpload`                           | If true, prevents uploading serialized pre-aggregations to cloud storage                                                          |         |
+| `config.jobRunners`                         | The number of parallel tasks that process non-interactive jobs like data insertion, compaction etc. Defaults to 4                 |         |
+| `config.telemetry`                          | If true, then send telemetry to Cube                                                                                              | `false` |
+| `config.queryTimeout`                       | The timeout for SQL queries in seconds. Defaults to 120                                                                           |         |
+| `config.selectWorkers`                      | The number of Cube Store sub-processes that handle SELECT queries. Defaults to 4                                                  |         |
+| `config.walSplitThreshold`                  | The maximum number of rows to keep in a single chunk of data right after insertion. Defaults to 262144                            |         |
+| `config.selectWorkerStackSize`              | The stack size in bytes of each select worker thread. Defaults to 4194304 (4 MiB)                                                 |         |
+| `config.mainStackSize`                      | The stack size in bytes of each thread of the main Cube Store process. Defaults to 8388608 (8 MiB)                                |         |
+| `config.csvImportJobRunners`                | The number of job runners reserved for CSV imports. Defaults to 1                                                                 |         |
+| `config.loadAwareImportPlacement`           | If true, CSV imports go to the worker with the fewest imports in progress. Defaults to true                                       |         |
+| `config.maxConcurrentQueryPlans`            | The maximum number of queries planned at the same time (auto or a number). Defaults to auto                                       |         |
+| `config.maxQueuedQueryPlans`                | The maximum number of queries waiting for a planning slot. 0 disables the limit. Defaults to 5000                                 |         |
+| `config.maxQueryPlanDepth`                  | The maximum nesting depth of a query plan. Defaults to 150                                                                        |         |
+| `config.sqlParserRecursionLimit`            | The maximum nesting depth of expressions, subqueries and parentheses in one SQL statement. Defaults to 128                        |         |
+| `config.groupByLimitFactor`                 | Controls when a worker trims partial aggregates to the top groups for GROUP BY, ORDER BY and LIMIT queries. Defaults to 2         |         |
+| `config.groupByLimitPerPartition`           | If true, a worker runs the partial hash aggregate on each partition separately when trimming. Defaults to true                    |         |
+| `config.topkStrategy`                       | The strategy used to merge worker results for top-k queries (full_merge, streaming, vectorized_streaming). Defaults to full_merge |         |
+| `config.coalesceUnderHashAggregate`         | If true, replaces the sort-preserving merge before a grouped hash aggregate with a partition coalesce. Defaults to false          |         |
+| `config.cacheEvictionSizeClasses`           | Size class boundaries for cache store eviction, e.g. 1KiB,256KiB. System setting, changing it is discouraged. Defaults to 1KiB    |         |
+| `config.cacheMaxEntrySize`                  | The maximum size of a single entry in the cache store. Defaults to 63MiB                                                          |         |
+| `config.queryCacheStaleWhileRevalidate`     | The number of seconds an expired SQL result cache entry is still served while it is refreshed. Defaults to 0 (disabled)           |         |
+| `config.chunksCountThreshold`               | The number of chunks a partition can accumulate before they are compacted. Defaults to 4                                          |         |
+| `config.compactionReadinessChunksThreshold` | The number of chunks at which partitions are considered ready during table creation. Must not be lower than chunksCountThreshold  |         |
+| `config.repartitionConcurrentDownload`      | If true, downloads the chunk files of a merge group concurrently when repartitioning. Defaults to true                            |         |
+| `config.repartitionMergeMaxRows`            | The maximum total number of rows merged in one merge group when repartitioning. Defaults to 400000                                |         |
+| `config.repartitionStrategy`                | The strategy used to move chunks of a split partition (per_chunk, per_partition, range). Defaults to range                        |         |
+| `config.transportMaxFrameSize`              | The maximum size of a WebSocket frame between Cube and Cube Store, from 4MiB to 256MiB. Defaults to 64MiB                         |         |
+| `config.transportMaxMessageSize`            | The maximum size of a WebSocket message between Cube and Cube Store, from 16MiB to 256MiB. Defaults to 64MiB                      |         |
+| `config.maxWsConnectionsPerUser`            | The maximum number of concurrent WebSocket connections per authenticated user, per node. Defaults to 0 (no limit)                 |         |
+| `config.metastoreBatchRpc`                  | If true, batches metastore requests during imports, streaming, compaction and repartitioning. Defaults to true                    |         |
+| `config.streamingLagTimeoutMs`              | The timeout in milliseconds of Kafka latest-offset requests used to compute the streaming lag. Defaults to 5000                   |         |
 
 ### Remote dir parameters
 
@@ -120,6 +145,7 @@ By default, local dir is not persisted. You can enable persistence on router and
 | `cloudStorage.gcp.credentials`                      | A Base64 encoded JSON key file for connecting to Google Cloud. Required when using Google Cloud Storage                |       |
 | `cloudStorage.gcp.credentialsFromSecret.name`       | A Base64 encoded JSON key file for connecting to Google Cloud. Required when using Google Cloud Storage (using secret) |       |
 | `cloudStorage.gcp.credentialsFromSecret.key`        | A Base64 encoded JSON key file for connecting to Google Cloud. Required when using Google Cloud Storage (using secret) |       |
+| `cloudStorage.gcp.keyFile`                          | The path to a JSON key file for connecting to Google Cloud. Alternative to credentials                                 |       |
 | `cloudStorage.gcp.bucket`                           | The name of a bucket in GCS. Required when using GCS                                                                   |       |
 | `cloudStorage.gcp.subPath`                          | The path in a GCS bucket to store pre-aggregations. Optional                                                           |       |
 | `cloudStorage.aws.accessKeyID`                      | The Access Key ID for AWS. Required when using AWS S3                                                                  |       |
@@ -130,6 +156,9 @@ By default, local dir is not persisted. You can enable persistence on router and
 | `cloudStorage.aws.region`                           | The region of a bucket in AWS S3. Required when using AWS S3                                                           |       |
 | `cloudStorage.aws.subPath`                          | The path in a AWS S3 bucket to store pre-aggregations. Optional                                                        |       |
 | `cloudStorage.aws.refreshCredsEveryMinutes`         | The number of minutes after which Cube Store should refresh AWS credentials                                            |       |
+| `cloudStorage.aws.roleArn`                          | The ARN of the IAM role to assume when using webIdentityTokenFile                                                      |       |
+| `cloudStorage.aws.webIdentityTokenFile`             | The path to an AWS web identity token file (e.g. IRSA). Used when accessKeyID is not set                               |       |
+| `cloudStorage.aws.sse`                              | The x-amz-server-side-encryption header sent on every S3 request (AES256, aws:kms, aws:kms:dsse)                       |       |
 | `cloudStorage.minio.accessKeyID`                    | The The Access Key ID for minIO. Required when using minIO                                                             |       |
 | `cloudStorage.minio.secretKey`                      | The Secret Access Key for minIO. Required when using minIO                                                             |       |
 | `cloudStorage.minio.secretKeyFromSecret.name`       | The Secret Access Key for minIO. Required when using minIO (using secret)                                              |       |
