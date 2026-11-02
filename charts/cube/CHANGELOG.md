@@ -2,13 +2,6 @@
 
 The release numbering uses [semantic versioning](http://semver.org).
 
-## 3.3.1
-
-improved Helm values
-
-- allow to configure user and host for datasource from secret
-- allow to configure sql superuser name 
-
 ## 3.2.0
 
 - add scheduledRefreshQueriesPerAppId to replace scheduledRefreshConcurrency
