@@ -1,24 +1,24 @@
 {{- define "cube.env.database.bigquery" }}
 {{- if (.bigquery).projectId }}
-- name: {{ include "cube.env.decorated" (dict "key" "CUBEJS_DB_BQ_PROJECT_ID" "datasource" .datasource) }}
+- name: {{ include "cube.env.decorated" (dict "key" "CUBEJS_DB_BQ_PROJECT_ID" "datasource" .datasource "forPreAggregations" .forPreAggregations) }}
   value: {{ .bigquery.projectId | quote }}
 {{- end }}
 {{- if (.bigquery).location }}
-- name: {{ include "cube.env.decorated" (dict "key" "CUBEJS_DB_BQ_LOCATION" "datasource" .datasource) }}
+- name: {{ include "cube.env.decorated" (dict "key" "CUBEJS_DB_BQ_LOCATION" "datasource" .datasource "forPreAggregations" .forPreAggregations) }}
   value: {{ .bigquery.location | quote }}
 {{- end }}
 {{- if (.bigquery).credentials }}
-- name: {{ include "cube.env.decorated" (dict "key" "CUBEJS_DB_BQ_CREDENTIALS" "datasource" .datasource) }}
+- name: {{ include "cube.env.decorated" (dict "key" "CUBEJS_DB_BQ_CREDENTIALS" "datasource" .datasource "forPreAggregations" .forPreAggregations) }}
   value: {{ .bigquery.credentials | quote }}
 {{- else if (.bigquery).credentialsFromSecret }}
-- name: {{ include "cube.env.decorated" (dict "key" "CUBEJS_DB_BQ_CREDENTIALS" "datasource" .datasource) }}
+- name: {{ include "cube.env.decorated" (dict "key" "CUBEJS_DB_BQ_CREDENTIALS" "datasource" .datasource "forPreAggregations" .forPreAggregations) }}
   valueFrom:
     secretKeyRef:
       name: {{ .bigquery.credentialsFromSecret.name | required "bigquery.credentialsFromSecret.name is required" }}
       key: {{ .bigquery.credentialsFromSecret.key | required "bigquery.credentialsFromSecret.key is required" }}
 {{- end }}
 {{- if (.bigquery).keyFile }}
-- name: {{ include "cube.env.decorated" (dict "key" "CUBEJS_DB_BQ_KEY_FILE" "datasource" .datasource) }}
+- name: {{ include "cube.env.decorated" (dict "key" "CUBEJS_DB_BQ_KEY_FILE" "datasource" .datasource "forPreAggregations" .forPreAggregations) }}
   value: {{ .bigquery.keyFile }}
 {{- end }}
 {{- end }}

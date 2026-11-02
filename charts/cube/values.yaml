@@ -142,7 +142,7 @@ config:
   ##
   preAggregationsSchema:
 
-  ## If true, then use WebSocket for data fetching. Defaults to true
+  ## If true, then use WebSocket for data fetching. Defaults to false
   ##
   webSockets:
 
@@ -173,6 +173,193 @@ config:
   ## then touches from both refresh workers are respected.
   ##
   dropPreAggWithoutTouch:
+
+  ## A comma-separated list of secret keys accepted when verifying JWTs, used to rotate apiSecret. Takes precedence over apiSecret
+  ##
+  apiSecrets:
+  # apiSecretsFromSecret:
+  #   name:
+  #   key:
+
+  ## The maximum allowed size for incoming requests, between 100kb and 64mb. Defaults to 50mb
+  ##
+  maxRequestSize:
+
+  ## The number of milliseconds the server waits to receive the complete HTTP headers. Defaults to the Node.js default
+  ##
+  serverHeadersTimeout:
+
+  ## The number of milliseconds of inactivity the server waits for more data before closing a socket. Defaults to the Node.js default
+  ##
+  serverKeepAliveTimeout:
+
+  ## The default time zone for queries. Defaults to UTC
+  ##
+  defaultTimezone:
+
+  ## If false, Explore and Workbooks wait for an explicit Run query instead of running queries automatically. Defaults to true
+  ##
+  autoRunMode:
+
+  ## If true, values in SQL API statements are replaced with `redacted` in logs. Defaults to true in production
+  ##
+  logRedaction:
+
+  ## If true, disables the primary key inclusion check for ungrouped queries. Defaults to false
+  ##
+  allowUngroupedWithoutPrimaryKey:
+
+  ## The delimiter used to flatten nested folder names in views for tools that do not support nested folders
+  ##
+  nestedFoldersDelimiter:
+
+  ## A path to a PEM file with extra CA certificates for Node.js to trust (mount it with config.volumes)
+  ##
+  nodeExtraCaCerts:
+
+  ## The maximum number of compiled data models to keep in the compiler cache. Defaults to 250
+  ##
+  compilerCacheSize:
+
+  ## If true, data models of different tenants in one process share compiled files and caches. Defaults to false
+  ##
+  compilerMultiTenantSharing:
+
+  ## The maximum number of compiled members to keep in the compiler cache. No limit by default
+  ##
+  maxCompiledMembers:
+
+  ## The maximum depth of a chain of members referencing other members (Tesseract only). Defaults to 160
+  ##
+  maxMemberResolutionDepth:
+
+  ## The maximum number of multi-stage members one query may chain (Tesseract only). Defaults to 150
+  ##
+  maxMultiStageDepth:
+
+  ## The maximum number of multi-stage stages one query may plan in total (Tesseract only). Defaults to 1000
+  ##
+  maxMultiStageStages:
+
+  ## The maximum number of partitions each pre-aggregation in a cube can use. Defaults to 10000
+  ##
+  maxPartitionsPerCube:
+
+  ## The maximum number of source rows read for a rollup_lambda pre-aggregation with union_with_source_data. Defaults to 200000
+  ##
+  maxSourceRowLimit:
+
+  ## If true, enables Tesseract, the next-generation SQL planner. Enabled by default since Cube v1.7.0
+  ##
+  tesseractSqlPlanner:
+
+  ## If true, Tesseract combines multi-stage subqueries with UNION ALL and GROUP BY for Cube Store queries. Defaults to true
+  ##
+  tesseractCubestoreUnionFullKeyAggregate:
+
+  ## Same as tesseractCubestoreUnionFullKeyAggregate, for Trino data sources. Defaults to true
+  ##
+  tesseractTrinoUnionFullKeyAggregate:
+
+  ## The number of pre-aggregation queries the refresh worker executes concurrently. Defaults to concurrency
+  ##
+  refreshWorkerConcurrency:
+
+  ## If true, a numeric scheduled_refresh_timer only sets the refresh worker heartbeat interval. Defaults to false
+  ##
+  scheduledRefreshTimerIntervalOnly:
+
+  ## If true, every-based refresh keys use Cube's own clock instead of querying the database. Defaults to false
+  ##
+  refreshKeyLocalTime:
+
+  ## If true, enables the experimental fast-track path for Cube Store query queues. Defaults to false
+  ##
+  queueFastTrack:
+
+  ## If true, this instance builds pre-aggregations even if it is an API instance. Defaults to false in production
+  ##
+  preAggregationsBuilder:
+
+  ## The maximum time, in seconds, of the exponential backoff between failed pre-aggregation builds. Defaults to 600
+  ##
+  preAggregationsBackoffMaxTime:
+
+  ## If true, allows non-strict date range matching for pre-aggregations by default. Defaults to true
+  ##
+  preAggregationsAllowNonStrictDateRangeMatch:
+
+  ## If true, attaches a trace_id SQL comment with the API request ID to queries sent to data sources. Defaults to false
+  ##
+  sqlIncludeTraceId:
+
+  ## The maximum number of concurrent SQL API sessions. Defaults to 1024
+  ##
+  maxSessions:
+
+  ## If true, enables query pushdown in the SQL API. Defaults to true
+  ##
+  sqlPushDown:
+
+  ## If true, queries pushed down by the SQL API can be served from pre-aggregations. Defaults to true
+  ##
+  sqlPushDownPreAggregations:
+
+  ## If true, enables the streaming mode in the SQL API. Defaults to false
+  ##
+  sqlStreamMode:
+
+  ## If true, the SQL API rejects queries needing post-processing over a Cube query without a LIMIT. Defaults to false
+  ##
+  sqlFailOnLimitlessPostProcessing:
+
+  ## The maximum number of rows in one record batch when the SQL API reads data from a cube. Defaults to 65536
+  ##
+  sqlCubeScanMaxBatchRows:
+
+  ## The maximum row limit for SQL API queries that are not streamed. Defaults to queryLimit
+  ##
+  sqlNonStreamingQueryMaxRowLimit:
+
+  ## If true, prevents adding an implicit default ORDER BY to SQL API queries. Defaults to true
+  ##
+  sqlNoImplicitOrder:
+
+  ## The maximum number of e-graph nodes allocated while planning a SQL API query. Defaults to 10000
+  ##
+  sqlRewriteMaxNodes:
+
+  ## The maximum number of e-graph rewriting iterations while planning a SQL API query. Defaults to 300
+  ##
+  sqlRewriteMaxIterations:
+
+  ## The maximum time, in seconds, to plan a SQL API query. Defaults to 30
+  ##
+  sqlRewriteTimeout:
+
+  ## The number of seconds before a SQL API session security context is invalidated. Defaults to 300
+  ##
+  sqlAuthExpireSecs:
+
+  ## If true, the DAX API exposes time dimensions as calendar hierarchies. Defaults to true
+  ##
+  daxCreateDateHierarchies:
+
+  ## If true, the DAX API evaluates a SUMMARIZECOLUMNS variable once per request. Defaults to false
+  ##
+  daxShareVars:
+
+  ## If true, the DAX API exposes all views as a single perspective, enabling cross-view filtering. Defaults to false
+  ##
+  daxSinglePerspective:
+
+  ## If true, the MDX API creates calendar hierarchies for all time dimensions. Defaults to true
+  ##
+  mdxCreateDateHierarchies:
+
+  ## The locale for the MDX API, as an LCID or a language tag. Defaults to 1033 (English - United States)
+  ##
+  xmlaLanguage:
 
   ## Init containers to run before starting the main container
   ## We can use an empty volume and volume mounts to copy data
@@ -320,6 +507,10 @@ datasources:
     ##
     fetchColumnsByOrdinalPosition:
 
+    ## If true, decimal columns keep their precision and scale when exported to Cube Store. Defaults to false
+    ##
+    preciseDecimalInCubestore:
+
     ssl:
       ## If true, enables SSL encryption for database connections from Cube
       ##
@@ -406,9 +597,47 @@ datasources:
         ##
         region:
 
+      ## The mount path to use for a Databricks DBFS mount
+      ##
+      mountDir:
+
+      azure:
+        ## The Azure Access Key to use for the export bucket
+        ##
+        key:
+        # keyFromSecret:
+        #   name:
+        #   key:
+
+        ## The Azure tenant ID to use for the export bucket
+        ##
+        tenantId:
+
+        ## The Azure client ID to use for the export bucket
+        ##
+        clientId:
+
+        ## The Azure client secret to use for the export bucket
+        ##
+        clientSecret:
+        # clientSecretFromSecret:
+        #   name:
+        #   key:
+
       redshift:
         ## An ARN of an AWS IAM role with permission to write to the configured bucket (see export.name).
         arn:
+
+    ## A dedicated connection used to build and store this data source's pre-aggregations (CUBEJS_PRE_AGGREGATIONS_*). Accepts the same keys as the data source itself. Configure it in full: only type is inherited, unset keys fall back to driver defaults. ssl.ca/cert/key/ciphers/serverName/passPhrase are not supported, Cube uses the main connection's
+    ## e.g:
+    ## preAggregations:
+    ##   host: preagg-db.example.com
+    ##   user: cube
+    ##   passFromSecret:
+    ##     name: preagg-db
+    ##     key: password
+    ##
+    preAggregations: {}
 
     athena:
       ## The AWS Access Key ID to use for database connections
@@ -441,6 +670,14 @@ datasources:
       ##
       catalog:
 
+      ## The ARN of the IAM role to assume for Athena access
+      ##
+      assumeRoleArn:
+
+      ## The external ID to use when assuming the IAM role, if required by its trust policy
+      ##
+      assumeRoleExternalId:
+
     bigquery:
       ## The Google BigQuery project ID to connect to
       ##
@@ -461,7 +698,7 @@ datasources:
       ##
       keyFile:
 
-    dubckdb:
+    duckdb:
       ## The maximum memory limit for DuckDB. Equivalent to SET memory_limit=<MEMORY_LIMIT>. Default is 75% of available RAM
       ##
       memoryLimit:
@@ -477,6 +714,14 @@ datasources:
       ## The database filepath to use for connection to a local
       ##
       databasePath:
+
+      ## A comma-separated list of DuckDB extensions to install and load
+      ##
+      extensions:
+
+      ## A comma-separated list of DuckDB community extensions to install and load
+      ##
+      communityExtensions:
 
       s3:
         ## The Access Key ID to use for database
@@ -509,6 +754,10 @@ datasources:
         ## The token for the S3 session
         ##
         sessionToken:
+
+        ## If true, uses the credentials chain for S3 secrets. Defaults to false
+        ##
+        useCredentialChain:
 
     hive:
       ## The version of the CDH instance for Apache Hive
@@ -566,6 +815,32 @@ datasources:
       ##
       privateKeyPass:
 
+      ## The host address the driver should connect to
+      ##
+      host:
+
+      ## The content of the private RSA key (encrypted or not)
+      ##
+      privateKey:
+      # privateKeyFromSecret:
+      #   name:
+      #   key:
+
+      ## The OAuth token to use with Snowflake
+      ##
+      oauthToken:
+      # oauthTokenFromSecret:
+      #   name:
+      #   key:
+
+      ## The path to the file containing the OAuth token
+      ##
+      oauthTokenPath:
+
+      ## Whether quoted identifiers should be case insensitive. Defaults to false
+      ##
+      quotedIdentifiersIgnoreCase:
+
     databricks:
       ## The URL for a JDBC connection
       ##
@@ -583,10 +858,25 @@ datasources:
       ##
       catalog:
 
+      ## The OAuth client ID for service principal authentication
+      ##
+      oauthClientId:
+
+      ## The OAuth client secret for service principal authentication
+      ##
+      oauthClientSecret:
+      # oauthClientSecretFromSecret:
+      #   name:
+      #   key:
+
     clickhouse:
       ## Whether the ClickHouse user has read-only access or not
       ##
       readonly:
+
+      ## Whether the ClickHouse client has compression enabled or not
+      ##
+      compression:
 
     firebolt:
       ## Account name
@@ -606,10 +896,83 @@ datasources:
       ##
       catalog:
 
+      ## The authentication token sent in the Authorization header
+      ##
+      authToken:
+      # authTokenFromSecret:
+      #   name:
+      #   key:
+
     trino:
       ## The catalog within Trino to connect to
       ##
       catalog:
+      ## The authentication token sent in the Authorization header
+      ##
+      authToken:
+      # authTokenFromSecret:
+      #   name:
+      #   key:
+
+    kafka:
+      ## Kafka broker host(s) for Kafka streams mode, comma-separated
+      ##
+      host:
+
+      ## The username for Kafka broker authentication (SASL PLAIN)
+      ##
+      user:
+
+      ## The password for Kafka broker authentication (SASL PLAIN)
+      ##
+      pass:
+      # passFromSecret:
+      #   name:
+      #   key:
+
+      ## If true, enables SASL_SSL for the Kafka connection. Defaults to false
+      ##
+      useSsl:
+
+    mssql:
+      ## If true, time zone names are used in generated SQL instead of numeric offsets. Defaults to false
+      ##
+      useNamedTimezones:
+
+    mysql:
+      ## If true, time zone names are used in generated SQL instead of numeric offsets. Defaults to false
+      ##
+      useNamedTimezones:
+
+    pinot:
+      ## The authentication token for StarTree, passed as an HTTP header
+      ##
+      authToken:
+      # authTokenFromSecret:
+      #   name:
+      #   key:
+
+      ## If true, enables null value support. Defaults to false
+      ##
+      nullHandling:
+
+    redshift:
+      ## The Redshift cluster identifier. Required for IAM authentication
+      ##
+      clusterIdentifier:
+
+      ## The AWS region of the Redshift cluster. Required for IAM authentication
+      ##
+      awsRegion:
+
+      ## The ARN of the IAM role to assume for cross-account access
+      ##
+      assumeRoleArn:
+
+      ## The external ID for the assumed role's trust policy
+      ##
+      assumeRoleExternalId:
+
 ## Cubestore configuration
 ##
 cubestore:
@@ -620,6 +983,10 @@ cubestore:
   ## The port of the Cube Store deployment
   ##
   port: 3030
+
+  ## The maximum size in bytes of a single message sent to or accepted from Cube Store. Defaults to 104857600 (100 MB)
+  ##
+  maxMessageSize:
 
 api:
   ## Service account for cube api to use
