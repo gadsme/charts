@@ -2,6 +2,14 @@
 
 The release numbering uses [semantic versioning](http://semver.org).
 
+## 1.3.0
+
+- update to cubestore 1.8.16
+- add all missing environment variables from the Cube documentation (stack sizes, query planning, top-k, cache, compaction, repartitioning, transport limits)
+- add `cloudStorage.gcp.keyFile`, `cloudStorage.aws.roleArn`, `cloudStorage.aws.webIdentityTokenFile` and `cloudStorage.aws.sse`
+- wire up `config.selectWorkers`, which was never rendered
+- add global `extraEnvVars`, `extraEnvVarsFromConfigMap` and `extraEnvVarsFromSecret`, and `router.*` / `workers.*` `extraEnvVarsFromConfigMap` and `extraEnvVarsFromSecret`
+
 ## 1.2.0
 
 - update to cubestore 1.5.3
